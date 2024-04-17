@@ -702,7 +702,7 @@ class main_work{
         $ass = $this->getsingledetail($user_unique_id);
         $fee = $this->feeDomestic();
         $balance = $ass->balance;
-        $subTotal = ($fee/100)*$balance;
+        $subTotal = ($fee/100)*$amount;
         $sumTotal = $balance - $subTotal;
         $total = $sumTotal - $amount;
         //print_r($total);die();
@@ -716,11 +716,9 @@ class main_work{
         $local_id = $this->createUniqueID('local_tranfer', 'local_id');
 
 
-        $query = "INSERT INTO user (id,name,lastname,email,phone,password,pincode,current,saving,user_unique_id)
-        VALUES (null,'".$name."', '".$lastname."','".$email."','".$phone."','".$hashedPasword."','".$pincode."','".$current."','".$saving."','".$user_unique_id."')";
+        $query = "INSERT INTO local_tranfer (id,local_id,amount,account,bank_name,account_numble,account_name,details,user_unique_id)
+        VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_number."','".$account_name."','".$details."','".$user_unique_id."')";
        // print_r($query); die();
-
-
        $result = $this->runMysqliQuery($query); 
        if ($result['error_code'] == 1){
            $_SESSION['formError']=['general_error' =>[$result['error']] ];
@@ -728,8 +726,7 @@ class main_work{
            return;
        }
         
-
-        $query = "UPDATE user SET pincode='".$newpin."' WHERE user_unique_id='".$user_unique_id."' ";
+        $query = "UPDATE user SET balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
         $back = $this->runMysqliQuery($query);
         if($back['error_code'] == 1){
             $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
@@ -737,8 +734,27 @@ class main_work{
             return;
         }
 
-        header ('location:../user/domestic.php?&success=Pin was updated successfully');
+        header ('location:../user/domestic.php?&success=Tranfer was successfully');
 
+    }
+
+    function feewire(){
+        $query = "SELECT * FROM fee WHERE names = 'wire-transfer'";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else {
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row->fee;
+            }
+            return $UserDetails;
+        }
     }
 
     
