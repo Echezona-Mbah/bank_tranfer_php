@@ -5,6 +5,7 @@ if (!isset($_SESSION['user_unique_id'])) {
     exit;
 }
 $account = $for->getLoggedInUserDetails();
+$accounts = $for->getLoggedInUserDetails();
 $accountTypes = $for->accountType();
 $currencies = $for->courrency();
 $user = $for->getsingledetail(($_SESSION['user_unique_id']));
@@ -32,12 +33,12 @@ $fee = $for->feewire();
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
-								<h4>International Transfer</h4>
+								<h4>Self Transfer</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">International Transfer</li>
+									<li class="breadcrumb-item active" aria-current="page">Self Transfer</li>
 								</ol>
 							</nav>
 						</div>
@@ -59,7 +60,7 @@ $fee = $for->feewire();
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
-							<h4 class="text-blue h4">International Transfer</h4>
+							<h4 class="text-blue h4">Self Transfer</h4>
 							<!-- <p class="mb-30">All bootstrap element classies</p> -->
 						</div>
 					</div>
@@ -72,7 +73,7 @@ $fee = $for->feewire();
                     </div>
 
                         <div class="form-group">
-                            <label>Payment Account</label>
+                            <label>From Account</label>
                             <select class="form-control" name="account" value="<?php if (isset($_SESSION{'account'})) {echo $_SESSION['account'];}?>">
                                 <?php
                                 if ($account !== 'No Data was returned') { 
@@ -88,18 +89,18 @@ $fee = $for->feewire();
                             </select>
                         </div>
 
-
                         <div class="form-group">
-                            <label>Account Type</label>
-                            <select class="form-control" name="account_type">
+                            <label>To Account</label>
+                            <select class="form-control" name="account" value="<?php if (isset($_SESSION{'account'})) {echo $_SESSION['account'];}?>">
                                 <?php
-                                if ($accountTypes !== 'No Data was returned') {
-                                    echo "<option value=''>Select Account Type</option>";
-                                    foreach ($accountTypes as $type) {
-                                        echo "<option value='{$type->name}'>{$type->name}</option>";
+                                if ($accounts !== 'No Data was returned') { 
+                                    while ($row = mysqli_fetch_assoc($accounts)) { 
+                                        echo "<option value=''>Select Source Account</option>";
+                                        echo "<option value='{$row['current']}'>({$row['current']})Current: $0.00</option>";
+                                        echo "<option value='{$row['saving']}'>({$row['saving']})Savings: $0.00</option>";
                                     }
                                 } else {
-                                    echo "<option value=''>No Account Types Available</option>";
+                                    echo "<option>No accounts available</option>";
                                 }
                                 ?>
                             </select>
@@ -107,51 +108,14 @@ $fee = $for->feewire();
 
 
 
-                        <div class="form-group">
-                            <label>Bank Name</label>
-                            <input class="form-control" id="bank_name" name="bank_name" type="text">
-                        </div>
 
 
                         <div class="form-group">
-                            <label>Account Number</label>
-                            <input class="form-control" id="account_number" name="account_number" type="text">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Account Name</label>
-                            <input class="form-control" id="account_name" name="account_name" type="text">
-                        </div>
-
-                        
-                        <div class="form-group">
-                            <label>Bank Country</label>
-                            <select class="form-control" name="bank_country" id="currencySelector">
-                                <?php
-                                if ($currencies !== 'No Data was returned') {
-                                    foreach ($currencies as $currency) {
-                                        echo "<option value='{$currency->id}' data-rate='{$currency->currency}'>{$currency->name}</option>";
-                                    }
-                                } else {
-                                    echo "<option value=''>No Account Types Available</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
+							<label>Account Pincode</label>
+							<input class="form-control" value="" name="pincode" type="text">
+						</div>
 
 
-                        <div class="form-group">
-                            <label>Routine Number/ Bank Code</label>
-                            <input class="form-control" id="bank_code" name="bank_code" type="text">
-                        </div>
-
-
-
-
-                        <div class="form-group">
-                            <label>Details</label>
-                            <textarea class="form-control" name="details" placeholder="Reason For Tranfer" rows="5"><?php if (isset($_SESSION['details'])) { echo $_SESSION['details']; } ?></textarea>
-                        </div>
 
 
 

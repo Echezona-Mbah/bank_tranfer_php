@@ -52,6 +52,10 @@ class main_work{
                 case 'domestic':
                     $this->domestic();
                     break;
+                case 'wire':
+                    $this->wire();
+                    break;
+        
     
 
             }
@@ -675,7 +679,6 @@ class main_work{
             return $UserDetails;
         }
     }
-
     function domestic(){
         $amount = $_SESSION['amount']=mysqli_real_escape_string($this->dbConnection, $_POST['amount']);
         $account = $_SESSION['account']=mysqli_real_escape_string($this->dbConnection, $_POST['account']);
@@ -737,7 +740,41 @@ class main_work{
         header ('location:../user/domestic.php?&success=Tranfer was successfully');
 
     }
+    function accountType(){
+        $query = "SELECT * FROM account_type";
+        $details = $this->runMysqliQuery($query);
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        $accountTypes = [];
+    
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_object($result)) {
+                $accountTypes[] = $row;
+              //  print_r($accountTypes);die();
+            }
+        }
+        return $accountTypes;
+    }
 
+    function courrency(){
+        $query = "SELECT * FROM currencies";
+        $details = $this->runMysqliQuery($query);
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        $currencies = [];
+    
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_object($result)) {
+                $currencies[] = $row;
+              //  print_r($accountTypes);die();
+            }
+        }
+        return $currencies;
+    }
     function feewire(){
         $query = "SELECT * FROM fee WHERE names = 'wire-transfer'";
         $details = $this->runMysqliQuery($query);
@@ -756,6 +793,76 @@ class main_work{
             return $UserDetails;
         }
     }
+    function wire(){
+        $amount = $_SESSION['amount']=mysqli_real_escape_string($this->dbConnection, $_POST['amount']);
+        $account = $_SESSION['account']=mysqli_real_escape_string($this->dbConnection, $_POST['account']);
+        $account_type = $_SESSION['account_type']=mysqli_real_escape_string($this->dbConnection, $_POST['account_type']);
+        $bank_name = $_SESSION['bank_name']=mysqli_real_escape_string($this->dbConnection, $_POST['bank_name']);
+        $account_number = $_SESSION['account_number']=mysqli_real_escape_string($this->dbConnection, $_POST['account_number']);
+        $account_name = $_SESSION['account_name']=mysqli_real_escape_string($this->dbConnection, $_POST['account_name']);
+        $bank_country = $_SESSION['bank_country']=mysqli_real_escape_string($this->dbConnection, $_POST['bank_country']);
+        $bank_code = $_SESSION['bank_code']=mysqli_real_escape_string($this->dbConnection, $_POST['bank_code']);
+        $details = $_SESSION['details']=mysqli_real_escape_string($this->dbConnection, $_POST['details']);
+
+        $thingsToValidate = [
+            $amount.'|Amount|amount|empty',
+            $account.'|Account|account|empty',
+            $account_type.'|Account Type|account_type|empty',
+            $bank_name.'|Bank name|bank_name|empty',
+            $account_number.'|Account number|account_number|empty',
+            $account_name.'|Account name|account_name|empty',
+            $bank_country.'|Bank Country|bank_country|empty',
+            $bank_code.'|Bank Code|bank_code|empty',
+            $details.'|Details|details|empty',
+        ];
+        //print_r($thingsToValidate);die();
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header('location:../user/wire.php');
+            return;
+        }
+        $user_unique_id = $_SESSION['user_unique_id'];
+        $ass = $this->getsingledetail($user_unique_id);
+        $fee = $this->feewire();
+        $balance = $ass->balance;
+        $subTotal = ($fee/100)*$amount;
+        $sumTotal = $balance - $subTotal;
+        $total = $sumTotal - $amount;
+        //print_r($total);die();
+
+        if ($total < 0) {
+            $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
+            header('location:../user/wire.php');
+            return;
+        }
+
+        $local_id = $this->createUniqueID('wire_tranfer', 'wire_id');
+
+
+        $query = "INSERT INTO wire_tranfer (id,wire_id,amount,account,account_type,bank_name,account_numble,account_name,details,bank_code,user_unique_id)
+        VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_type."','".$account_number."','".$account_name."','".$details."','".$bank_code."','".$user_unique_id."')";
+       // print_r($query); die();
+       $result = $this->runMysqliQuery($query); 
+       if ($result['error_code'] == 1){
+           $_SESSION['formError']=['general_error' =>[$result['error']] ];
+           header('location:../user/wire.php');
+           return;
+       }
+        
+        $query = "UPDATE user SET balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/wire.php");
+            return;
+        }
+
+        header ('location:../user/wire.php?&success=Tranfer was successfully');
+
+    }
+    
+    
 
     
     
