@@ -58,68 +58,68 @@ $row = $for->Invoice($ref_id);
 
 
                 <div class="invoice-wrap">
-					<div class="invoice-box">
-						<div class="invoice-header">
-							<div class="logo text-center">
-								<img src="vendors/images/banner-img.png" alt="">
-							</div>
-						</div>
-						<h4 class="text-center mb-30 weight-600">INVOICE</h4>
-						<div class="row pb-30">
-							<div class="col-md-6">
-								<h5 class="mb-15">Invoice</h5>
-								<p class="font-14 mb-5"> <strong class="weight-600">Transaction</strong></p>
-								<!-- <p class="font-14 mb-5">Invoice No: <strong class="weight-600">4556</strong></p> -->
-							</div>
-							<div class="col-md-6">
-								<div class="text-right">
-									<p class="font-14 mb-5"><?php echo $ref_id; ?> </strong></p>
-									<p class="font-14 mb-5"><?php  print $row[0]->status;?></p>
-									<!-- <p class="font-14 mb-5">City</p>
-									<p class="font-14 mb-5">Postcode</p> -->
-								</div>
-							</div>
-						</div>
-						<div class="invoice-desc pb-30">
+    <div id="print-content"  class="invoice-box">
+        <div class="invoice-header">
+            <div class="logo text-center">
+                <img src="vendors/images/banner-img.png" alt="">
+            </div>
+        </div>
+        <h4 class="text-center mb-30 weight-600">INVOICE</h4>
+        <div class="row pb-30">
+            <div class="col-md-6">
+                <h5 class="mb-15">Invoice</h5>
+                <p class="font-14 mb-5"> <strong class="weight-600">Transaction</strong></p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <p class="font-14 mb-5"><?php echo $ref_id; ?> </strong></p>
+                <p class="font-14 mb-5"><?php  print $row[0]->status;?></p>
 
-							<div class="invoice-desc-footer">
-								<div class="invoice-desc-head clearfix">
-									<div class="invoice-sub">Transaction Amount</div>
-									
-									<div class="invoice-subtotal">$<?php  print $row[0]->amount;?></div>
-								</div>
-                                <div class=" clearfix">
-									<div class="invoice-sub">Transaction Type</div>
-									
-									<div class="invoice-subtotal"><?php  print $row[0]->type;?></div>
-								</div>
-                                <div class="invoice-desc-head clearfix">
-									<div class="invoice-sub">Payment Account</div>
-									
-									<div class="invoice-subtotal">Total Due</div>
-								</div>
-                                <div class=" clearfix">
-									<div class="invoice-sub">Transaction Status</div>
-									
-									<div class="invoice-subtotal">Total Due</div>
-								</div>
-								<div class="invoice-desc-body">
-									<ul>
-										<li class="clearfix">
-											<div class="invoice-sub">
-												<p class="font-14 mb-5">Account No: <strong class="weight-600">123 456 789</strong></p>
-												<p class="font-14 mb-5">Code: <strong class="weight-600">4556</strong></p>
-											</div>
-											<div class="invoice-rate font-20 weight-600">10 Jan 2018</div>
-											<div class="invoice-subtotal"><span class="weight-600 font-24 text-danger">$8000</span></div>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<h4 class="text-center pb-20">Thank You!!</h4>
-					</div>
-				</div>
+            </div>
+        </div>
+        <div class="invoice-desc pb-30">
+            <div class="invoice-desc-footer">
+                <div class="invoice-desc-head clearfix">
+                    <div class="invoice-sub">Transaction Amount</div>
+                    <div class="invoice-subtotal">$<?php  print $row[0]->amount;?></div>
+                </div>
+                <div class="clearfix">
+                    <div class="invoice-sub">Transaction Type</div>
+                    <div class="invoice-subtotal"><?php  print $row[0]->type;?></div>
+                </div>
+                <div class="invoice-desc-head clearfix">
+                    <div class="invoice-sub">Payment Account</div>
+                    <div class="invoice-subtotal"><?php echo substr($row[0]->account, 13); ?></div>
+                </div>
+                <div class="clearfix">
+                    <div class="invoice-sub">Transaction Status</div>
+                    <div class="invoice-subtotal"><?php  print $row[0]->status;?></div>
+                </div>
+                <div class="invoice-desc-head clearfix">
+                    <div class="invoice-sub">Transaction Date</div>
+                    <div class="invoice-subtotal"><?php echo date("Y-m-d H:i:s", strtotime($row[0]->created_at)); ?></div>
+
+                </div>
+                <div class="invoice-desc-body">
+                    <ul>
+                        <li class="clearfix">
+                            <!-- <div class="invoice-sub">
+                                <p class="font-14 mb-5">Account No: <strong class="weight-600">123 456 789</strong></p>
+                                <p class="font-14 mb-5">Code: <strong class="weight-600">4556</strong></p>
+                            </div> -->
+                            <div class="invoice-rate font-20 weight-600">Grand Total</div>
+                            <div class="invoice-subtotal"><span class="weight-600 font-24 text-danger">$<?php  print $row[0]->amount;?></span></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <h4 class="text-center pb-20">Thank You!!</h4>
+        
+        <button onclick="printContent()" class="btn btn-primary">Print</button>
+
+    </div>
+
+</div>
 
 
 
@@ -140,6 +140,14 @@ $row = $for->Invoice($ref_id);
 
 
 
-
+    <script>
+    function printContent() {
+        var originalContents = document.body.innerHTML;
+        var printContents = document.getElementById("print-content").innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>
 
 <?php require('footer.php') ?>
