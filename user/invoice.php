@@ -85,22 +85,22 @@ $row = $for->Invoice($ref_id);
 							<div class="invoice-desc-footer">
 								<div class="invoice-desc-head clearfix">
 									<div class="invoice-sub">Transaction Amount</div>
-									<!-- <div class="invoice-rate">Due By</div> -->
+									
 									<div class="invoice-subtotal">$<?php  print $row[0]->amount;?></div>
 								</div>
                                 <div class=" clearfix">
 									<div class="invoice-sub">Transaction Type</div>
-									<!-- <div class="invoice-rate">Due By</div> -->
+									
 									<div class="invoice-subtotal"><?php  print $row[0]->type;?></div>
 								</div>
                                 <div class="invoice-desc-head clearfix">
 									<div class="invoice-sub">Payment Account</div>
-									<!-- <div class="invoice-rate">Due By</div> -->
+									
 									<div class="invoice-subtotal">Total Due</div>
 								</div>
                                 <div class=" clearfix">
 									<div class="invoice-sub">Transaction Status</div>
-									<!-- <div class="invoice-rate">Due By</div> -->
+									
 									<div class="invoice-subtotal">Total Due</div>
 								</div>
 								<div class="invoice-desc-body">
