@@ -55,6 +55,18 @@ class main_work{
                 case 'wire':
                     $this->wire();
                     break;
+                case 'self':
+                    $this->self();
+                    break;
+                case 'user':
+                    $this->User();
+                    break;
+                case 'card':
+                    $this->card();
+                    break;
+                case 'loan':
+                    $this->loan();
+                    break;
         
     
 
@@ -456,6 +468,8 @@ class main_work{
             $pincode.'|Pincode|pincode|empty',
         ];
 
+        //print_r($account);die();
+
         
         $validationStatus = $this->callValidation($thingsToValidate);
         if($validationStatus === false) {
@@ -484,8 +498,8 @@ class main_work{
         $deposit_id = $this->createUniqueID('deposit', 'deposit_id');
         $user_unique_id = $_SESSION['user_unique_id'];
 
-        $query = "INSERT INTO deposit (id,deposit_id,amount,account,cypto_type,wallet,proof,user_unique_id)
-        VALUES (null,'".$deposit_id."', '".$amount."','".$account."','".$cypto_type."','".$wallet."','".$image."','".$user_unique_id."')";
+        $query = "INSERT INTO deposit (id,deposit_id,amount,account,cypto_type,wallet,proof,Refrence_id,user_unique_id)
+        VALUES (null,'".$deposit_id."', '".$amount."','".$account."','".$cypto_type."','".$wallet."','".$image."','".$deposit_id."','".$user_unique_id."')";
         
         $result = $this->runMysqliQuery($query); 
         if ($result['error_code'] == 1){
@@ -719,8 +733,8 @@ class main_work{
         $local_id = $this->createUniqueID('local_tranfer', 'local_id');
 
 
-        $query = "INSERT INTO local_tranfer (id,local_id,amount,account,bank_name,account_numble,account_name,details,user_unique_id)
-        VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_number."','".$account_name."','".$details."','".$user_unique_id."')";
+        $query = "INSERT INTO local_tranfer (id,local_id,amount,account,bank_name,account_numble,account_name,details,Refrence_id,user_unique_id)
+        VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_number."','".$account_name."','".$details."','".$local_id."','".$user_unique_id."')";
        // print_r($query); die();
        $result = $this->runMysqliQuery($query); 
        if ($result['error_code'] == 1){
@@ -840,8 +854,8 @@ class main_work{
         $local_id = $this->createUniqueID('wire_tranfer', 'wire_id');
 
 
-        $query = "INSERT INTO wire_tranfer (id,wire_id,amount,account,account_type,bank_name,account_numble,account_name,details,bank_code,user_unique_id)
-        VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_type."','".$account_number."','".$account_name."','".$details."','".$bank_code."','".$user_unique_id."')";
+        $query = "INSERT INTO wire_tranfer (id,wire_id,amount,account,account_type,bank_name,account_numble,account_name,details,bank_code,Refrence_id,user_unique_id)
+        VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_type."','".$account_number."','".$account_name."','".$details."','".$bank_code."','".$local_id."','".$user_unique_id."')";
        // print_r($query); die();
        $result = $this->runMysqliQuery($query); 
        if ($result['error_code'] == 1){
@@ -861,6 +875,376 @@ class main_work{
         header ('location:../user/wire.php?&success=Tranfer was successfully');
 
     }
+
+    function feeself(){
+        $query = "SELECT * FROM fee WHERE names = 'self-transfer'";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else {
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row->fee;
+            }
+            return $UserDetails;
+        }
+    }
+
+    function self(){
+        $amount = $_SESSION['amount']=mysqli_real_escape_string($this->dbConnection, $_POST['amount']);
+        $from_account = $_SESSION['from_account']=mysqli_real_escape_string($this->dbConnection, $_POST['from_account']);
+        $to_account = $_SESSION['to_account']=mysqli_real_escape_string($this->dbConnection, $_POST['to_account']);
+        $pincode= $_SESSION['pincode']=mysqli_real_escape_string($this->dbConnection, $_POST['pincode']);
+
+
+        $thingsToValidate = [
+            $amount.'|Amount|amount|empty',
+            $from_account.'|From Account|from_account|empty',
+            $to_account.'|To Account|to_account|empty',
+            $pincode.'|Pincode|pincode|empty',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header('location:../user/self.php');
+            return;
+        }
+
+        $Userpincode = $_SESSION['Userpincode'];
+        if ($pincode !== $Userpincode) {
+            $_SESSION['formError'] = ['general_error' => ['Incorrect Pincode']];
+            header('location:../user/self.php');
+            return;
+        }
+        $user_unique_id = $_SESSION['user_unique_id'];
+        $ass = $this->getsingledetail($user_unique_id);
+        $fee = $this->feewire();
+        $balance = $ass->balance;
+        $subTotal = ($fee/100)*$amount;
+        $sumTotal = $balance - $subTotal;
+        $total = $sumTotal - $amount;
+        //print_r($total);die();
+
+        if ($total < 0) {
+            $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
+            header('location:../user/self.php');
+            return;
+        }
+
+        $self_id = $this->createUniqueID('self_tranfer', 'self_id');
+
+
+        $query = "INSERT INTO self_tranfer (id,self_id,amount,account,to_account,Refrence_id,user_unique_id)
+        VALUES (null,'".$self_id."', '".$amount."','".$from_account."','".$to_account."','".$self_id."','".$user_unique_id."')";
+       // print_r($query); die();
+       $result = $this->runMysqliQuery($query); 
+       if ($result['error_code'] == 1){
+           $_SESSION['formError']=['general_error' =>[$result['error']] ];
+           header('location:../user/self.php');
+           return;
+       }
+        
+        $query = "UPDATE user SET balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/self.php");
+            return;
+        }
+
+        header ('location:../user/self.php?&success=Tranfer was successfully');
+
+    }
+
+    function feeuser(){
+        $query = "SELECT * FROM fee WHERE names = 'User-transfer'";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else {
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row->fee;
+            }
+            return $UserDetails;
+        }
+    }
+
+    function User(){
+        $amount = $_SESSION['amount']=mysqli_real_escape_string($this->dbConnection, $_POST['amount']);
+        $account = $_SESSION['account']=mysqli_real_escape_string($this->dbConnection, $_POST['account']);
+        $account_number = $_SESSION['account_number']=mysqli_real_escape_string($this->dbConnection, $_POST['account_number']);
+        $pincode= $_SESSION['pincode']=mysqli_real_escape_string($this->dbConnection, $_POST['pincode']);
+
+
+        $thingsToValidate = [
+            $amount.'|Amount|amount|empty',
+            $account.'|Account|account|empty',
+            $account_number.'|Account Number|account_number|empty',
+            $pincode.'|Pincode|pincode|empty',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header('location:../user/user.php');
+            return;
+        }
+
+        $Userpincode = $_SESSION['Userpincode'];
+        if ($pincode !== $Userpincode) {
+            $_SESSION['formError'] = ['general_error' => ['Incorrect Pincode']];
+            header('location:../user/user.php');
+            return;
+        }
+        $user_unique_id = $_SESSION['user_unique_id'];
+        $ass = $this->getsingledetail($user_unique_id);
+        $fee = $this->feewire();
+        $balance = $ass->balance;
+        $subTotal = ($fee/100)*$amount;
+        $sumTotal = $balance - $subTotal;
+        $total = $sumTotal - $amount;
+        //print_r($total);die();
+
+        if ($total < 0) {
+            $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
+            header('location:../user/user.php');
+            return;
+        }
+
+        $user_id = $this->createUniqueID('user_transfer', 'user_id');
+
+
+        $query = "INSERT INTO user_transfer (id,user_id,amount,account,account_number,Refrence_id,user_unique_id)
+        VALUES (null,'".$user_id."', '".$amount."','".$account."','".$account_number."','".$user_id."','".$user_unique_id."')";
+       // print_r($query); die();
+       $result = $this->runMysqliQuery($query); 
+       if ($result['error_code'] == 1){
+           $_SESSION['formError']=['general_error' =>[$result['error']] ];
+           header('location:../user/user.php');
+           return;
+       }
+        
+        $query = "UPDATE user SET balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/user.php");
+            return;
+        }
+
+        header ('location:../user/user.php?&success=Tranfer was successfully');
+
+    }
+
+    function card(){
+        $account = $_SESSION['account']=mysqli_real_escape_string($this->dbConnection, $_POST['account']);
+        $pincode= $_SESSION['pincode']=mysqli_real_escape_string($this->dbConnection, $_POST['pincode']);
+
+
+        $thingsToValidate = [
+            $account.'|Account|account|empty',
+            $pincode.'|Pincode|pincode|empty',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header('location:../user/card.php');
+            return;
+        }
+
+        $Userpincode = $_SESSION['Userpincode'];
+        if ($pincode !== $Userpincode) {
+            $_SESSION['formError'] = ['general_error' => ['Incorrect Pincode']];
+            header('location:../user/card.php');
+            return;
+        }
+        $user_unique_id = $_SESSION['user_unique_id'];
+
+        $card_id = $this->createUniqueID('card', 'card_id');
+
+
+        $query = "INSERT INTO card (id,card_id,account,user_unique_id)
+        VALUES (null,'".$card_id."','".$account."','".$user_unique_id."')";
+       // print_r($query); die();
+       $result = $this->runMysqliQuery($query); 
+       if ($result['error_code'] == 1){
+           $_SESSION['formError']=['general_error' =>[$result['error']] ];
+           header('location:../user/card.php');
+           return;
+       }
+        
+
+        header ('location:../user/card.php?&success=card was successfully');
+
+    }
+
+    function loan(){
+        $amount = $_SESSION['amount']=mysqli_real_escape_string($this->dbConnection, $_POST['amount']);
+        $account = $_SESSION['account']=mysqli_real_escape_string($this->dbConnection, $_POST['account']);
+        $loan_type = $_SESSION['loan_type']=mysqli_real_escape_string($this->dbConnection, $_POST['loan_type']);
+        $loan_duration = $_SESSION['loan_duration']=mysqli_real_escape_string($this->dbConnection, $_POST['loan_duration']);
+        $details = $_SESSION['details']=mysqli_real_escape_string($this->dbConnection, $_POST['details']);
+        $pincode= $_SESSION['pincode']=mysqli_real_escape_string($this->dbConnection, $_POST['pincode']);
+
+        $thingsToValidate = [
+            $amount.'|Amount|amount|empty',
+            $account.'|Account|account|empty',
+            $loan_type.'|Loan Type|loan_type|empty',
+            $loan_duration.'|Loan Duration|loan_duration|empty',
+            $details.'|Details|details|empty',
+            $pincode.'|Pincode|pincode|empty',
+        ];
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header('location:../user/loan.php');
+            return;
+        }
+        $user_unique_id = $_SESSION['user_unique_id'];
+
+        $Userpincode = $_SESSION['Userpincode'];
+        if ($pincode !== $Userpincode) {
+            $_SESSION['formError'] = ['general_error' => ['Incorrect Pincode']];
+            header('location:../user/loan.php');
+            return;
+        }
+
+        $loan_id = $this->createUniqueID('loan', 'loan_id');
+
+
+        $query = "INSERT INTO loan (id,loan_id,amount,account,loan_type,loan_duration,details,user_unique_id)
+        VALUES (null,'".$loan_id."', '".$amount."','".$account."','".$loan_type."','".$loan_duration."','".$details."','".$user_unique_id."')";
+       // print_r($query); die();
+       $result = $this->runMysqliQuery($query); 
+       if ($result['error_code'] == 1){
+           $_SESSION['formError']=['general_error' =>[$result['error']] ];
+           header('location:../user/loan.php');
+           return;
+       }
+        
+
+        header ('location:../user/loan.php?&success=loan was successfully');
+
+    }
+
+    function alltable() {
+        $UserDetails = [];
+        $user_unique_id = $_SESSION['user_unique_id'];
+    
+        $query = "SELECT * FROM deposit WHERE user_unique_id = '".$user_unique_id."'";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+    
+        $query = "SELECT * FROM local_tranfer WHERE user_unique_id = '".$user_unique_id."'";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+
+        $query = "SELECT * FROM user_transfer WHERE user_unique_id = '".$user_unique_id."'";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+
+        $query = "SELECT * FROM wire_tranfer WHERE user_unique_id = '".$user_unique_id."'";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+    
+        $query = "SELECT * FROM self_tranfer WHERE user_unique_id = '".$user_unique_id."'";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+        //print_r($UserDetails); die();
+        return $UserDetails;
+    }
+
+
+    function Invoice($Refrence_id) {
+    
+        $query = "SELECT * FROM deposit WHERE Refrence_id = '".$Refrence_id."'";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+    
+        $query = "SELECT * FROM local_tranfer WHERE Refrence_id = '".$Refrence_id."'";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+
+        $query = "SELECT * FROM user_transfer WHERE Refrence_id = '".$Refrence_id."'";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+
+        $query = "SELECT * FROM wire_tranfer WHERE Refrence_id = '".$Refrence_id."'";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+    
+        $query = "SELECT * FROM self_tranfer WHERE Refrence_id = '".$Refrence_id."'";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+        //print_r($UserDetails); die();
+        return $UserDetails;
+    }
+    
+
+
     
     
 

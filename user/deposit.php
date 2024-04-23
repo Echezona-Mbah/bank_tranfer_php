@@ -73,8 +73,8 @@ if ($wallets === 'No Data was returned' || $wallets === 'Error fetching data') {
                                 if ($account !== 'No Data was returned') { 
                                     while ($row = mysqli_fetch_assoc($account)) { 
                                         echo "<option value=''>Select Source Account</option>";
-                                        echo "<option value='{$row['current']}'>({$row['current']})Current: $0.00</option>";
-                                        echo "<option value='{$row['saving']}'>({$row['saving']})Savings: $0.00</option>";
+                                        echo "<option value='({$row['current']})Current Account'>({$row['current']})Current: $0.00</option>";
+                                        echo "<option value='({$row['saving']})Savings Account'>({$row['saving']})Savings: $0.00</option>";
                                     }
                                 } else {
                                     echo "<option>No accounts available</option>";
