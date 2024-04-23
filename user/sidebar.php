@@ -13,34 +13,39 @@
 				<ul id="accordion-menu">
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
+							<span class="micon dw dw-house-1"></span><span class="mtext">Deposit Money</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="index.html">Dashboard style 1</a></li>
-							<li><a href="index2.html">Dashboard style 2</a></li>
+							<li><a href="check_deposit.php">Check Deposit</a></li>
+							<li><a href="deposit.php">Mobile Deposit</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-edit2"></span><span class="mtext">Forms</span>
+							<span class="micon dw dw-edit2"></span><span class="mtext">Transfer Money</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="form-basic.html">Form Basic</a></li>
-							<li><a href="advanced-components.html">Advanced Components</a></li>
-							<li><a href="form-wizard.html">Form Wizard</a></li>
-							<li><a href="html5-editor.html">HTML5 Editor</a></li>
-							<li><a href="form-pickers.html">Form Pickers</a></li>
-							<li><a href="image-cropper.html">Image Cropper</a></li>
-							<li><a href="image-dropzone.html">Image Dropzone</a></li>
+							<li><a href="domestic.php">Domestic Transfer</a></li>
+							<li><a href="wire.php">Wire Transfer</a></li>
+							<li><a href="self.php">Transfer To Self</a></li>
+							<li><a href="user.php">Transfer To bank Name</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-library"></span><span class="mtext">Tables</span>
+							<span class="micon dw dw-browser2"></span><span class="mtext">Credit Card</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="basic-table.html">Basic Tables</a></li>
-							<li><a href="datatable.html">DataTables</a></li>
+							<li><a href="card.php">New Card</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-library"></span><span class="mtext">Loan/Mortages</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="loan.php">New Loan</a></li>
+							<li><a href="datatable.html">My Loan</a></li>
 						</ul>
 					</li>
 					<li>
