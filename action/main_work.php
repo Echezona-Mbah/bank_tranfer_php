@@ -67,7 +67,9 @@ class main_work{
                 case 'loan':
                     $this->loan();
                     break;
-        
+                case 'logout':
+                    $this->logout();
+                    break;
     
 
             }
@@ -623,7 +625,7 @@ class main_work{
         } else{
             while($row = mysqli_fetch_object($result)){
                 $UserDetails = $row;
-               // print_r($UserDetails);die();
+               //print_r($UserDetails);die();
             }
             return $UserDetails;
         }
@@ -1276,7 +1278,10 @@ class main_work{
        // print_r($UserDetails); die();
         return $UserDetails;
     }
-
+    function logout(){
+        session_destroy();
+        header('location:../login.php?success=you have successfully logged out');
+    }
     
 
 

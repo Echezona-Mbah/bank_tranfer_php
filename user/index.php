@@ -1,10 +1,10 @@
 <?php
-session_start();
+require ('../action/main_work.php');
 if (!isset($_SESSION['user_unique_id'])) {
     header("Location: ../login.php");
     exit;
 }
-
+$user = $for->getsingledetail(($_SESSION['user_unique_id']));
 ?>
 
 <?php require('head.php') ?>
@@ -26,9 +26,9 @@ if (!isset($_SESSION['user_unique_id'])) {
 					</div>
 					<div class="col-md-8">
 						<h4 class="font-20 weight-500 mb-10 text-capitalize">
-							Welcome back <div class="weight-600 font-30 text-blue">Johnny Brown!</div>
+							Welcome back <div class="weight-600 font-30 text-blue"><?php echo $user->name; ?>!</div>
 						</h4>
-						<p class="font-18 max-width-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde hic non repellendus debitis iure, doloremque assumenda. Autem modi, corrupti, nobis ea iure fugiat, veniam non quaerat mollitia animi error corporis.</p>
+						<p class="font-18 max-width-600">"Welcome to [Bank Name]! We're thrilled to have you join our banking family. With us, you're not just a customer – you're a valued member. As you embark on your banking journey with us, we're here to provide you with exceptional service, innovative financial solutions, and peace of mind. Thank you for choosing [Bank Name]. Welcome aboard!"</p>
 					</div>
 				</div>
 			</div>

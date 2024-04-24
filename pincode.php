@@ -71,7 +71,7 @@ if (!isset($_SESSION['user_unique_id'])) {
 
             <input type="hidden" name="userId" value="<?php echo $_SESSION['user_unique_id']; ?>" />
 
-            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            <button type="submit" class="btn btn-primary btn-block">Unlock</button>
           </form>
         </div>
       </div>

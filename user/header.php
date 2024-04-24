@@ -67,7 +67,7 @@
 						<i class="icon-copy dw dw-notification"></i>
 						<span class="badge notification-active"></span>
 					</a>
-					<div class="dropdown-menu dropdown-menu-right">
+					<!-- <div class="dropdown-menu dropdown-menu-right">
 						<div class="notification-list mx-h-350 customscroll">
 							<ul>
 								<li>
@@ -114,32 +114,32 @@
 								</li>
 							</ul>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="user-info-dropdown">
 				<div class="dropdown">
 					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img src="vendors/images/photo1.jpg" alt="">
+							<img src="<?php echo $user->image; ?>" alt="">
 						</span>
-						<span class="user-name">Ross C. Lopez</span>
+						<span class="user-name"><?php echo $user->name; ?></span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-						<a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-						<a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-						<a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-						<a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+						<a class="dropdown-item" href="profile.php"><i class="dw dw-user1"></i> Profile</a>
+						<a class="dropdown-item" href="pending-kyc.php"><i class="dw dw-settings2"></i> Setting</a>
+						<a class="dropdown-item" href="report.php"><i class="dw dw-help"></i> Help</a>
+						<a class="dropdown-item" href="../action/main_work.php?option=logout"><i class="dw dw-logout"></i> Log Out</a>
 					</div>
 				</div>
 			</div>
-			<div class="github-link">
+			<!-- <div class="github-link">
 				<a href="https://github.com/dropways/deskapp" target="_blank"><img src="vendors/images/github.svg" alt=""></a>
-			</div>
+			</div> -->
 		</div>
 	</div>
 
-	<div class="right-sidebar">
+	<!-- <div class="right-sidebar">
 		<div class="sidebar-title">
 			<h3 class="weight-600 font-16 text-blue">
 				Layout Settings
@@ -212,4 +212,4 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
