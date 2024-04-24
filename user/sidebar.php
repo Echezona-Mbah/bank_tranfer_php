@@ -45,53 +45,41 @@
 						</a>
 						<ul class="submenu">
 							<li><a href="loan.php">New Loan</a></li>
-							<li><a href="datatable.html">My Loan</a></li>
+							<li><a href="my_loan.php">My Loan</a></li>
 						</ul>
 					</li>
 					<li>
-						<a href="calendar.html" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-calendar1"></span><span class="mtext">Calendar</span>
+						<a href="history.php" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-calendar1"></span><span class="mtext">Bank Statment</span>
 						</a>
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-apartment"></span><span class="mtext"> UI Elements </span>
+							<span class="micon dw dw-apartment"></span><span class="mtext">My Account </span>
 						</a>
 						<ul class="submenu">
-							<li><a href="ui-buttons.html">Buttons</a></li>
-							<li><a href="ui-cards.html">Cards</a></li>
-							<li><a href="ui-cards-hover.html">Cards Hover</a></li>
-							<li><a href="ui-modals.html">Modals</a></li>
-							<li><a href="ui-tabs.html">Tabs</a></li>
-							<li><a href="ui-tooltip-popover.html">Tooltip &amp; Popover</a></li>
-							<li><a href="ui-sweet-alert.html">Sweet Alert</a></li>
-							<li><a href="ui-notification.html">Notification</a></li>
-							<li><a href="ui-timeline.html">Timeline</a></li>
-							<li><a href="ui-progressbar.html">Progressbar</a></li>
-							<li><a href="ui-typography.html">Typography</a></li>
-							<li><a href="ui-list-group.html">List group</a></li>
-							<li><a href="ui-range-slider.html">Range slider</a></li>
-							<li><a href="ui-carousel.html">Carousel</a></li>
+							<li><a href="profile.php">Profile</a></li>
+							<li><a href="pending-kyc.php">Kyc Verification</a></li>
+							<!-- <li><a href="ui-cards-hover.html">Security</a></li> -->
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-paint-brush"></span><span class="mtext">Icons</span>
+							<span class="micon dw dw-paint-brush"></span><span class="mtext">Security</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="font-awesome.html">FontAwesome Icons</a></li>
-							<li><a href="foundation.html">Foundation Icons</a></li>
-							<li><a href="ionicons.html">Ionicons Icons</a></li>
-							<li><a href="themify.html">Themify Icons</a></li>
-							<li><a href="custom-icon.html">Custom Icons</a></li>
+							<li><a href="password.php">Password</a></li>
+							<li><a href="Settingpin.php">Pincode</a></li>
+							<li><a href="activitics.php">Activitics</a></li>
+							<li><a href="report.php">Report</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-analytics-21"></span><span class="mtext">Charts</span>
+							<span class="micon dw dw-analytics-21"></span><span class="mtext">Need Help</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="highchart.html">Highchart</a></li>
+							<li><a href="report.php">New Ticket</a></li>
 							<li><a href="knob-chart.html">jQuery Knob</a></li>
 							<li><a href="jvectormap.html">jvectormap</a></li>
 							<li><a href="apexcharts.html">Apexcharts</a></li>
