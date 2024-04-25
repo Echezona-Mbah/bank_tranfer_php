@@ -1305,7 +1305,7 @@ class main_work{
          
         }
         $calllogin = $this->loginAdminsHandler($email,$password);
-      print_r( $calllogin); die();
+      //print_r( $calllogin); die();
 
 
         if ($calllogin['error_code']== 1 ){
@@ -1315,26 +1315,6 @@ class main_work{
         }
         $queryResult = $calllogin['data'];
         if(mysqli_num_rows($queryResult) == 1){
-            //create the login sessions
-            while($row = mysqli_fetch_object($queryResult)){
-                $user_unique_id = $row->user_unique_id;
-                $name = $row->name;
-                $email = $row->email;
-                $current = $row->current;
-                $saving = $row->saving;
-                $Userpincode = $row->pincode;
-                $balance = $row->balance;
-                $_SESSION['user_unique_id'] = $user_unique_id;
-                $_SESSION['name'] = $name;
-                $_SESSION['userEmail'] = $email;
-                $_SESSION['current'] = $current;
-                $_SESSION['saving'] = $saving;
-                $_SESSION['Userpincode'] = $Userpincode;
-                $_SESSION['balance'] = $balance;
-                // $typeOfUser = $row->type_of_user;
-
-            }
-
             header('location:../admin/dashborad.php');
         }else{
             $_SESSION['formError'] = ['general_error'=>['Incorrect Username/Email or Password']];
