@@ -1320,7 +1320,7 @@ class main_work{
             $_SESSION['formError'] = ['general_error'=>['Incorrect Username/Email or Password']];
             header('location:../loginAdmin.php');
         }
-        // header('location:../dashboard.php');
+        header('location:../dashboard.php');
 
     }
 
