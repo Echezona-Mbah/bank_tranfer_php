@@ -721,42 +721,83 @@ class main_work{
             return;
         }
         $user_unique_id = $_SESSION['user_unique_id'];
-        $ass = $this->getsingledetail($user_unique_id);
-        $fee = $this->feeDomestic();
-        $balance = $ass->balance;
-        $subTotal = ($fee/100)*$amount;
-        $sumTotal = $balance - $subTotal;
-        $total = $sumTotal - $amount;
-        //print_r($total);die();
-
-        if ($total < 0) {
-            $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
-            header('location:../user/domestic.php');
-            return;
+        $current = $_SESSION['current'];
+        $saving = $_SESSION['saving'];
+        $account_number = substr($account, 1, 11);
+        //print_r($account_number);die();
+        if($saving == $account_number){
+            $ass = $this->getsingledetail($user_unique_id);
+            $fee = $this->feeDomestic();
+            $balance = $ass->saving_balance;
+            $subTotal = ($fee/100)*$amount;
+            $sumTotal = $balance - $subTotal;
+            $total = $sumTotal - $amount;
+            if ($total < 0) {
+                $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
+                header('location:../user/domestic.php');
+                return;
+            }
+    
+            $local_id = $this->createUniqueID('local_tranfer', 'local_id');
+    
+    
+            $query = "INSERT INTO local_tranfer (id,local_id,amount,account,bank_name,account_numble,account_name,details,Refrence_id,user_unique_id)
+            VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_number."','".$account_name."','".$details."','".$local_id."','".$user_unique_id."')";
+           // print_r($query); die();
+           $result = $this->runMysqliQuery($query); 
+           if ($result['error_code'] == 1){
+               $_SESSION['formError']=['general_error' =>[$result['error']] ];
+               header('location:../register.php');
+               return;
+           }
+            
+            $query = "UPDATE user SET saving_balance ='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+            $back = $this->runMysqliQuery($query);
+            if($back['error_code'] == 1){
+                $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+                header("location:../user/domestic.php");
+                return;
+            }
+            
+            header ('location:../user/domestic.php?&success=Tranfer was successfully');
         }
 
-        $local_id = $this->createUniqueID('local_tranfer', 'local_id');
-
-
-        $query = "INSERT INTO local_tranfer (id,local_id,amount,account,bank_name,account_numble,account_name,details,Refrence_id,user_unique_id)
-        VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_number."','".$account_name."','".$details."','".$local_id."','".$user_unique_id."')";
-       // print_r($query); die();
-       $result = $this->runMysqliQuery($query); 
-       if ($result['error_code'] == 1){
-           $_SESSION['formError']=['general_error' =>[$result['error']] ];
-           header('location:../register.php');
-           return;
-       }
-        
-        $query = "UPDATE user SET balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
-        $back = $this->runMysqliQuery($query);
-        if($back['error_code'] == 1){
-            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
-            header("location:../user/domestic.php");
-            return;
+        if($current == $account_number){
+            $ass = $this->getsingledetail($user_unique_id);
+            $fee = $this->feeDomestic();
+            $balance = $ass->current_balance;
+            $subTotal = ($fee/100)*$amount;
+            $sumTotal = $balance - $subTotal;
+            $total = $sumTotal - $amount;
+            if ($total < 0) {
+                $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
+                header('location:../user/domestic.php');
+                return;
+            }
+    
+            $local_id = $this->createUniqueID('local_tranfer', 'local_id');
+    
+    
+            $query = "INSERT INTO local_tranfer (id,local_id,amount,account,bank_name,account_numble,account_name,details,Refrence_id,user_unique_id)
+            VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_number."','".$account_name."','".$details."','".$local_id."','".$user_unique_id."')";
+           // print_r($query); die();
+           $result = $this->runMysqliQuery($query); 
+           if ($result['error_code'] == 1){
+               $_SESSION['formError']=['general_error' =>[$result['error']] ];
+               header('location:../register.php');
+               return;
+           }
+            
+            $query = "UPDATE user SET current_balance ='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+            $back = $this->runMysqliQuery($query);
+            if($back['error_code'] == 1){
+                $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+                header("location:../user/domestic.php");
+                return;
+            }
+            
+            header ('location:../user/domestic.php?&success=Tranfer was successfully');
         }
-
-        header ('location:../user/domestic.php?&success=Tranfer was successfully');
 
     }
     function accountType(){
@@ -842,9 +883,14 @@ class main_work{
             return;
         }
         $user_unique_id = $_SESSION['user_unique_id'];
+        $current = $_SESSION['current'];
+        $saving = $_SESSION['saving'];
+        $account_number = substr($account, 1, 11);
+
+    if($saving == $account_number){
         $ass = $this->getsingledetail($user_unique_id);
         $fee = $this->feewire();
-        $balance = $ass->balance;
+        $balance = $ass->saving_balance;
         $subTotal = ($fee/100)*$amount;
         $sumTotal = $balance - $subTotal;
         $total = $sumTotal - $amount;
@@ -869,7 +915,7 @@ class main_work{
            return;
        }
         
-        $query = "UPDATE user SET balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+        $query = "UPDATE user SET saving_balance ='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
         $back = $this->runMysqliQuery($query);
         if($back['error_code'] == 1){
             $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
@@ -879,6 +925,49 @@ class main_work{
 
         header ('location:../user/wire.php?&success=Tranfer was successfully');
 
+
+    }
+
+    if($current === $account_number){
+        $ass = $this->getsingledetail($user_unique_id);
+        $fee = $this->feewire();
+        $balance = $ass->current_balance;
+        $subTotal = ($fee/100)*$amount;
+        $sumTotal = $balance - $subTotal;
+        $total = $sumTotal - $amount;
+
+        if ($total < 0) {
+            $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
+            header('location:../user/wire.php');
+            return;
+        }
+
+        $local_id = $this->createUniqueID('wire_tranfer', 'wire_id');
+
+
+        $query = "INSERT INTO wire_tranfer (id,wire_id,amount,account,account_type,bank_name,account_numble,account_name,details,bank_code,Refrence_id,user_unique_id)
+        VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_type."','".$account_number."','".$account_name."','".$details."','".$bank_code."','".$local_id."','".$user_unique_id."')";
+       // print_r($query); die();
+       $result = $this->runMysqliQuery($query); 
+       if ($result['error_code'] == 1){
+           $_SESSION['formError']=['general_error' =>[$result['error']] ];
+           header('location:../user/wire.php');
+           return;
+       }
+        
+        $query = "UPDATE user SET current_balance ='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/wire.php");
+            return;
+        }
+
+        header ('location:../user/wire.php?&success=Tranfer was successfully');
+
+
+    }
+        
     }
 
     function feeself(){
@@ -928,42 +1017,49 @@ class main_work{
             return;
         }
         $user_unique_id = $_SESSION['user_unique_id'];
-        $ass = $this->getsingledetail($user_unique_id);
-        $fee = $this->feewire();
-        $balance = $ass->balance;
-        $subTotal = ($fee/100)*$amount;
-        $sumTotal = $balance - $subTotal;
-        $total = $sumTotal - $amount;
-        //print_r($total);die();
+        $current = $_SESSION['current'];
+        $saving = $_SESSION['saving'];
+        $account_number = substr($from_account, 1, 11);
+        if($saving == $account_number){
+            $ass = $this->getsingledetail($user_unique_id);
+            $fee = $this->feewire();
+            $balance = $ass->balance;
+            $subTotal = ($fee/100)*$amount;
+            $sumTotal = $balance - $subTotal;
+            $total = $sumTotal - $amount;
+            //print_r($total);die();
+    
+            if ($total < 0) {
+                $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
+                header('location:../user/self.php');
+                return;
+            }
+    
+            $self_id = $this->createUniqueID('self_tranfer', 'self_id');
+    
+    
+            $query = "INSERT INTO self_tranfer (id,self_id,amount,account,to_account,Refrence_id,user_unique_id)
+            VALUES (null,'".$self_id."', '".$amount."','".$from_account."','".$to_account."','".$self_id."','".$user_unique_id."')";
+           // print_r($query); die();
+           $result = $this->runMysqliQuery($query); 
+           if ($result['error_code'] == 1){
+               $_SESSION['formError']=['general_error' =>[$result['error']] ];
+               header('location:../user/self.php');
+               return;
+           }
+            
+            $query = "UPDATE user SET balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+            $back = $this->runMysqliQuery($query);
+            if($back['error_code'] == 1){
+                $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+                header("location:../user/self.php");
+                return;
+            }
+    
+            header ('location:../user/self.php?&success=Tranfer was successfully');
 
-        if ($total < 0) {
-            $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
-            header('location:../user/self.php');
-            return;
         }
 
-        $self_id = $this->createUniqueID('self_tranfer', 'self_id');
-
-
-        $query = "INSERT INTO self_tranfer (id,self_id,amount,account,to_account,Refrence_id,user_unique_id)
-        VALUES (null,'".$self_id."', '".$amount."','".$from_account."','".$to_account."','".$self_id."','".$user_unique_id."')";
-       // print_r($query); die();
-       $result = $this->runMysqliQuery($query); 
-       if ($result['error_code'] == 1){
-           $_SESSION['formError']=['general_error' =>[$result['error']] ];
-           header('location:../user/self.php');
-           return;
-       }
-        
-        $query = "UPDATE user SET balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
-        $back = $this->runMysqliQuery($query);
-        if($back['error_code'] == 1){
-            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
-            header("location:../user/self.php");
-            return;
-        }
-
-        header ('location:../user/self.php?&success=Tranfer was successfully');
 
     }
 

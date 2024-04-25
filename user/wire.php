@@ -78,7 +78,7 @@ $fee = $for->feewire();
                                 if ($account !== 'No Data was returned') { 
                                     while ($row = mysqli_fetch_assoc($account)) { 
                                         echo "<option value=''>Select Source Account</option>";
-                                        echo "<option value='>({$row['current']})Current Account'>({$row['current']})Current: $0.00</option>";
+                                        echo "<option value='({$row['current']})Current Account'>({$row['current']})Current: $0.00</option>";
                                         echo "<option value='({$row['saving']})Savings Account'>({$row['saving']})Savings: $0.00</option>";
                                     }
                                 } else {
