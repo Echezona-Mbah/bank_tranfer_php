@@ -4,6 +4,7 @@ if (!isset($_SESSION['user_unique_id'])) {
     header("Location: ../login.php");
     exit;
 }
+$user = $for->getsingledetail(($_SESSION['user_unique_id']));
 $account = $for->getLoggedInUserDetails();
 $wallets = $for->allwellect();
 if ($wallets === 'No Data was returned' || $wallets === 'Error fetching data') {

@@ -67,6 +67,9 @@ class main_work{
                 case 'loan':
                     $this->loan();
                     break;
+                case 'loginAdmin':
+                    $this->loginAdmin();
+                    break;
                 case 'logout':
                     $this->logout();
                     break;
@@ -1282,6 +1285,67 @@ class main_work{
         session_destroy();
         header('location:../login.php?success=you have successfully logged out');
     }
+
+
+    function loginAdmin(){
+        $email= $_SESSION['email']=mysqli_real_escape_string($this->dbConnection, $_POST['email']);
+        $password= $_SESSION['password']=mysqli_real_escape_string($this->dbConnection, $_POST['password']);
+
+        $thingsToValidate = [
+            $email.'|Email|email|empty',
+            $password.'|Password|Passwords|empty'
+        ];
+
+        
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false) {
+            $_SESSION['formError'] = $this->errors;
+            header('location:../loginAdmin.php');
+            return;
+         
+        }
+        $calllogin = $this->loginAdminsHandler($email,$password);
+      // print_r( $calllogin); die();
+
+
+        if ($calllogin['error_code']== 1 ){
+            $_SESSION['formError'] = ['general_error'=>[$calllogin['error']]];
+            header('location:../loginAdmin.php');
+
+        }
+        $queryResult = $calllogin['data'];
+        if(mysqli_num_rows($queryResult) == 1){
+            //create the login sessions
+            while($row = mysqli_fetch_object($queryResult)){
+                $user_unique_id = $row->user_unique_id;
+                $name = $row->name;
+                $email = $row->email;
+                $current = $row->current;
+                $saving = $row->saving;
+                $Userpincode = $row->pincode;
+                $balance = $row->balance;
+                $_SESSION['user_unique_id'] = $user_unique_id;
+                $_SESSION['name'] = $name;
+                $_SESSION['userEmail'] = $email;
+                $_SESSION['current'] = $current;
+                $_SESSION['saving'] = $saving;
+                $_SESSION['Userpincode'] = $Userpincode;
+                $_SESSION['balance'] = $balance;
+                // $typeOfUser = $row->type_of_user;
+
+            }
+
+            header('location:../admin/dashborad.php');
+        }else{
+            $_SESSION['formError'] = ['general_error'=>['Incorrect Username/Email or Password']];
+            header('location:../loginAdmin.php');
+        }
+        // header('location:../dashboard.php');
+
+    }
+
+
+
     
 
 

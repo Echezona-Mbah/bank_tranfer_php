@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_unique_id'])) {
     header("Location: ../login.php");
     exit;
 }
+$user = $for->getsingledetail(($_SESSION['user_unique_id']));
 
 $activities = $for->getLoggedInActivitic($_SESSION['user_unique_id']);
 

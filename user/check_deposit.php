@@ -1,10 +1,10 @@
 <?php
-session_start();
+require ('../action/main_work.php');
 if (!isset($_SESSION['user_unique_id'])) {
     header("Location: ../login.php");
     exit;
 }
-
+$user = $for->getsingledetail(($_SESSION['user_unique_id']));
 ?>
 
 <?php require('head.php') ?>

@@ -78,6 +78,11 @@ trait DatabaseQueries{
         $result = $this->runMysqliQuery($query);
         return $result;
     }
+    function loginAdminsHandler($email, $password){
+        $query = "SELECT * FROM admin WHERE password = '$password' AND email = '$email'";
+        $result = $this->runMysqliQuery($query);
+        return $result;
+    }
 
 
 

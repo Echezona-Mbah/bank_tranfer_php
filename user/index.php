@@ -33,20 +33,7 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xl-3 mb-30">
-					<div class="card-box height-100-p widget-style1">
-						<div class="d-flex flex-wrap align-items-center">
-							<div class="progress-data">
-								<div id="chart"></div>
-							</div>
-							<div class="widget-data">
-								<div class="h4 mb-0">2020</div>
-								<div class="weight-600 font-14">Contact</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 mb-30">
+			<div class="col-xl-3 mb-30">
 					<div class="card-box height-100-p widget-style1">
 						<div class="d-flex flex-wrap align-items-center">
 							<div class="progress-data">
@@ -59,6 +46,23 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 						</div>
 					</div>
 				</div>
+
+
+				<div class="col-xl-3 mb-30">
+				<div class="card-box height-100-p widget-style1">
+					<div class="d-flex flex-wrap align-items-center">
+						<div class="widget-data">
+							<div class="h4 mb-0">2020</div>
+							<div class="weight-600 font-14">Contact</div>
+							<div class="mt-3">
+								<button class="btn btn-primary">View</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				</div>
+
 				<div class="col-xl-3 mb-30">
 					<div class="card-box height-100-p widget-style1">
 						<div class="d-flex flex-wrap align-items-center">
@@ -66,8 +70,8 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 								<div id="chart3"></div>
 							</div>
 							<div class="widget-data">
-								<div class="h4 mb-0">350</div>
-								<div class="weight-600 font-14">Campaign</div>
+								<div class="h4 mb-0">$0.00</div>
+								<div class="weight-600 font-14">Inflow</div>
 							</div>
 						</div>
 					</div>
@@ -79,28 +83,56 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 								<div id="chart4"></div>
 							</div>
 							<div class="widget-data">
-								<div class="h4 mb-0">$6060</div>
-								<div class="weight-600 font-14">Worth</div>
+								<div class="h4 mb-0">$0.00</div>
+								<div class="weight-600 font-14">Outflow</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xl-8 mb-30">
-					<div class="card-box height-100-p pd-20">
-						<h2 class="h4 mb-20">Activity</h2>
-						<div id="chart5"></div>
+				<div class="col-lg-4 col-md-6 col-sm-12 mb-30">
+					<div class="card-box pd-30 pt-10 height-100-p">
+						<h2 class="mb-30 h4">Browser Visit</h2>
+						<div class="browser-visits">
+							<ul>
+								<li class="d-flex flex-wrap align-items-center">
+									<!-- <div class="icon"><img src="vendors/images/chrome.png" alt=""></div> -->
+									<div class="browser-name">Loan Balance:</div>
+									<div class="visit"><span class="badge badge-pill badge-primary">$0.00</span></div>
+								</li>
+								<li class="d-flex flex-wrap align-items-center">
+									<!-- <div class="icon"><img src="vendors/images/firefox.png" alt=""></div> -->
+									<div class="browser-name">Savings Balance:</div>
+									<div class="visit"><span class="badge badge-pill badge-secondary">$0.00</span></div>
+								</li>
+								<li class="d-flex flex-wrap align-items-center">
+									<!-- <div class="icon"><img src="vendors/images/safari.png" alt=""></div> -->
+									<div class="browser-name">Current Balance:</div>
+									<div class="visit"><span class="badge badge-pill badge-success">$0.00</span></div>
+								</li>
+								<li class="d-flex flex-wrap align-items-center">
+									<!-- <div class="icon"><img src="vendors/images/edge.png" alt=""></div> -->
+									<div class="browser-name">Last Login IP:</div>
+									<div class="visit"><span class="badge badge-pill badge-warning">105.120.128.133</span></div>
+								</li>
+								<li class="d-flex flex-wrap align-items-center">
+									<!-- <div class="icon"><img src="vendors/images/opera.png" alt=""></div> -->
+									<div class="browser-name">Last Login Date:</div>
+									<div class="visit"><span class="badge badge-pill badge-info">20%</span></div>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
-				<div class="col-xl-4 mb-30">
-					<div class="card-box height-100-p pd-20">
-						<h2 class="h4 mb-20">Lead Target</h2>
-						<div id="chart6"></div>
+				<div class="col-lg-8 col-md-6 col-sm-12 mb-30">
+					<div class="card-box pd-30 pt-10 height-100-p">
+						<h2 class="mb-30 h4">World Map</h2>
+						<div id="browservisit" style="width:100%!important; height:380px"></div>
 					</div>
 				</div>
 			</div>
-			<div class="card-box mb-30">
+			<!-- <div class="card-box mb-30">
 				<h2 class="h4 pd-20">Best Selling Products</h2>
 				<table class="data-table table nowrap">
 					<thead>
@@ -242,5 +274,5 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 						</tr>
 					</tbody>
 				</table>
-			</div>
+			</div> -->
       <?php require('footer.php') ?>
