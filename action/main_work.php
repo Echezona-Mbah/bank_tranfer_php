@@ -1305,7 +1305,7 @@ class main_work{
          
         }
         $calllogin = $this->loginAdminsHandler($email,$password);
-      // print_r( $calllogin); die();
+      print_r( $calllogin); die();
 
 
         if ($calllogin['error_code']== 1 ){
