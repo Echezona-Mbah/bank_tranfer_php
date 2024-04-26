@@ -1,3 +1,22 @@
+<?php
+require ('../action/main_work.php');
+
+$UserDetails = $for->alluser();
+
+
+
+$rowsPerPage = 10;
+$totalRows = count($UserDetails);
+$totalPages = ceil($totalRows / $rowsPerPage);
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 1; 
+$offset = ($currentPage - 1) * $rowsPerPage;
+$currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
+
+?>
+
+
+
+
 <?php require('head.php')?>
 <?php require('sidebar.php')?>
 <?php require('topbar.php')?>
@@ -95,33 +114,47 @@
                                                    <th>Email</th>
                                                    <th>Phone</th>
                                                    <th>Photo</th>
-                                                   <th>Saving Account</th>
-                                                   <th>Current Account</th>
-                                                   <th>Account Balance</th>
-                                                   <th>Phone</th>
-                                                   <th>Phone</th>
-                                                   <th>Phone</th>
-                                                   <th>Phone</th>
-                                                   <th>Phone</th>
-                                                   <th>Phone</th>
-                                                   <th>Phone</th>
-                                                   <th>Phone</th>
+                                                   <th>Saving Account No</th>
+                                                   <th>Current Account No</th>
+                                                   <th>Loan Balance</th>
+                                                   <th>Saving Balance</th>
+                                                   <th>Current Balance</th>
+                                                   <th>Suspended</th>
+                                                   <th>Status</th>
+                                                   <th>Delete</th>
+                                                   <th>Add Money</th>
+                                                   <th>Remove Money</th>
+                                                   <th>Edit</th>
                                                 </tr>
                                              </thead>
                                              <tbody>
+                                             <?php $i = 1; ?>
+                                                <?php foreach ($currentPageRows as $row): ?>
 
                                                 <tr>
-                                                   <td>1</td>
-                                                   <td>
-                                                      <a>rue</a>
-                                                   </td>
+                                                <td><?php echo $i++; ?></td>
+                                                   <td><?php echo $row->name; ?></td>
+                                                   <td><?php echo $row->lastname; ?></td>
+                                                   <td><?php echo $row->email; ?></td>
+                                                   <td><?php echo $row->phone; ?></td>
                                                    <td>
                                                       <ul class="list-inline">
                                                          <li>
-                                                            <img width="40" src="images/layout_img/msg2.png" class="rounded-circle" alt="#">
+                                                            <img width="40" src="<?php echo $row->image; ?>" class="rounded-circle" alt="#">
                                                          </li>
                                                       </ul>
                                                    </td>
+                                                   <td><?php echo $row->saving;?></td>
+                                                   <td><?php echo $row->current;?></td>
+                                                   <td>$<?php echo $row->saving_balance; ?></td>
+                                                   <td>$<?php echo $row->current_balance; ?></td>
+                                                   <td>
+                                                        <a class="btn btn-primary toggle-status" data-toggle="tooltip" data-placement="top" title="Toggle Status" data-status="suspended">
+                                                            Status
+                                                        </a>
+                                                    </td>
+                                                   <td><?php echo $row->phone; ?></td>
+                                                   <td><?php echo $row->phone; ?></td>
                                                    <td class="project_progress">
                                                       <div class="progress progress_sm">
                                                          <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="97" aria-valuemin="0" aria-valuemax="100" style="width: 98%;"></div>
@@ -132,13 +165,19 @@
                                                       <button type="button" class="btn btn-success btn-xs">Success</button>
                                                    </td>
                                                 </tr>
-
+                                                <?php endforeach; ?>
                                              </tbody>
                                           </table>
                                        </div>
                                     </div>
                                  </div>
                               </div>
+                              <!-- Pagination links -->
+                            <div class="pagination">
+                                <?php for ($page = 1; $page <= $totalPages; $page++): ?>
+                                    <a href="?page=<?php echo $page; ?>"<?php if ($page == $currentPage) echo ' class="active"'; ?>><?php echo $page; ?></a>
+                                <?php endfor; ?>
+                            </div>
                            </div>
                         </div>
                         <!-- end row -->
@@ -147,4 +186,32 @@
 
 
                   </div>
+
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.toggle-status').click(function() {
+        var status = $(this).data('status');
+        
+        // Perform an AJAX request to toggle the status
+        $.ajax({
+            url: 'toggle_status.php',
+            method: 'POST',
+            data: { status: status },
+            success: function(response) {
+                var data = JSON.parse(response);
+                if (data.newStatus) {
+                    // Update the data-status attribute and button text
+                    $('.toggle-status').data('status', data.newStatus).text(data.newStatus);
+                } else {
+                    console.error(data.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+});
+</script>
 <?php require('footer.php')?>
