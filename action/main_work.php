@@ -1022,8 +1022,8 @@ class main_work{
         $account_number = substr($from_account, 1, 11);
         if($saving == $account_number){
             $ass = $this->getsingledetail($user_unique_id);
-            $fee = $this->feewire();
-            $balance = $ass->balance;
+            $fee = $this->feeself();
+            $balance = $ass->saving_balance;
             $subTotal = ($fee/100)*$amount;
             $sumTotal = $balance - $subTotal;
             $total = $sumTotal - $amount;
@@ -1048,7 +1048,47 @@ class main_work{
                return;
            }
             
-            $query = "UPDATE user SET balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+            $query = "UPDATE user SET saving_balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+            $back = $this->runMysqliQuery($query);
+            if($back['error_code'] == 1){
+                $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+                header("location:../user/self.php");
+                return;
+            }
+    
+            header ('location:../user/self.php?&success=Tranfer was successfully');
+
+        }
+
+        if($current == $account_number){
+            $ass = $this->getsingledetail($user_unique_id);
+            $fee = $this->feeself();
+            $balance = $ass->current_balance;
+            $subTotal = ($fee/100)*$amount;
+            $sumTotal = $balance - $subTotal;
+            $total = $sumTotal - $amount;
+            //print_r($total);die();
+    
+            if ($total < 0) {
+                $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
+                header('location:../user/self.php');
+                return;
+            }
+    
+            $self_id = $this->createUniqueID('self_tranfer', 'self_id');
+    
+    
+            $query = "INSERT INTO self_tranfer (id,self_id,amount,account,to_account,Refrence_id,user_unique_id)
+            VALUES (null,'".$self_id."', '".$amount."','".$from_account."','".$to_account."','".$self_id."','".$user_unique_id."')";
+           // print_r($query); die();
+           $result = $this->runMysqliQuery($query); 
+           if ($result['error_code'] == 1){
+               $_SESSION['formError']=['general_error' =>[$result['error']] ];
+               header('location:../user/self.php');
+               return;
+           }
+            
+            $query = "UPDATE user SET current_balance ='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
             $back = $this->runMysqliQuery($query);
             if($back['error_code'] == 1){
                 $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
