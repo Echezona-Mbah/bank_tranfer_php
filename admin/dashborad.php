@@ -1,5 +1,8 @@
 <?php
 require ('../action/main_work.php');
+// $currentStatu = 'status';
+$UserDeta = $for->toggleStatus($currentStatus);
+// print_r($UserDeta[0]);die();
 
 $UserDetails = $for->alluser();
 
@@ -12,8 +15,9 @@ $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($currentPage - 1) * $rowsPerPage;
 $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
-?>
 
+
+?>
 
 
 
@@ -149,10 +153,11 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                    <td>$<?php echo $row->saving_balance; ?></td>
                                                    <td>$<?php echo $row->current_balance; ?></td>
                                                    <td>
-                                                        <a class="btn btn-primary toggle-status" data-toggle="tooltip" data-placement="top" title="Toggle Status" data-status="suspended">
-                                                            Status
-                                                        </a>
-                                                    </td>
+    <a class="btn btn-primary toggle-status" data-toggle="tooltip" data-placement="top" title="Toggle Status" data-user-id="<?php echo $userDetails['user_unique_id']; ?>" data-status="<?php echo $UserDeta[0]; ?>">
+        Status
+    </a>
+</td>
+
                                                    <td><?php echo $row->phone; ?></td>
                                                    <td><?php echo $row->phone; ?></td>
                                                    <td class="project_progress">
@@ -186,32 +191,44 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
 
                   </div>
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Include Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 <script>
-$(document).ready(function() {
-    $('.toggle-status').click(function() {
-        var status = $(this).data('status');
-        
-        // Perform an AJAX request to toggle the status
-        $.ajax({
-            url: 'toggle_status.php',
-            method: 'POST',
-            data: { status: status },
-            success: function(response) {
-                var data = JSON.parse(response);
-                if (data.newStatus) {
-                    // Update the data-status attribute and button text
-                    $('.toggle-status').data('status', data.newStatus).text(data.newStatus);
-                } else {
-                    console.error(data.error);
+    $(document).ready(function() {
+        console.log("Document ready!"); // Log to see if document ready event fires
+
+        $('.toggle-status').click(function() {
+            console.log("Toggle status button clicked!"); // Log to see if click event handler works
+
+            var currentStatus = $(this).data('status');
+            console.log("Current status:", currentStatus); // Log current status
+
+            $.ajax({
+                type: 'POST',
+                url: 'dashborad.php',
+                data: { status: currentStatus },
+                
+                dataType: 'json',
+                success: function(response) {
+                    console.log("AJAX Success:", response); // Log response from server
+
+                    // Update button text, status, and tooltip
+                    $('.toggle-status').data('status', response.newStatus).text(response.newStatus.charAt(0).toUpperCase() + response.newStatus.slice(1));
+                    $('.toggle-status').attr('title', 'Toggle ' + response.newStatus.charAt(0).toUpperCase() + response.newStatus.slice(1));
+                    $('.toggle-status').tooltip('update');
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", xhr.responseText); // Log AJAX error
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
+            });
         });
     });
-});
 </script>
+
+
 <?php require('footer.php')?>

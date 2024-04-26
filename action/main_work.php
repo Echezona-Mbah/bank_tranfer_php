@@ -1543,29 +1543,22 @@ class main_work{
         }
     }
 
-    function toggleStatus() {
-        // Check if the status is set in the POST data
-        if(isset($_POST['status'])) {
-            // Get the current status from the POST data
-            $currentStatus = $_POST['status'];
-            $user_unique_id = $_SESSION['user_unique_id'];
-            
-            $newStatus = ($currentStatus === 'suspended') ? 'active' : 'suspended';
-            
-            $query = "UPDATE user SET status = '$newStatus' WHERE user_unique_id = '$user_unique_id'";
-            
-            $result = $this->runMysqliQuery($query); 
-            if ($result['error_code'] == 1){
-                $_SESSION['formError']=['general_error' =>[$result['error']] ];
-                header('location:../admin/dashborad.php');
-                return;
-            }
-            
-            // Send the new status back to the client as JSON response
-            echo json_encode(array('newStatus' => $newStatus));
+    function toggleStatus($currentStatus) {
+        // $user_unique_id = $_SESSION['user_unique_id'];
+        $newStatus = ($currentStatus === 'suspended') ? 'active' : 'suspended';
+       // print_r($newStatus);die();
+        $query = "UPDATE user SET status = '$newStatus'";
+        $result = $this->runMysqliQuery($query); 
+        if ($result['error_code'] == 1){
+            $_SESSION['formError']=['general_error' =>[$result['error']] ];
+            header('location:../register.php');
+            return;
+        }
+    
+        if ($result['error_code'] == 1) {
+            return array('error' => $result['error']);
         } else {
-            // Handle the case when the status is not set
-            echo json_encode(array('error' => 'Status not provided'));
+            return array( $newStatus);
         }
     }
 
