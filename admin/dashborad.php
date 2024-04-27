@@ -1,8 +1,14 @@
 <?php
 require ('../action/main_work.php');
-// $currentStatu = 'status';
-$UserDeta = $for->toggleStatus($currentStatus);
-// print_r($UserDeta[0]);die();
+// $currentStatus = 'status';
+// $UserDeta = $for->toggleStatus($currentStatus);
+
+$currentStatus = 'pending';
+
+// Toggle the status
+$result = $for->toggleStatus($currentStatus);
+
+ //print_r($result[0]);die();
 
 $UserDetails = $for->alluser();
 
@@ -14,9 +20,7 @@ $totalPages = ceil($totalRows / $rowsPerPage);
 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; 
 $offset = ($currentPage - 1) * $rowsPerPage;
 $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
-
-
-
+// die();
 ?>
 
 
@@ -152,11 +156,16 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                    <td><?php echo $row->current;?></td>
                                                    <td>$<?php echo $row->saving_balance; ?></td>
                                                    <td>$<?php echo $row->current_balance; ?></td>
+
                                                    <td>
-    <a class="btn btn-primary toggle-status" data-toggle="tooltip" data-placement="top" title="Toggle Status" data-user-id="<?php echo $userDetails['user_unique_id']; ?>" data-status="<?php echo $UserDeta[0]; ?>">
-        Status
-    </a>
-</td>
+                    <a class="btn btn-primary toggle-status" 
+                       data-toggle="tooltip" 
+                       data-placement="top" 
+                       title="Toggle Status" 
+                       data-order-id="<?php echo $row->user_unique_id; ?>">
+                        <?php echo ($row->status == 'pending') ? 'Pending' : 'Confirmed'; ?>
+                    </a>
+                </td>
 
                                                    <td><?php echo $row->phone; ?></td>
                                                    <td><?php echo $row->phone; ?></td>
@@ -190,45 +199,47 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
 
 
-                  </div>
+ 
+
 <!-- Include jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Include Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
-
+<!-- Your custom JavaScript code -->
 <script>
-    $(document).ready(function() {
-        console.log("Document ready!"); // Log to see if document ready event fires
+$(document).ready(function() {
+    $('.toggle-status').click(function() {
+        var button = $(this);
+        var userId = button.data('order-id');
 
-        $('.toggle-status').click(function() {
-            console.log("Toggle status button clicked!"); // Log to see if click event handler works
-
-            var currentStatus = $(this).data('status');
-            console.log("Current status:", currentStatus); // Log current status
-
-            $.ajax({
-                type: 'POST',
-                url: 'dashborad.php',
-                data: { status: currentStatus },
-                
-                dataType: 'json',
-                success: function(response) {
-                    console.log("AJAX Success:", response); // Log response from server
-
-                    // Update button text, status, and tooltip
-                    $('.toggle-status').data('status', response.newStatus).text(response.newStatus.charAt(0).toUpperCase() + response.newStatus.slice(1));
-                    $('.toggle-status').attr('title', 'Toggle ' + response.newStatus.charAt(0).toUpperCase() + response.newStatus.slice(1));
-                    $('.toggle-status').tooltip('update');
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX Error:", xhr.responseText); // Log AJAX error
+        $.ajax({
+            url: 'toggle_status.php',
+            type: 'POST',
+            data: { userId: userId },
+            success: function(response) {
+                console.log('Response:', response);
+                try {
+                    var responseData = JSON.parse(response);
+                    if (responseData.newStatus) {
+                        console.log('New status:', responseData.newStatus);
+                        button.text(responseData.newStatus);
+                    } else {
+                        console.error('Invalid response format:', response);
+                    }
+                } catch (error) {
+                    console.error('Error parsing response:', error);
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error updating status:', error);
+                // Handle error response as needed
+            }
         });
     });
+});
 </script>
+
+
+
 
 
 <?php require('footer.php')?>

@@ -1544,23 +1544,23 @@ class main_work{
     }
 
     function toggleStatus($currentStatus) {
+        // Assuming you have a database connection and runMysqliQuery function
+        // Replace this with your actual database connection and query execution method
         // $user_unique_id = $_SESSION['user_unique_id'];
-        $newStatus = ($currentStatus === 'suspended') ? 'active' : 'suspended';
-       // print_r($newStatus);die();
+        $newStatus = ($currentStatus === 'pending') ? 'pending' : 'Confirmed';
+        
         $query = "UPDATE user SET status = '$newStatus'";
         $result = $this->runMysqliQuery($query); 
-        if ($result['error_code'] == 1){
-            $_SESSION['formError']=['general_error' =>[$result['error']] ];
+    
+        if ($result['error_code'] !== 0) {
+            $_SESSION['formError'] = ['general_error' => [$result['error']]];
             header('location:../register.php');
             return;
-        }
-    
-        if ($result['error_code'] == 1) {
-            return array('error' => $result['error']);
         } else {
-            return array( $newStatus);
+            return [ $newStatus];
         }
     }
+    
 
 
 
