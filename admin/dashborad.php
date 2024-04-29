@@ -3,10 +3,8 @@ require ('../action/main_work.php');
 // $currentStatus = 'status';
 // $UserDeta = $for->toggleStatus($currentStatus);
 
-$currentStatus = 'pending';
 
 // Toggle the status
-$result = $for->toggleStatus($currentStatus);
 
  //print_r($result[0]);die();
 
@@ -154,18 +152,25 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                    </td>
                                                    <td><?php echo $row->saving;?></td>
                                                    <td><?php echo $row->current;?></td>
+                                                   <td><?php echo $row->loan_balance;?></td>
                                                    <td>$<?php echo $row->saving_balance; ?></td>
                                                    <td>$<?php echo $row->current_balance; ?></td>
-
+                                                   <td><a class="btn btn-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Bottom">Bottom</a></td>
                                                    <td>
-                    <a class="btn btn-primary toggle-status" 
-                       data-toggle="tooltip" 
-                       data-placement="top" 
-                       title="Toggle Status" 
-                       data-order-id="<?php echo $row->user_unique_id; ?>">
-                        <?php echo ($row->status == 'pending') ? 'Pending' : 'Confirmed'; ?>
-                    </a>
-                </td>
+<?php
+$userId = $row->user_unique_id;
+$status = ($row->status == 'pending') ? 'confirmed' : 'pending';
+?>
+<form action="../action/main_work.php?option=<?php echo $status; ?>" method="post">
+    <input type="hidden" name="user_id" value="<?php echo $userId; ?>">
+    <input type="hidden" name="status" value="<?php echo $status; ?>">
+    <button class="btn btn-primary toggle-status" data-toggle="tooltip" data-placement="top" title="Toggle Status" type="submit">
+        <?php echo ucfirst($status); ?>
+    </button>
+</form>
+</td>
+
+
 
                                                    <td><?php echo $row->phone; ?></td>
                                                    <td><?php echo $row->phone; ?></td>
@@ -210,6 +215,7 @@ $(document).ready(function() {
     $('.toggle-status').click(function() {
         var button = $(this);
         var userId = button.data('order-id');
+        console.log('userId:', userId);
 
         $.ajax({
             url: 'toggle_status.php',

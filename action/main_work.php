@@ -73,6 +73,12 @@ class main_work{
                 case 'logout':
                     $this->logout();
                     break;
+                case 'pending':
+                    $this->suspendUser('confirmed');
+                    break;
+                case 'confirmed':
+                    $this->suspendUser('pending');
+                    break;
     
 
             }
@@ -1543,22 +1549,25 @@ class main_work{
         }
     }
 
-    function toggleStatus($currentStatus) {
-        // Assuming you have a database connection and runMysqliQuery function
-        // Replace this with your actual database connection and query execution method
-        // $user_unique_id = $_SESSION['user_unique_id'];
-        $newStatus = ($currentStatus === 'pending') ? 'pending' : 'Confirmed';
-        
-        $query = "UPDATE user SET status = '$newStatus'";
-        $result = $this->runMysqliQuery($query); 
-    
-        if ($result['error_code'] !== 0) {
-            $_SESSION['formError'] = ['general_error' => [$result['error']]];
-            header('location:../register.php');
-            return;
-        } else {
-            return [ $newStatus];
+    function suspendUser($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'pending'){
+            $query = "UPDATE user SET status = 'confirmed' WHERE user_unique_id = '".$user_id."'";
+            $message = "User has been confirmed successfully";
+        } elseif ($status === 'confirmed') {
+            $query = "UPDATE user SET status = 'pending' WHERE user_unique_id = '".$user_id."'";
+            $message = "User has been pending successfully";
         }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/dashborad.php");
+            return;
+        }
+        header("location:../admin/dashborad.php?success=$message");
     }
     
 
