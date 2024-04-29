@@ -157,18 +157,18 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                    <td>$<?php echo $row->current_balance; ?></td>
                                                    <td><a class="btn btn-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Bottom">Bottom</a></td>
                                                    <td>
-<?php
-$userId = $row->user_unique_id;
-$status = ($row->status == 'pending') ? 'confirmed' : 'pending';
-?>
-<form action="../action/main_work.php?option=<?php echo $status; ?>" method="post">
-    <input type="hidden" name="user_id" value="<?php echo $userId; ?>">
-    <input type="hidden" name="status" value="<?php echo $status; ?>">
-    <button class="btn btn-primary toggle-status" data-toggle="tooltip" data-placement="top" title="Toggle Status" type="submit">
-        <?php echo ucfirst($status); ?>
-    </button>
-</form>
-</td>
+                                                   <?php
+                                                   $userId = $row->user_unique_id;
+                                                   $status = ($row->status == 'pending') ? 'confirmed' : 'pending';
+                                                   ?>
+                                                   <form action="../action/main_work.php?option=<?php echo $status; ?>" method="post">
+                                                      <input type="hidden" name="user_id" value="<?php echo $userId; ?>">
+                                                      <input type="hidden" name="status" value="<?php echo $status; ?>">
+                                                      <button class="btn btn-primary toggle-status" data-toggle="tooltip" data-placement="top" title="Toggle Status" type="submit">
+                                                         <?php echo ucfirst($status); ?>
+                                                      </button>
+                                                   </form>
+                                                   </td>
 
 
 
