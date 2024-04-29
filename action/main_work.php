@@ -79,6 +79,15 @@ class main_work{
                 case 'confirmed':
                     $this->suspendUser('pending');
                     break;
+                case 'suspended':
+                    $this->suspendedUser('active');
+                    break;
+                case 'active':
+                    $this->suspendedUser('suspended');
+                    break;
+                case 'delete':
+                    $this->deleteUser('delete');
+                    break;
     
 
             }
@@ -1543,10 +1552,31 @@ class main_work{
         }else{
             while($row = mysqli_fetch_object($result)){
                 $UserDetails[] = $row;
-//                print_r($UserDetails);die();
             }
             return $UserDetails;
         }
+    }
+
+
+    function suspendedUser($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'suspended'){
+            $query = "UPDATE user SET status = 'active' WHERE user_unique_id = '".$user_id."'";
+            $message = "User has been active successfully";
+        } elseif ($status === 'active') {
+            $query = "UPDATE user SET status = 'suspended' WHERE user_unique_id = '".$user_id."'";
+            $message = "User has been suspended successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/dashborad.php");
+            return;
+        }
+        header("location:../admin/dashborad.php?success=$message");
     }
 
     function suspendUser($status){
@@ -1559,6 +1589,24 @@ class main_work{
         } elseif ($status === 'confirmed') {
             $query = "UPDATE user SET status = 'pending' WHERE user_unique_id = '".$user_id."'";
             $message = "User has been pending successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/dashborad.php");
+            return;
+        }
+        header("location:../admin/dashborad.php?success=$message");
+    }
+
+    function deleteUser($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'delete'){
+            $query = "DELETE FROM user WHERE user_unique_id = '".$user_id."'";
+            $message = "User has been Delete successfully";
         }
     
         $result = $this->runMysqliQuery($query);

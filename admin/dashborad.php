@@ -1,12 +1,5 @@
 <?php
 require ('../action/main_work.php');
-// $currentStatus = 'status';
-// $UserDeta = $for->toggleStatus($currentStatus);
-
-
-// Toggle the status
-
- //print_r($result[0]);die();
 
 $UserDetails = $for->alluser();
 
@@ -155,7 +148,21 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                    <td><?php echo $row->loan_balance;?></td>
                                                    <td>$<?php echo $row->saving_balance; ?></td>
                                                    <td>$<?php echo $row->current_balance; ?></td>
-                                                   <td><a class="btn btn-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Bottom">Bottom</a></td>
+
+                                                   <td>
+                                                   <?php
+                                                   $userId = $row->user_unique_id;
+                                                   $status = ($row->status == 'suspended') ? 'active' : 'suspended';
+                                                   ?>
+                                                      <form action="../action/main_work.php?option=<?php echo $status; ?>" method="post">
+                                                      <input type="hidden" name="user_id" value="<?php echo $userId; ?>">
+                                                      <input type="hidden" name="status" value="<?php echo $status; ?>">
+                                                      <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top"  type="submit">
+                                                         <?php echo ucfirst($status); ?>
+                                                      </button>
+                                                   </form>
+                                                   </td>
+
                                                    <td>
                                                    <?php
                                                    $userId = $row->user_unique_id;
@@ -169,6 +176,15 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                       </button>
                                                    </form>
                                                    </td>
+
+                                                   <td>
+                                                      <form method="post" action="../action/main_work.php?option=delete">
+                                                         <input type="hidden" name="user_id" value="<?php echo $row->user_unique_id; ?>">
+                                                         <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">Delete</button>
+                                                      </form>
+                                                   </td>
+
+                                                   <td><a class="btn btn-success" href="add.php?<?php echo $row->user_unique_id; ?>" data-toggle="tooltip" data-placement="left" title="Left">Add Money</a></td>
 
 
 

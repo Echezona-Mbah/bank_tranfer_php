@@ -11,6 +11,64 @@
             </div>
          </div>
       </div>
+
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<?php
+
+
+
+   if(isset($_SESSION['formError'])){
+	 echo "<script>";
+	 echo "Swal.fire({";
+	 echo "  icon: 'error',";
+	 echo "  title: 'Oops...',";
+	 echo "  html: '";
+
+	 foreach($_SESSION['formError'] as $eachErrorArray){
+	   foreach($eachErrorArray as $eachError){
+		 echo $eachError."<br>";
+	   }
+	 }
+
+	 echo "'});";
+	 echo "</script>";
+
+	 unset($_SESSION['formError']);
+   }
+
+   if(isset($_GET['success'])){
+	 echo "<script>";
+	 echo "Swal.fire({";
+	 echo "  icon: 'success',";
+	 echo "  title: 'Success',";
+	 echo "  text: '".htmlspecialchars($_GET['success'], ENT_QUOTES)."',";
+	 echo "  showConfirmButton: false,";
+	 echo "  timer: 4000";
+	 echo "});";
+	 echo "</script>";
+   }
+
+
+
+
+
+ ?>
+
+
+
+
+
+
+
+
+
+
+
       <!-- jQuery -->
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
