@@ -1,3 +1,14 @@
+<?php
+require ('../action/main_work.php');
+if(isset($_GET['user'])) {
+    $userid = $_GET['user'];
+}
+$user = $for->getsingledetail(($userid));
+$currencies = $for->courrency();
+//  print_r($user->loan_balance);die();
+
+
+?>
 <?php require('head.php')?>
 <style>
     body {
@@ -68,18 +79,39 @@
                         <div class="container">
                             <h2>Credit Account</h2><br>
                             <form action="#" method="post">
+                            <input type="hidden" name="userid" value="<?php echo isset($userid) ? $userid : ''; ?>">
+                            
+                            <div class="form-group">
+                                <label for="loan">Loan Balance:$<?php echo $user->loan_balance?></label>
+                                <input type="text" id="loanAmountInput" name="loan" value="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="saving">Saving Balance:  $<?php echo $user->saving_balance?></label>
+                                <input type="text" id="savingAmountInput" name="saving" value="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="current">Current Balance: $<?php echo $user->current_balance?></label>
+                                <input type="text" id="currentAmountInput" name="current" value="">
+                            </div>
+
                                 <div class="form-group">
-                                    <label for="name">Name:</label>
-                                    <input type="text" id="name" name="name" required>
+                                    <label>Bank Country</label>
+                                    <select class="form-control" name="bank_country" id="currencySelector">
+                                        <?php
+                                        if ($currencies !== 'No Data was returned') {
+                                            foreach ($currencies as $currency) {
+                                                echo "<option value='{$currency->id}' data-rate='{$currency->currency}'>{$currency->name}</option>";
+                                            }
+                                        } else {
+                                            echo "<option value=''>No Account Types Available</option>";
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="email">Email:</label>
-                                    <input type="email" id="email" name="email" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="message">Message:</label>
-                                    <textarea id="message" name="message" required></textarea>
-                                </div>
+
+
                                 <div class="form-group">
                                     <button type="submit">Submit</button>
                                 </div>
@@ -87,4 +119,24 @@
                         </div>
 
 
+                        <script>
+    const currencySelector = document.getElementById('currencySelector');
+    function convertAmount(amount, exchangeRate) {
+        return parseFloat(amount) * exchangeRate;
+    }
+    function updateConvertedAmount(inputField, exchangeRate) {
+        const enteredAmount = inputField.value.trim();
+        if (enteredAmount !== '') {
+            const convertedAmount = convertAmount(enteredAmount, exchangeRate).toFixed(2);
+            inputField.value = convertedAmount;
+        }
+    }
+    currencySelector.addEventListener('change', function() {
+        const selectedOption = currencySelector.options[currencySelector.selectedIndex];
+        const exchangeRate = parseFloat(selectedOption.dataset.rate);
+        updateConvertedAmount(document.getElementById('loanAmountInput'), exchangeRate);
+        updateConvertedAmount(document.getElementById('savingAmountInput'), exchangeRate);
+        updateConvertedAmount(document.getElementById('currentAmountInput'), exchangeRate);
+    });
+</script>
 <?php require('footer.php')?>

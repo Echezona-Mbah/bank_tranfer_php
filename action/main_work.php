@@ -1617,6 +1617,30 @@ class main_work{
         }
         header("location:../admin/dashborad.php?success=$message");
     }
+
+    function addAmount(){
+        $userid = $_SESSION['userid']=mysqli_real_escape_string($this->dbConnection, $_POST['userid']);
+        $loan = $_SESSION['loan']=mysqli_real_escape_string($this->dbConnection, $_POST['loan']);
+        $saving = $_SESSION['saving']=mysqli_real_escape_string($this->dbConnection, $_POST['saving']);
+        $current = $_SESSION['current']=mysqli_real_escape_string($this->dbConnection, $_POST['current']);
+
+        $thingsToValidate = [
+            $loan.'|Loan|loan',
+            $saving.'|Saving|saving',
+            $current.'|Current|current',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header("location:../admin/add.php?user=$userid");
+            return;
+        }
+        $ass = $this->getsingledetail($userid);
+        $loan_bal = $ass->loan_balance + $loan;
+        print_r($loan_bal);die();
+
+    }
     
 
 

@@ -184,7 +184,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                       </form>
                                                    </td>
 
-                                                   <td><a class="btn btn-success" href="add.php?<?php echo $row->user_unique_id; ?>" data-toggle="tooltip" data-placement="left" title="Left">Add Money</a></td>
+                                                   <td><a class="btn btn-success" href="add.php?user=<?php echo $row->user_unique_id; ?>" data-toggle="tooltip" data-placement="left" title="Left">Add Money</a></td>
 
 
 
