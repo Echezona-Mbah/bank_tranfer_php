@@ -71,14 +71,14 @@ $currencies = $for->courrency();
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Add Amount</h2>
+                              <h2>Remove Amount</h2>
                            </div>
                         </div>
                      </div>
 
                         <div class="container">
-                            <h2>Credit Account</h2><br>
-                            <form action="../action/main_work.php?option=add" method="post">
+                            <h2>Debit Account</h2><br>
+                            <form action="../action/main_work.php?option=remove" method="post">
                             <input type="hidden" name="userid" value="<?php echo isset($userid) ? $userid : ''; ?>">
 
                             <div class="form-group">

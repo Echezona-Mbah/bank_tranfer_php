@@ -88,6 +88,15 @@ class main_work{
                 case 'delete':
                     $this->deleteUser('delete');
                     break;
+                case 'add':
+                    $this->addAmount();
+                    break;
+                case 'remove':
+                    $this->removeAmount();
+                    break;
+                case 'edit':
+                    $this->edit();
+                    break;
     
 
             }
@@ -1623,7 +1632,6 @@ class main_work{
         $loan = $_SESSION['loan']=mysqli_real_escape_string($this->dbConnection, $_POST['loan']);
         $saving = $_SESSION['saving']=mysqli_real_escape_string($this->dbConnection, $_POST['saving']);
         $current = $_SESSION['current']=mysqli_real_escape_string($this->dbConnection, $_POST['current']);
-
         $thingsToValidate = [
             $loan.'|Loan|loan',
             $saving.'|Saving|saving',
@@ -1638,9 +1646,93 @@ class main_work{
         }
         $ass = $this->getsingledetail($userid);
         $loan_bal = $ass->loan_balance + $loan;
-        print_r($loan_bal);die();
+        $saving_bal = $ass->saving_balance + $saving;
+        $current_bal = $ass->current_balance + $current;
+        //print_r($saving_bal);die();
+
+        $query = "UPDATE user SET loan_balance='".$loan_bal."',saving_balance='".$saving_bal."',current_balance='".$current_bal."' WHERE user_unique_id='".$userid."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/user.php");
+            return;
+        }
+
+        header ("location:../admin/add.php?user=$userid&success=Amount Added was successfully");
 
     }
+
+
+    function removeAmount(){
+        $userid = $_SESSION['userid']=mysqli_real_escape_string($this->dbConnection, $_POST['userid']);
+        $loan = $_SESSION['loan']=mysqli_real_escape_string($this->dbConnection, $_POST['loan']);
+        $saving = $_SESSION['saving']=mysqli_real_escape_string($this->dbConnection, $_POST['saving']);
+        $current = $_SESSION['current']=mysqli_real_escape_string($this->dbConnection, $_POST['current']);
+        $thingsToValidate = [
+            $loan.'|Loan|loan',
+            $saving.'|Saving|saving',
+            $current.'|Current|current',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header("location:../admin/remove.php?user=$userid");
+            return;
+        }
+        $ass = $this->getsingledetail($userid);
+        $loan_bal = $ass->loan_balance - $loan;
+        $saving_bal = $ass->saving_balance - $saving;
+        $current_bal = $ass->current_balance - $current;
+        //print_r($saving_bal);die();
+
+        $query = "UPDATE user SET loan_balance='".$loan_bal."',saving_balance='".$saving_bal."',current_balance='".$current_bal."' WHERE user_unique_id='".$userid."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/remove.php");
+            return;
+        }
+
+        header ("location:../admin/remove.php?user=$userid&success=Amount Remove was successfully");
+
+    }
+
+    function edit(){
+        $userid = $_SESSION['userid']=mysqli_real_escape_string($this->dbConnection, $_POST['userid']);
+        $name = $_SESSION['name']=mysqli_real_escape_string($this->dbConnection, $_POST['name']);
+        $lastname = $_SESSION['lastname']=mysqli_real_escape_string($this->dbConnection, $_POST['lastname']);
+        $email = $_SESSION['email']=mysqli_real_escape_string($this->dbConnection, $_POST['email']);
+        $phone = $_SESSION['phone']=mysqli_real_escape_string($this->dbConnection, $_POST['phone']);
+        $thingsToValidate = [
+            $name.'|Name|name',
+            $lastname.'|Lastname|lastname',
+            $email.'|Email|email',
+            $phone.'|Phone|phone',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header("location:../admin/edit.php?user=$userid");
+            return;
+        }
+
+        $query = "UPDATE user SET name ='".$name."',lastname='".$lastname."',email ='".$email."',phone ='".$phone."' WHERE user_unique_id='".$userid."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/edit.php");
+            return;
+        }
+
+        header ("location:../admin/edit.php?user=$userid&success=User Edit was successfully");
+
+    }
+    
+
+    
+
     
 
 

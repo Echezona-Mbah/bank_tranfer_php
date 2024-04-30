@@ -186,19 +186,10 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
                                                    <td><a class="btn btn-success" href="add.php?user=<?php echo $row->user_unique_id; ?>" data-toggle="tooltip" data-placement="left" title="Left">Add Money</a></td>
 
+                                                   <td><a class="btn btn-warning " href="remove.php?user=<?php echo $row->user_unique_id; ?>" data-toggle="tooltip" data-placement="left" title="Left">Remove Money</a></td>
 
+                                                   <td><a class="btn btn-success" href="edit.php?user=<?php echo $row->user_unique_id; ?>" data-toggle="tooltip" data-placement="left" title="Left">Edit</a></td>
 
-                                                   <td><?php echo $row->phone; ?></td>
-                                                   <td><?php echo $row->phone; ?></td>
-                                                   <td class="project_progress">
-                                                      <div class="progress progress_sm">
-                                                         <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="97" aria-valuemin="0" aria-valuemax="100" style="width: 98%;"></div>
-                                                      </div>
-                                                      <small>Almost Completed</small>
-                                                   </td>
-                                                   <td>
-                                                      <button type="button" class="btn btn-success btn-xs">Success</button>
-                                                   </td>
                                                 </tr>
                                                 <?php endforeach; ?>
                                              </tbody>
