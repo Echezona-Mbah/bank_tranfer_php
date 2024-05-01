@@ -97,7 +97,15 @@ class main_work{
                 case 'edit':
                     $this->edit();
                     break;
-    
+                case 'Processing':
+                    $this->cardProcessing('Complete');
+                    break;
+                case 'Complete':
+                    $this->cardProcessing('Processing');
+                    break;
+                case 'deleteCard':
+                    $this->deleteCard('delete');
+                    break;
 
             }
         }
@@ -174,6 +182,7 @@ class main_work{
     }  
 
     function pincode(){
+
         $pincode= $_SESSION['pincode']=mysqli_real_escape_string($this->dbConnection, $_POST['pincode']);
         $userId= $_SESSION['userId']=mysqli_real_escape_string($this->dbConnection, $_POST['userId']);
 
@@ -187,6 +196,7 @@ class main_work{
             header('location:../pincode.php');
             return;
         } 
+
         $query = "SELECT pincode FROM user WHERE user_unique_id = '$userId'";
         $result = $this->runMysqliQuery($query);
         if($result['error_code'] == 1){
@@ -260,6 +270,20 @@ class main_work{
                 // $typeOfUser = $row->type_of_user;
 
             }
+
+            $ass = $this->getsingledetail($user_unique_id);
+          //  print_r($ass->status);die();
+            $active = $ass->status;
+            if($active =='pending'){
+                $_SESSION['formError'] = ['general_error' => ['You Account is pending']];
+                header('location:../login.php');
+                return;
+            }
+
+
+
+
+
             $query = "INSERT INTO logins (id,user_unique_id)VALUES (null,'".$user_unique_id."')";
             $result = $this->runMysqliQuery($query); 
             if ($result['error_code'] == 1){
@@ -704,6 +728,8 @@ class main_work{
 
     }
 
+
+
     function feeDomestic(){
         $query = "SELECT * FROM fee WHERE names = 'domestic-transfer'";
         $details = $this->runMysqliQuery($query);
@@ -748,6 +774,16 @@ class main_work{
         $current = $_SESSION['current'];
         $saving = $_SESSION['saving'];
         $account_number = substr($account, 1, 11);
+        $sus = $this->getsingledetail($user_unique_id);
+        //  print_r($ass->status);die();
+          $active = $sus->suspended;
+          if($active =='suspended'){
+              $_SESSION['formError'] = ['general_error' => ['You Account is suspended']];
+              header('location:../login.php');
+              return;
+          }
+        
+
         //print_r($account_number);die();
         if($saving == $account_number){
             $ass = $this->getsingledetail($user_unique_id);
@@ -910,6 +946,14 @@ class main_work{
         $current = $_SESSION['current'];
         $saving = $_SESSION['saving'];
         $account_number = substr($account, 1, 11);
+        $sus = $this->getsingledetail($user_unique_id);
+        //  print_r($ass->status);die();
+          $active = $sus->suspended;
+          if($active =='suspended'){
+              $_SESSION['formError'] = ['general_error' => ['You Account is suspended']];
+              header('location:../login.php');
+              return;
+          }
 
         if($saving == $account_number){
         $ass = $this->getsingledetail($user_unique_id);
@@ -1045,6 +1089,14 @@ class main_work{
         $saving = $_SESSION['saving'];
         $account_number = substr($from_account, 1, 11);
         $to_accou = substr($to_account, 1, 11);
+        $sus = $this->getsingledetail($user_unique_id);
+        //  print_r($ass->status);die();
+          $active = $sus->suspended;
+          if($active =='suspended'){
+              $_SESSION['formError'] = ['general_error' => ['You Account is suspended']];
+              header('location:../login.php');
+              return;
+          }
         if($saving == $account_number){
             $ass = $this->getsingledetail($user_unique_id);
             $fee = $this->feeself();
@@ -1193,6 +1245,14 @@ class main_work{
         $current = $_SESSION['current'];
         $saving = $_SESSION['saving'];
         $account_number = substr($account, 1, 11);
+        $sus = $this->getsingledetail($user_unique_id);
+        //  print_r($ass->status);die();
+          $active = $sus->suspended;
+          if($active =='suspended'){
+              $_SESSION['formError'] = ['general_error' => ['You Account is suspended']];
+              header('location:../login.php');
+              return;
+          }
         if($saving == $account_number){
 
             $ass = $this->getsingledetail($user_unique_id);
@@ -1344,6 +1404,14 @@ class main_work{
             return;
         }
         $user_unique_id = $_SESSION['user_unique_id'];
+        $sus = $this->getsingledetail($user_unique_id);
+        //  print_r($ass->status);die();
+          $active = $sus->suspended;
+          if($active =='suspended'){
+              $_SESSION['formError'] = ['general_error' => ['You Account is suspended']];
+              header('location:../login.php');
+              return;
+          }
 
         $Userpincode = $_SESSION['Userpincode'];
         if ($pincode !== $Userpincode) {
@@ -1728,6 +1796,63 @@ class main_work{
 
         header ("location:../admin/edit.php?user=$userid&success=User Edit was successfully");
 
+    }
+
+    function allCard(){
+        $UserDetails = [];
+        $query = "SELECT * FROM card";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
+    }
+
+    function cardProcessing($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'Processing'){
+            $query = "UPDATE card SET status = 'Complete' WHERE card_id = '".$user_id."'";
+            $message = "User has been complete successfully";
+        } elseif ($status === 'Complete') {
+            $query = "UPDATE card SET status = 'Processing' WHERE card_id = '".$user_id."'";
+            $message = "User has been processing successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/card.php");
+            return;
+        }
+        header("location:../admin/card.php?success=$message");
+    }
+
+    function deleteCard($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'delete'){
+            $query = "DELETE FROM card WHERE card_id = '".$user_id."'";
+            $message = "card has been Delete successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/card.php");
+            return;
+        }
+        header("location:../admin/card.php?success=$message");
     }
     
 
