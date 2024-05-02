@@ -79,8 +79,8 @@ $fee = $for->feeself();
                                 if ($account !== 'No Data was returned') { 
                                     while ($row = mysqli_fetch_assoc($account)) { 
                                         echo "<option value=''>Select Source Account</option>";
-                                        echo "<option value='({$row['current']})Current Account'>({$row['current']})Current: $0.00</option>";
-                                        echo "<option value=({$row['saving']})Savings Account'>({$row['saving']})Savings: $0.00</option>";
+                                        echo "<option value='current'>Current Account ({$row['current']}) Current: $" . $user->current_balance . "</option>";
+                                        echo "<option value='saving'>Savings Account ({$row['saving']}) Savings: $" . $user->saving_balance . "</option>";
                                     }
                                 } else {
                                     echo "<option>No accounts available</option>";
@@ -96,8 +96,8 @@ $fee = $for->feeself();
                                 if ($accounts !== 'No Data was returned') { 
                                     while ($row = mysqli_fetch_assoc($accounts)) { 
                                         echo "<option value=''>Select Source Account</option>";
-                                        echo "<option value='({$row['current']})Current: $0.00'>({$row['current']})Current: $0.00</option>";
-                                        echo "<option value='({$row['saving']})Savings: $0.00'>({$row['saving']})Savings: $0.00</option>";
+                                        echo "<option value='current'>Current Account ({$row['current']}) Current: $" . $user->current_balance . "</option>";
+                                        echo "<option value='saving'>Savings Account ({$row['saving']}) Savings: $" . $user->saving_balance . "</option>";
                                     }
                                 } else {
                                     echo "<option>No accounts available</option>";

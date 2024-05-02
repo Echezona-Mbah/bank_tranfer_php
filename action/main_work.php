@@ -1337,10 +1337,28 @@ class main_work{
 
     }
 
+    function feecard(){
+        $query = "SELECT * FROM fee WHERE names = 'card'";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else {
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row->fee;
+            }
+            return $UserDetails;
+        }
+    }
+
     function card(){
         $account = $_SESSION['account']=mysqli_real_escape_string($this->dbConnection, $_POST['account']);
         $pincode= $_SESSION['pincode']=mysqli_real_escape_string($this->dbConnection, $_POST['pincode']);
-
 
         $thingsToValidate = [
             $account.'|Account|account|empty',
@@ -1361,23 +1379,93 @@ class main_work{
             return;
         }
         $user_unique_id = $_SESSION['user_unique_id'];
-        
+        $current = $_SESSION['current'];
+        $saving = $_SESSION['saving'];
+        $matches = [];
+        preg_match('/\((.*?)\)/', $account, $matches);
+        if (isset($matches[1])) {
+            $account_number = $matches[1];
+            print_r($account_number); die();
+        } 
 
         $card_id = $this->createUniqueID('card', 'card_id');
 
+        if($saving == $account_number){
+            $ass = $this->getsingledetail($user_unique_id);
+            $fee = $this->feecard();
+            $balance = $ass->saving_balance;
+            // $subTotal = ($fee/100)*$balance;
+            $total = $balance - $fee;
+            // $total = $sumTotal - $amount;
+            //print_r($total);die();
+    
+            if ($total < 0) {
+                $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
+                header('location:../user/user.php');
+                return;
+            }
+    
+    
+            $query = "INSERT INTO card (id,card_id,account,user_unique_id)
+                VALUES (null,'".$card_id."','".$account."','".$user_unique_id."')";
+            // print_r($query); die();
+            $result = $this->runMysqliQuery($query); 
+            if ($result['error_code'] == 1){
+                $_SESSION['formError']=['general_error' =>[$result['error']] ];
+                header('location:../user/card.php');
+                return;
+            }
+            
+            $query = "UPDATE user SET saving_balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+            $back = $this->runMysqliQuery($query);
+            if($back['error_code'] == 1){
+                $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+                header("location:../user/user.php");
+                return;
+            }
+    
+            header ('location:../user/card.php?&success=Tranfer was successfully');
 
-        $query = "INSERT INTO card (id,card_id,account,user_unique_id)
-        VALUES (null,'".$card_id."','".$account."','".$user_unique_id."')";
-       // print_r($query); die();
-       $result = $this->runMysqliQuery($query); 
-       if ($result['error_code'] == 1){
-           $_SESSION['formError']=['general_error' =>[$result['error']] ];
-           header('location:../user/card.php');
-           return;
-       }
-        
+        }
+        print_r($current); die();
+        if($current == $account_number){
+            $ass = $this->getsingledetail($user_unique_id);
+            $fee = $this->feecard();
+            $balance = $ass->current_balance;
+            // $subTotal = ($fee/100)*$balance;
+            $total = $balance - $fee;
+            // $total = $sumTotal - $amount;
+            //print_r($total);die();
+    
+            if ($total < 0) {
+                $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];
+                header('location:../user/user.php');
+                return;
+            }
+    
+    
+            $query = "INSERT INTO card (id,card_id,account,user_unique_id)
+                VALUES (null,'".$card_id."','".$account."','".$user_unique_id."')";
+            // print_r($query); die();
+            $result = $this->runMysqliQuery($query); 
+            if ($result['error_code'] == 1){
+                $_SESSION['formError']=['general_error' =>[$result['error']] ];
+                header('location:../user/card.php');
+                return;
+            }
+            
+            $query = "UPDATE user SET current_balance='".$total."' WHERE user_unique_id='".$user_unique_id."' ";
+            $back = $this->runMysqliQuery($query);
+            if($back['error_code'] == 1){
+                $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+                header("location:../user/user.php");
+                return;
+            }
+    
+            header ('location:../user/card.php?&success=Tranfer was successfully');
 
-        header ('location:../user/card.php?&success=card was successfully');
+        }
+
 
     }
 

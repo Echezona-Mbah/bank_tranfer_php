@@ -9,7 +9,7 @@ $accounts = $for->getLoggedInUserDetails();
 $accountTypes = $for->accountType();
 $currencies = $for->courrency();
 $user = $for->getsingledetail(($_SESSION['user_unique_id']));
-$fee = $for->feeself();
+$fee = $for->feecard();
 
 ?>
 
@@ -164,25 +164,27 @@ $fee = $for->feeself();
 </div>
 
 
-                <form class="dropzone"action="../action/main_work.php?option=card" method=post enctype="multipart/form-data" id="my-awesome-dropzone">
+                <form class="dropzone"action="../action/main_work.php?option=card" method=post enctype="multipart/form-data" id="my-awesome-dropzone"><br><br>
+
+                <label>Fee: $<?php echo $fee ?></label>
+
 
                         <div class="form-group">
                             <label>Select Card Account</label>
                             
-                            <select class="form-control " name="account" value="<?php if (isset($_SESSION{'account'})) {echo $_SESSION['account'];}?>">
-                                <?php
-                                if ($account !== 'No Data was returned') { 
-                                    while ($row = mysqli_fetch_assoc($account)) { 
-                                        
-                                        echo "<option value=''>Select Source Account</option>";
-                                        echo "<option value='({$row['current']})Current Account'>({$row['current']})Current: $0.00</option>";
-                                        echo "<option value='({$row['saving']})Savings Account'>({$row['saving']})Savings: $0.00</option>";
-                                    }
-                                } else {
-                                    echo "<option>No accounts available</option>";
-                                }
-                                ?>
-                            </select>
+                            <select class="form-control" name="account">
+                              <?php
+                              if ($account !== 'No Data was returned') { 
+                                  echo "<option value=''>Select Source Account</option>";
+                                  while ($row = mysqli_fetch_assoc($account)) { 
+                                      echo "<option value='current'>Current Account ({$row['current']}) Current: $" . $user->current_balance . "</option>";
+                                      echo "<option value='saving'>Savings Account ({$row['saving']}) Savings: $" . $user->saving_balance . "</option>";
+                                  }
+                              } else {
+                                  echo "<option>No accounts available</option>";
+                              }
+                              ?>
+                          </select>
                         </div>
 
 
