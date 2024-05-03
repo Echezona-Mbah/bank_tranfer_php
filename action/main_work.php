@@ -130,6 +130,45 @@ class main_work{
                 case 'feeUpdate':
                     $this->feeUpdate();
                     break;
+                case 'loanProcessing':
+                    $this->loanProcessing('Complete');
+                    break;
+                case 'loanComplete':
+                    $this->loanProcessing('Processing');
+                    break;
+                case 'deleteLoan':
+                    $this->deleteLoan('delete');
+                    break;
+                case 'localProcessing':
+                    $this->localProcessing('Complete');
+                    break;
+                case 'localComplete':
+                    $this->localProcessing('Processing');
+                    break;
+                case 'deletelocal':
+                    $this->deletelocal('delete');
+                    break;
+                case 'selfProcessing':
+                    $this->selfProcessing('Complete');
+                    break;
+                case 'selfComplete':
+                    $this->selfProcessing('Processing');
+                    break;
+                case 'deleteSelf':
+                    $this->deleteSelf('delete');
+                    break;
+                case 'deleteTicket':
+                    $this->deleteTicket('delete');
+                    break;
+                case 'userProcessing':
+                    $this->userProcessing('Complete');
+                    break;
+                case 'userComplete':
+                    $this->userProcessing('Processing');
+                    break;
+                case 'deleteUserT':
+                    $this->deleteUserT('delete');
+                    break;
                     
 
             }
@@ -2226,8 +2265,243 @@ class main_work{
             return $UserDetails;
         }
     }
+    function loanProcessing($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'Processing'){
+            $query = "UPDATE loan SET status = 'Complete' WHERE loan_id = '".$user_id."'";
+            $message = "loan has been complete successfully";
+        } elseif ($status === 'Complete') {
+            $query = "UPDATE loan SET status = 'Processing' WHERE loan_id = '".$user_id."'";
+            $message = "loan has been processing successfully";
+        }
     
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/loan.php");
+            return;
+        }
+        header("location:../admin/loan.php?success=$message");
+    }
+    function deleteLoan($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'delete'){
+            $query = "DELETE FROM loan WHERE loan_id  = '".$user_id."'";
+            $message = "loan has been Delete successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/loan.php");
+            return;
+        }
+        header("location:../admin/loan.php?success=$message");
+    }
 
+    function allLocal(){
+        $UserDetails = [];
+        $query = "SELECT * FROM local_tranfer";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
+    }
+    function localProcessing($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'Processing'){
+            $query = "UPDATE local_tranfer SET status = 'Complete' WHERE local_id = '".$user_id."'";
+            $message = "local tranfer has been complete successfully";
+        } elseif ($status === 'Complete') {
+            $query = "UPDATE local_tranfer SET status = 'Processing' WHERE local_id = '".$user_id."'";
+            $message = "local tranfer has been processing successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/local.php");
+            return;
+        }
+        header("location:../admin/local.php?success=$message");
+    }
+    function deletelocal($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'delete'){
+            $query = "DELETE FROM local_tranfer WHERE local_id  = '".$user_id."'";
+            $message = "local tranfer has been Delete successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/local.php");
+            return;
+        }
+        header("location:../admin/local.php?success=$message");
+    }
+
+    function allself(){
+        $UserDetails = [];
+        $query = "SELECT * FROM self_tranfer";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
+    }
+    function selfProcessing($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'Processing'){
+            $query = "UPDATE self_tranfer SET status = 'Complete' WHERE self_id = '".$user_id."'";
+            $message = "self tranfer has been complete successfully";
+        } elseif ($status === 'Complete') {
+            $query = "UPDATE self_tranfer SET status = 'Processing' WHERE self_id = '".$user_id."'";
+            $message = "self tranfer has been processing successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/self.php");
+            return;
+        }
+        header("location:../admin/self.php?success=$message");
+    }
+    function deleteSelf($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'delete'){
+            $query = "DELETE FROM self_tranfer WHERE self_id  = '".$user_id."'";
+            $message = "self tranfer has been Delete successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/self.php");
+            return;
+        }
+        header("location:../admin/self.php?success=$message");
+    }
+
+    function allticket(){
+        $UserDetails = [];
+        $query = "SELECT * FROM ticket";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
+    }
+    function deleteTicket($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'delete'){
+            $query = "DELETE FROM ticket WHERE ticket_id  = '".$user_id."'";
+            $message = "ticket has been Delete successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/ticket.php");
+            return;
+        }
+        header("location:../admin/ticket.php?success=$message");
+    }
+
+    function alluserTransfer(){
+        $UserDetails = [];
+        $query = "SELECT * FROM user_transfer";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
+    }
+    function userProcessing($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'Processing'){
+            $query = "UPDATE user_transfer SET status = 'Complete' WHERE user_id = '".$user_id."'";
+            $message = "user tranfer has been complete successfully";
+        } elseif ($status === 'Complete') {
+            $query = "UPDATE user_transfer SET status = 'Processing' WHERE user_id = '".$user_id."'";
+            $message = "user tranfer has been processing successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/user.php");
+            return;
+        }
+        header("location:../admin/user.php?success=$message");
+    }
+    function deleteUserT($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'delete'){
+            $query = "DELETE FROM user_transfer WHERE user_id  = '".$user_id."'";
+            $message = "user transfer has been Delete successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/user.php");
+            return;
+        }
+        header("location:../admin/user.php?success=$message");
+    }
     
 
     

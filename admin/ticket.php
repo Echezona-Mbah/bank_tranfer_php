@@ -1,7 +1,7 @@
 <?php
 require ('../action/main_work.php');
 
-$UserDetails = $for->allLoan();
+$UserDetails = $for->allticket();
 
 
 
@@ -50,7 +50,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Deposit</h2>
+                              <h2>LOcal Transfer</h2>
                            </div>
                         </div>
                      </div>
@@ -63,16 +63,12 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                              <thead class="thead-dark">
                                                 <tr>
                                                    <th style="width: 2%">No</th>
-                                                   <th >Loan Id</th>
+                                                   <th >Refrence_id</th>
                                                    <th>Name</th>
-                                                   <th>Amount</th>
-                                                   <th>account</th>
-                                                   <th>Loan Type</th>
-                                                   <th>Loan Duration</th>
+                                                   <th>Ticket Type</th>
                                                    <th>Details</th>
                                                    <th>Status</th>
                                                    <th>Delete</th>
-                                                   <th>action</th>
                                                 </tr>
                                              </thead>
                                              <tbody>
@@ -81,39 +77,22 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
                                                 <tr>
                                                     <td><?php echo $i++; ?></td>
-                                                    <td><?php echo $row->loan_id ; ?></td>
+                                                    <td><?php echo $row->ticket_id; ?></td>
                                                     <?php $user = $for->getsingledetail($row->user_unique_id); ?>
                                                     <td><?php echo $user->name; ?></td>
-                                                    <td><?php echo $row->amount; ?></td>
-                                                    <td><?php echo $row->account; ?></td>
-                                                    <td><?php echo $row->loan_type; ?></td>
-                                                    <td><?php echo $row->loan_duration; ?></td>
-                                                    <td><?php echo $row->details; ?></td>
+                                                    <td><?php echo $row->ticket_type; ?></td>
+                                                    <td><?php echo $row->information; ?></td>
 
                                                     <td><?php echo $row->status; ?></td>
 
                                                    <td>
-                                                      <form method="post" action="../action/main_work.php?option=deleteLoan">
-                                                         <input type="hidden" name="user_id" value="<?php echo $row->loan_id; ?>">
+                                                      <form method="post" action="../action/main_work.php?option=deleteTicket">
+                                                         <input type="hidden" name="user_id" value="<?php echo $row->ticket_id; ?>">
                                                          <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">Delete</button>
                                                       </form>
                                                    </td>
 
 
-                                                   <td>
-                                                   <?php
-                                                   $userId = $row->loan_id;
-                                                   $status = ($row->status == 'Processing') ? 'Complete' : 'Processing';
-                                                   $statu = ($row->status == 'Processing') ? 'loanComplete' : 'loanProcessing';
-                                                   ?>
-                                                      <form action="../action/main_work.php?option=<?php echo $statu; ?>" method="post">
-                                                      <input type="hidden" name="user_id" value="<?php echo $userId; ?>">
-                                                      <input type="hidden" name="status" value="<?php echo $status; ?>">
-                                                      <button class="btn btn-success" data-toggle="tooltip" data-placement="top"  type="submit">
-                                                         <?php echo ucfirst($status); ?>
-                                                      </button>
-                                                   </form>
-                                                   </td>
 
 
                                                 </tr>
@@ -124,21 +103,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                     </div>
                                  </div>
                               </div>
- 
-                              <?php $i = 1; ?>
-    <?php foreach ($currentPageRows as $row): ?>
-        <!-- Modal for displaying the image -->
-        <div class="modal fade" id="imageModal<?php echo $i; ?>" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <img id="modalImage<?php echo $i; ?>" src="<?php echo $row->proof; ?>" alt="Modal Image" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php $i++; ?>
-    <?php endforeach; ?>
+
 
                               <div class="pagination">
                                  <?php for ($page = 1; $page <= $totalPages; $page++): ?>
@@ -147,16 +112,6 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                               </div>
 
                             </div>
-
-
-                            <script>
-  $(document).ready(function() {
-    $('#imageModal').on('show.bs.modal', function(event) {
-      var imageSource = $(event.relatedTarget).attr('href'); 
-      $('#modalImage').attr('src', imageSource);
-    });
-  });
-</script>
 
 
 <?php require('footer.php')?>

@@ -1,7 +1,7 @@
 <?php
 require ('../action/main_work.php');
 
-$UserDetails = $for->allLoan();
+$UserDetails = $for->allself();
 
 
 
@@ -50,7 +50,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Deposit</h2>
+                              <h2>LOcal Transfer</h2>
                            </div>
                         </div>
                      </div>
@@ -63,13 +63,12 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                              <thead class="thead-dark">
                                                 <tr>
                                                    <th style="width: 2%">No</th>
-                                                   <th >Loan Id</th>
+                                                   <th >Refrence_id</th>
                                                    <th>Name</th>
                                                    <th>Amount</th>
                                                    <th>account</th>
-                                                   <th>Loan Type</th>
-                                                   <th>Loan Duration</th>
-                                                   <th>Details</th>
+                                                   <th>To Account</th>
+                                                   <th>Type</th>
                                                    <th>Status</th>
                                                    <th>Delete</th>
                                                    <th>action</th>
@@ -81,20 +80,19 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
                                                 <tr>
                                                     <td><?php echo $i++; ?></td>
-                                                    <td><?php echo $row->loan_id ; ?></td>
+                                                    <td><?php echo $row->self_id; ?></td>
                                                     <?php $user = $for->getsingledetail($row->user_unique_id); ?>
                                                     <td><?php echo $user->name; ?></td>
                                                     <td><?php echo $row->amount; ?></td>
                                                     <td><?php echo $row->account; ?></td>
-                                                    <td><?php echo $row->loan_type; ?></td>
-                                                    <td><?php echo $row->loan_duration; ?></td>
-                                                    <td><?php echo $row->details; ?></td>
+                                                    <td><?php echo $row->to_account; ?></td>
+                                                    <td><?php echo $row->type; ?></td>
 
                                                     <td><?php echo $row->status; ?></td>
 
                                                    <td>
-                                                      <form method="post" action="../action/main_work.php?option=deleteLoan">
-                                                         <input type="hidden" name="user_id" value="<?php echo $row->loan_id; ?>">
+                                                      <form method="post" action="../action/main_work.php?option=deleteSelf">
+                                                         <input type="hidden" name="user_id" value="<?php echo $row->self_id; ?>">
                                                          <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">Delete</button>
                                                       </form>
                                                    </td>
@@ -102,9 +100,9 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
                                                    <td>
                                                    <?php
-                                                   $userId = $row->loan_id;
+                                                   $userId = $row->self_id;
                                                    $status = ($row->status == 'Processing') ? 'Complete' : 'Processing';
-                                                   $statu = ($row->status == 'Processing') ? 'loanComplete' : 'loanProcessing';
+                                                   $statu = ($row->status == 'Processing') ? 'selfComplete' : 'selfProcessing';
                                                    ?>
                                                       <form action="../action/main_work.php?option=<?php echo $statu; ?>" method="post">
                                                       <input type="hidden" name="user_id" value="<?php echo $userId; ?>">
