@@ -1,7 +1,7 @@
 <?php
 require ('../action/main_work.php');
 
-$UserDetails = $for->allDeposit();
+$UserDetails = $for->allCheck();
 
 
 
@@ -63,11 +63,8 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                              <thead class="thead-dark">
                                                 <tr>
                                                    <th style="width: 2%">No</th>
-                                                   <th >deposit Id</th>
+                                                   <th >Check Id</th>
                                                    <th>Name</th>
-                                                   <th>account</th>
-                                                   <th>Cypto Type</th>
-                                                   <th>Wallet</th>
                                                    <th>Type</th>
                                                    <th>Proof</th>
                                                    <th>Status</th>
@@ -81,32 +78,29 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
                                                 <tr>
                                                     <td><?php echo $i++; ?></td>
-                                                    <td><?php echo $row->deposit_id ; ?></td>
+                                                    <td><?php echo $row->check_id  ; ?></td>
                                                     <?php $user = $for->getsingledetail($row->user_unique_id); ?>
                                                     <td><?php echo $user->name; ?></td>
-                                                    <td><?php echo $row->account; ?></td>
-                                                    <td><?php echo $row->cypto_type; ?></td>
-                                                    <td><?php echo $row->wallet; ?></td>
                                                     <td><?php echo $row->type; ?></td>
                                                         <div class="modal fade" id="imageModal<?php echo $i; ?>" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
                                                                     <div class="modal-body">
-                                                                        <img id="modalImage<?php echo $i; ?>" src="<?php echo ($row->proof); ?>" alt="Modal Image" class="img-fluid">
+                                                                        <img id="modalImage<?php echo $i; ?>" src="<?php echo ($row->image); ?>" alt="Modal Image" class="img-fluid">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <td>
-                                                            <a href="<?php echo ($row->proof); ?>" data-toggle="modal" data-target="#imageModal<?php echo $i; ?>">
-                                                                <img style="width: 300px; height: auto;" src="<?php echo ($row->proof); ?>" alt="Proof" class="img-fluid">
+                                                            <a href="<?php echo ($row->image); ?>" data-toggle="modal" data-target="#imageModal<?php echo $i; ?>">
+                                                                <img style="width: 300px; height: auto;" src="<?php echo ($row->image); ?>" alt="image" class="img-fluid">
                                                             </a>
                                                         </td>
                                                     <td><?php echo $row->status; ?></td>
 
                                                    <td>
-                                                      <form method="post" action="../action/main_work.php?option=deleteDeposit">
-                                                         <input type="hidden" name="user_id" value="<?php echo $row->deposit_id; ?>">
+                                                      <form method="post" action="../action/main_work.php?option=deleteCheck">
+                                                         <input type="hidden" name="user_id" value="<?php echo $row->check_id; ?>">
                                                          <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">Delete</button>
                                                       </form>
                                                    </td>
@@ -114,9 +108,9 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
                                                    <td>
                                                    <?php
-                                                   $userId = $row->deposit_id;
+                                                   $userId = $row->check_id;
                                                    $status = ($row->status == 'Processing') ? 'Complete' : 'Processing';
-                                                   $statu = ($row->status == 'Processing') ? 'depositComplete' : 'depositProcessing';
+                                                   $statu =  ($row->status == 'Processing') ? 'checkComplete' : 'checkProcessing';
                                                    ?>
                                                       <form action="../action/main_work.php?option=<?php echo $statu; ?>" method="post">
                                                       <input type="hidden" name="user_id" value="<?php echo $userId; ?>">

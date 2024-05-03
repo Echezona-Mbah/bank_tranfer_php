@@ -109,6 +109,28 @@ class main_work{
                 case 'currencyUpdate':
                     $this->currencyUpdate();
                     break;
+                case 'depositProcessing':
+                    $this->depositProcessing('Complete');
+                    break;
+                case 'depositComplete':
+                    $this->depositProcessing('Processing');
+                    break;
+                case 'deleteDeposit':
+                    $this->deleteDeposit('delete');
+                    break;
+                case 'checkProcessing':
+                    $this->checkProcessing('Complete');
+                    break;
+                case 'checkComplete':
+                    $this->checkProcessing('Processing');
+                    break;
+                case 'deleteCheck':
+                    $this->deleteCheck('delete');
+                    break;
+                case 'feeUpdate':
+                    $this->feeUpdate();
+                    break;
+                    
 
             }
         }
@@ -523,9 +545,6 @@ class main_work{
             $wallet.'|Wallet|wallet|empty',
             $pincode.'|Pincode|pincode|empty',
         ];
-
-        //print_r($account);die();
-
         
         $validationStatus = $this->callValidation($thingsToValidate);
         if($validationStatus === false) {
@@ -2015,6 +2034,184 @@ class main_work{
     function allDeposit(){
         $UserDetails = [];
         $query = "SELECT * FROM deposit";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
+    }
+
+    function depositProcessing($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'Processing'){
+            $query = "UPDATE deposit SET status = 'Complete' WHERE deposit_id = '".$user_id."'";
+            $message = "Deposit has been complete successfully";
+        } elseif ($status === 'Complete') {
+            $query = "UPDATE deposit SET status = 'Processing' WHERE deposit_id = '".$user_id."'";
+            $message = "Deposit has been processing successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/deposit.php");
+            return;
+        }
+        header("location:../admin/deposit.php?success=$message");
+    }
+
+    function deleteDeposit($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'delete'){
+            $query = "DELETE FROM deposit WHERE deposit_id = '".$user_id."'";
+            $message = "deposit has been Delete successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/deposit.php");
+            return;
+        }
+        header("location:../admin/deposit.php?success=$message");
+    }
+
+    function allCheck(){
+        $UserDetails = [];
+        $query = "SELECT * FROM depostcheck";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
+    }
+
+    function checkProcessing($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'Processing'){
+            $query = "UPDATE depostcheck SET status = 'Complete' WHERE check_id = '".$user_id."'";
+            $message = "Check has been complete successfully";
+        } elseif ($status === 'Complete') {
+            $query = "UPDATE depostcheck SET status = 'Processing' WHERE check_id = '".$user_id."'";
+            $message = "Check has been processing successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/check.php");
+            return;
+        }
+        header("location:../admin/check.php?success=$message");
+    }
+
+    function deleteCheck($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'delete'){
+            $query = "DELETE FROM depostcheck WHERE check_id = '".$user_id."'";
+            $message = "check has been Delete successfully";
+        }
+    
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/check.php");
+            return;
+        }
+        header("location:../admin/check.php?success=$message");
+    }
+
+    function allFee(){
+        $UserDetails = [];
+        $query = "SELECT * FROM fee";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
+    }
+
+    function getsingleFee($id) {
+        $query = "SELECT * FROM fee WHERE id = '$id'";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row;
+               //print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
+    }
+    function feeUpdate(){
+        $userid = $_SESSION['userid']=mysqli_real_escape_string($this->dbConnection, $_POST['userid']);
+        $fee = $_SESSION['fee']=mysqli_real_escape_string($this->dbConnection, $_POST['fee']);
+       
+        $thingsToValidate = [
+            $fee.'|Fee|fee',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header("location:../admin/feeUpdate.php?id=$userid");
+            return;
+        }
+
+        $query = "UPDATE fee SET fee ='".$fee."' WHERE id='".$userid."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/feeUpdate.php");
+            return;
+        }
+
+        header ("location:../admin/feeUpdate.php?id=$userid&success=User Edit was successfully");
+
+    }
+
+    function allLoan(){
+        $UserDetails = [];
+        $query = "SELECT * FROM loan";
         $details = $this->runMysqliQuery($query);//run the query
         if($details['error_code'] == 1){
             return $details['error'];

@@ -1,7 +1,7 @@
 <?php
 require ('../action/main_work.php');
 
-$UserDetails = $for->allDeposit();
+$UserDetails = $for->allLoan();
 
 
 
