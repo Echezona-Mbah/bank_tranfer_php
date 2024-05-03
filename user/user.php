@@ -78,8 +78,8 @@ $fee = $for->feeuser();
                                 if ($account !== 'No Data was returned') { 
                                     while ($row = mysqli_fetch_assoc($account)) { 
                                         echo "<option value=''>Select Source Account</option>";
-                                        echo "<option value='current'>Current Account ({$row['current']}) Current: $" . $user->current_balance . "</option>";
-                                        echo "<option value='saving'>Savings Account ({$row['saving']}) Savings: $" . $user->saving_balance . "</option>";
+                                        echo "<option value='Current Account ({$row['current']}) '>Current Account ({$row['current']}) Current: $" . $user->current_balance . "</option>";
+                                        echo "<option value=' Savings Account ({$row['saving']})'>Savings Account ({$row['saving']}) Savings: $" . $user->saving_balance . "</option>";
                                     }
                                 } else {
                                     echo "<option>No accounts available</option>";

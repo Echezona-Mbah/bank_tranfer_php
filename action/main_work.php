@@ -773,7 +773,8 @@ class main_work{
         $user_unique_id = $_SESSION['user_unique_id'];
         $current = $_SESSION['current'];
         $saving = $_SESSION['saving'];
-        $account_number = substr($account, 1, 11);
+        preg_match('/\((\d+)\)/', $account, $matches);
+        $account_number = isset($matches[1]) ? $matches[1] : null;
         $sus = $this->getsingledetail($user_unique_id);
         //  print_r($ass->status);die();
           $active = $sus->suspended;
@@ -945,7 +946,8 @@ class main_work{
         $user_unique_id = $_SESSION['user_unique_id'];
         $current = $_SESSION['current'];
         $saving = $_SESSION['saving'];
-        $account_number = substr($account, 1, 11);
+        preg_match('/\((\d+)\)/', $account, $matches);
+        $account_number = isset($matches[1]) ? $matches[1] : null;
         $sus = $this->getsingledetail($user_unique_id);
         //  print_r($ass->status);die();
           $active = $sus->suspended;
@@ -1244,7 +1246,8 @@ class main_work{
         $user_unique_id = $_SESSION['user_unique_id'];
         $current = $_SESSION['current'];
         $saving = $_SESSION['saving'];
-        $account_number = substr($account, 1, 11);
+        preg_match('/\((\d+)\)/', $account, $matches);
+         $account_number = isset($matches[1]) ? $matches[1] : null;
         $sus = $this->getsingledetail($user_unique_id);
         //  print_r($ass->status);die();
           $active = $sus->suspended;
@@ -1381,12 +1384,11 @@ class main_work{
         $user_unique_id = $_SESSION['user_unique_id'];
         $current = $_SESSION['current'];
         $saving = $_SESSION['saving'];
-        $matches = [];
-        preg_match('/\((.*?)\)/', $account, $matches);
-        if (isset($matches[1])) {
-            $account_number = $matches[1];
-            print_r($account_number); die();
-        } 
+        preg_match('/\((\d+)\)/', $account, $matches);
+       // print_r($account);die(); // Debugging
+        $account_number = isset($matches[1]) ? $matches[1] : null;
+        // $account_number = substr($account, 4, 1);
+       // print_r($account_number); die();
 
         $card_id = $this->createUniqueID('card', 'card_id');
 
@@ -1427,7 +1429,7 @@ class main_work{
             header ('location:../user/card.php?&success=Tranfer was successfully');
 
         }
-        print_r($current); die();
+        //print_r($current); die();
         if($current == $account_number){
             $ass = $this->getsingledetail($user_unique_id);
             $fee = $this->feecard();
@@ -1941,6 +1943,24 @@ class main_work{
             return;
         }
         header("location:../admin/card.php?success=$message");
+    }
+
+    function allCurrency(){
+        $UserDetails = [];
+        $query = "SELECT * FROM currencies";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
     }
     
 
