@@ -2536,6 +2536,7 @@ class main_work{
             header("location:../admin/currencyUpdate.php?id=$userid");
             return;
         }
+        //ppjh
 
         $query = "UPDATE currencies SET currency ='".$currency."' WHERE id='".$userid."' ";
         $back = $this->runMysqliQuery($query);
