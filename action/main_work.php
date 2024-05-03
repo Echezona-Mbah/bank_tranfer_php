@@ -2502,6 +2502,52 @@ class main_work{
         }
         header("location:../admin/user.php?success=$message");
     }
+
+    function AdminWallect(){
+        $UserDetails = [];
+        $query = "SELECT * FROM wallect";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+              //  print_r($row);die();
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
+    }
+
+    function wallectUpdate(){
+        $userid = $_SESSION['userid']=mysqli_real_escape_string($this->dbConnection, $_POST['userid']);
+        $currency = $_SESSION['currency']=mysqli_real_escape_string($this->dbConnection, $_POST['currency']);
+       
+        $thingsToValidate = [
+            $currency.'|Currency|currency',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header("location:../admin/currencyUpdate.php?id=$userid");
+            return;
+        }
+
+        $query = "UPDATE currencies SET currency ='".$currency."' WHERE id='".$userid."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/currencyUpdate.php");
+            return;
+        }
+
+        header ("location:../admin/currencyUpdate.php?id=$userid&success=User Edit was successfully");
+
+    }
     
 
     
