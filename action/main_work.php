@@ -106,6 +106,9 @@ class main_work{
                 case 'deleteCard':
                     $this->deleteCard('delete');
                     break;
+                case 'currencyUpdate':
+                    $this->currencyUpdate();
+                    break;
 
             }
         }
@@ -1948,6 +1951,70 @@ class main_work{
     function allCurrency(){
         $UserDetails = [];
         $query = "SELECT * FROM currencies";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
+    }
+
+    function getsingleCurrency($id) {
+        $query = "SELECT * FROM currencies WHERE id = '$id'";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row;
+               //print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
+    }
+    function currencyUpdate(){
+        $userid = $_SESSION['userid']=mysqli_real_escape_string($this->dbConnection, $_POST['userid']);
+        $currency = $_SESSION['currency']=mysqli_real_escape_string($this->dbConnection, $_POST['currency']);
+       
+        $thingsToValidate = [
+            $currency.'|Currency|currency',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header("location:../admin/currencyUpdate.php?id=$userid");
+            return;
+        }
+
+        $query = "UPDATE currencies SET currency ='".$currency."' WHERE id='".$userid."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/currencyUpdate.php");
+            return;
+        }
+
+        header ("location:../admin/currencyUpdate.php?id=$userid&success=User Edit was successfully");
+
+    }
+
+    function allDeposit(){
+        $UserDetails = [];
+        $query = "SELECT * FROM deposit";
         $details = $this->runMysqliQuery($query);//run the query
         if($details['error_code'] == 1){
             return $details['error'];
