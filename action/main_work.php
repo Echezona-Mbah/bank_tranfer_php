@@ -2529,14 +2529,13 @@ class main_work{
         $thingsToValidate = [
             $currency.'|Currency|currency',
         ];
-
+//xcvbn
         $validationStatus = $this->callValidation($thingsToValidate);
         if($validationStatus === false){
             $_SESSION['formError'] = $this->errors;
             header("location:../admin/currencyUpdate.php?id=$userid");
             return;
         }
-        //ppjhasdfghjkgfdfghj
 
         $query = "UPDATE currencies SET currency ='".$currency."' WHERE id='".$userid."' ";
         $back = $this->runMysqliQuery($query);
