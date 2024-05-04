@@ -9,7 +9,7 @@
                         <a href="index.html"><img class="logo_icon img-responsive" src="images/logo/logo_icon.png" alt="#" /></a>
                      </div>
                   </div>
-                  <div class="sidebar_user_info">
+                  <!-- <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
                         <div class="user_img"><img class="img-responsive" src="images/layout_img/user_img.jpg" alt="#" /></div>
@@ -18,7 +18,7 @@
                            <p><span class="online_animation"></span> Online</p>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                </div>
                <div class="sidebar_blog_2">
                   <h4>General</h4>
@@ -62,7 +62,7 @@
                               <a href="currency.php">> <span>Currency</span></a>>
                         </ul>
                      </li>
-                     <li><a href="map.html"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
+                     <li><a href="../action/main_work.php?option=logouts"><i class="fa fa-map purple_color2"></i> <span>Logout</span></a></li>
                      <!-- <li><a href="charts.html"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>
                      <li><a href="settings.html"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li> -->
                   </ul>

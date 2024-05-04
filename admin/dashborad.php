@@ -1,6 +1,10 @@
 <?php
 require ('../action/main_work.php');
 
+$Totaluser = $for->Totaluser();
+$Totalcard = $for->Totalcard();
+$Totaldeposit = $for->Totaldeposit();
+$Totaldepositcheck = $for->Totaldepositcheck();
 $UserDetails = $for->alluser();
 
 
@@ -39,7 +43,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                               </div>
                               <div class="counter_no">
                                  <div>
-                                    <p class="total_no">2500</p>
+                                    <p class="total_no"><?php echo $Totaluser ?></p>
                                     <p class="head_couter">Welcome</p>
                                  </div>
                               </div>
@@ -54,8 +58,8 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                               </div>
                               <div class="counter_no">
                                  <div>
-                                    <p class="total_no">123.50</p>
-                                    <p class="head_couter">Average Time</p>
+                                    <p class="total_no"><?php echo $Totalcard ?></p>
+                                    <p class="head_couter">Request Card</p>
                                  </div>
                               </div>
                            </div>
@@ -69,8 +73,8 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                               </div>
                               <div class="counter_no">
                                  <div>
-                                    <p class="total_no">1,805</p>
-                                    <p class="head_couter">Collections</p>
+                                    <p class="total_no"><?php echo $Totaldeposit ?></p>
+                                    <p class="head_couter">Total Crypto deposit</p>
                                  </div>
                               </div>
                            </div>
@@ -84,8 +88,8 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                               </div>
                               <div class="counter_no">
                                  <div>
-                                    <p class="total_no">54</p>
-                                    <p class="head_couter">Comments</p>
+                                    <p class="total_no"><?php echo $Totaldepositcheck ?></p>
+                                    <p class="head_couter">Total Check deposit</p>
                                  </div>
                               </div>
                            </div>

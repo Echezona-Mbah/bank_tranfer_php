@@ -73,6 +73,9 @@ class main_work{
                 case 'logout':
                     $this->logout();
                     break;
+                case 'logouts':
+                    $this->logouts();
+                    break;
                 case 'pending':
                     $this->suspendUser('confirmed');
                     break;
@@ -1741,6 +1744,10 @@ class main_work{
         session_destroy();
         header('location:../login.php?success=you have successfully logged out');
     }
+    function logouts(){
+        session_destroy();
+        header('location:../loginAdmin.php?success=you have successfully logged out');
+    }
 
 
     function loginAdmin(){
@@ -1796,6 +1803,80 @@ class main_work{
             return $UserDetails;
         }
     }
+
+    function Totaluser(){
+        $query = "SELECT COUNT(*) FROM user";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return '0';
+        }else{
+            while($row = mysqli_fetch_array($result)){
+                $UserDetails = $row[0];
+                //print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
+    }
+
+    
+    function Totalcard(){
+        $query = "SELECT COUNT(*) FROM card";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return '0';
+        }else{
+            while($row = mysqli_fetch_array($result)){
+                $UserDetails = $row[0];
+                //print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
+    }
+
+    function Totaldeposit(){
+        $query = "SELECT COUNT(*) FROM deposit";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return '0';
+        }else{
+            while($row = mysqli_fetch_array($result)){
+                $UserDetails = $row[0];
+                //print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
+    }
+    function Totaldepositcheck(){
+        $query = "SELECT COUNT(*) FROM depostcheck";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return '0';
+        }else{
+            while($row = mysqli_fetch_array($result)){
+                $UserDetails = $row[0];
+                //print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
+    }
+
+
 
 
     function suspendedUser($status){
