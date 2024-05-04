@@ -91,8 +91,7 @@ if ($wallets === 'No Data was returned' || $wallets === 'Error fetching data') {
                                 <?php
                                 if (is_array($wallets)) {
                                     foreach ($wallets as $k => $wallet) {
-                                        echo "<option value='bitcoin' data-address='{$wallet->bitcoin}'>Bitcoin</option>";
-                                        echo "<option value='etheurem' data-address='{$wallet->etheurem}'>Etheurem</option>";
+                                        echo "<option value='{$wallet->name}' data-address='{$wallet->wallect}'>{$wallet->name}</option>";
                                     }
                                 }
                                 ?>

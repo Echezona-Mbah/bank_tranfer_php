@@ -1,7 +1,7 @@
 <?php
 require ('../action/main_work.php');
 
-$UserDetails = $for->AdminWallect();
+$UserDetails = $for->allWire();
 
 
 
@@ -50,7 +50,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>All Wallect</h2>
+                              <h2>LOcal Transfer</h2>
                            </div>
                         </div>
                      </div>
@@ -63,8 +63,16 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                              <thead class="thead-dark">
                                                 <tr>
                                                    <th style="width: 2%">No</th>
-                                                   <th>name</th>
-                                                   <th>Wallect</th>
+                                                   <th >Refrence_id</th>
+                                                   <th>Name</th>
+                                                   <th>Amount</th>
+                                                   <th>account</th>
+                                                   <th>Bank Name</th>
+                                                   <th>Account Number</th>
+                                                   <th>Account Name</th>
+                                                   <th>Details</th>
+                                                   <th>Status</th>
+                                                   <th>Delete</th>
                                                    <th>action</th>
                                                 </tr>
                                              </thead>
@@ -74,10 +82,40 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
                                                 <tr>
                                                     <td><?php echo $i++; ?></td>
-                                                    <td><?php echo $row->name; ?></td>
-                                                    <td><?php echo $row->wallect; ?></td>
+                                                    <td><?php echo $row->local_id; ?></td>
+                                                    <?php $user = $for->getsingledetail($row->user_unique_id); ?>
+                                                    <td><?php echo $user->name; ?></td>
+                                                    <td><?php echo $row->amount; ?></td>
+                                                    <td><?php echo $row->account; ?></td>
+                                                    <td><?php echo $row->bank_name; ?></td>
+                                                    <td><?php echo $row->account_numble; ?></td>
+                                                    <td><?php echo $row->account_name; ?></td>
+                                                    <td><?php echo $row->details; ?></td>
 
-                                                    <td><a class="btn btn-success" href="wallectUpdate.php?id=<?php echo $row->id; ?>" data-toggle="tooltip" data-placement="left" title="Left">Edit</a></td>
+                                                    <td><?php echo $row->status; ?></td>
+
+                                                   <td>
+                                                      <form method="post" action="../action/main_work.php?option=deletelocal">
+                                                         <input type="hidden" name="user_id" value="<?php echo $row->local_id; ?>">
+                                                         <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">Delete</button>
+                                                      </form>
+                                                   </td>
+
+
+                                                   <td>
+                                                   <?php
+                                                   $userId = $row->local_id;
+                                                   $status = ($row->status == 'Processing') ? 'Complete' : 'Processing';
+                                                   $statu = ($row->status == 'Processing') ? 'localComplete' : 'localProcessing';
+                                                   ?>
+                                                      <form action="../action/main_work.php?option=<?php echo $statu; ?>" method="post">
+                                                      <input type="hidden" name="user_id" value="<?php echo $userId; ?>">
+                                                      <input type="hidden" name="status" value="<?php echo $status; ?>">
+                                                      <button class="btn btn-success" data-toggle="tooltip" data-placement="top"  type="submit">
+                                                         <?php echo ucfirst($status); ?>
+                                                      </button>
+                                                   </form>
+                                                   </td>
 
 
                                                 </tr>

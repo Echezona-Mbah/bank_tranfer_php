@@ -169,6 +169,9 @@ class main_work{
                 case 'deleteUserT':
                     $this->deleteUserT('delete');
                     break;
+                case 'wallectUpdate':
+                    $this->wallectUpdate('');
+                    break;
                     
 
             }
@@ -2521,33 +2524,107 @@ class main_work{
             return $UserDetails;
         }
     }
+    function getsinglewallect($id) {
+        $query = "SELECT * FROM wallect WHERE id = '$id'";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row;
+               //print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
+    }
 
     function wallectUpdate(){
         $userid = $_SESSION['userid']=mysqli_real_escape_string($this->dbConnection, $_POST['userid']);
-        $currency = $_SESSION['currency']=mysqli_real_escape_string($this->dbConnection, $_POST['currency']);
+        $name = $_SESSION['name']=mysqli_real_escape_string($this->dbConnection, $_POST['name']);
        
         $thingsToValidate = [
-            $currency.'|Currency|currency',
+            $name.'|Name|name',
         ];
-//xcvbn
+
         $validationStatus = $this->callValidation($thingsToValidate);
         if($validationStatus === false){
             $_SESSION['formError'] = $this->errors;
-            header("location:../admin/currencyUpdate.php?id=$userid");
+            header("location:../admin/wallectUpdate.php?id=$userid");
             return;
         }
 
-        $query = "UPDATE currencies SET currency ='".$currency."' WHERE id='".$userid."' ";
+        $query = "UPDATE wallect SET wallect ='".$name."' WHERE id='".$userid."' ";
         $back = $this->runMysqliQuery($query);
         if($back['error_code'] == 1){
             $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
-            header("location:../user/currencyUpdate.php");
+            header("location:../user/wallectUpdate.php");
             return;
         }
 
-        header ("location:../admin/currencyUpdate.php?id=$userid&success=User Edit was successfully");
+        header ("location:../admin/wallectUpdate.php?id=$userid&success=User Edit was successfully");
 
     }
+
+    function allWire(){
+        $UserDetails = [];
+        $query = "SELECT * FROM wire_tranfer";
+        $details = $this->runMysqliQuery($query);//run the query
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if(mysqli_num_rows($result) == 0){
+            return 'No Data was returned';
+        }else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails[] = $row;
+            }
+            return $UserDetails;
+        }
+    }
+    // function localProcessing($status){
+    //     $query = "";
+    //     $message = "";
+    //     $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+    //     if($status === 'Processing'){
+    //         $query = "UPDATE local_tranfer SET status = 'Complete' WHERE local_id = '".$user_id."'";
+    //         $message = "local tranfer has been complete successfully";
+    //     } elseif ($status === 'Complete') {
+    //         $query = "UPDATE local_tranfer SET status = 'Processing' WHERE local_id = '".$user_id."'";
+    //         $message = "local tranfer has been processing successfully";
+    //     }
+    
+    //     $result = $this->runMysqliQuery($query);
+    //     if($result['error_code'] == 1){
+    //         $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+    //         header("location:../admin/local.php");
+    //         return;
+    //     }
+    //     header("location:../admin/local.php?success=$message");
+    // }
+    // function deletelocal($status){
+    //     $query = "";
+    //     $message = "";
+    //     $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+    //     if($status === 'delete'){
+    //         $query = "DELETE FROM local_tranfer WHERE local_id  = '".$user_id."'";
+    //         $message = "local tranfer has been Delete successfully";
+    //     }
+    
+    //     $result = $this->runMysqliQuery($query);
+    //     if($result['error_code'] == 1){
+    //         $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+    //         header("location:../admin/local.php");
+    //         return;
+    //     }
+    //     header("location:../admin/local.php?success=$message");
+    // }
     
 
     
