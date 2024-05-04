@@ -172,6 +172,15 @@ class main_work{
                 case 'wallectUpdate':
                     $this->wallectUpdate('');
                     break;
+                case 'wireProcessing':
+                    $this->wireProcessing('Complete');
+                    break;
+                case 'wireComplete':
+                    $this->wireProcessing('Processing');
+                    break;
+                case 'deletewire':
+                    $this->deletewire('delete');
+                    break;
                     
 
             }
@@ -2588,43 +2597,43 @@ class main_work{
             return $UserDetails;
         }
     }
-    // function localProcessing($status){
-    //     $query = "";
-    //     $message = "";
-    //     $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
-    //     if($status === 'Processing'){
-    //         $query = "UPDATE local_tranfer SET status = 'Complete' WHERE local_id = '".$user_id."'";
-    //         $message = "local tranfer has been complete successfully";
-    //     } elseif ($status === 'Complete') {
-    //         $query = "UPDATE local_tranfer SET status = 'Processing' WHERE local_id = '".$user_id."'";
-    //         $message = "local tranfer has been processing successfully";
-    //     }
+    function wireProcessing($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'Processing'){
+            $query = "UPDATE wire_tranfer SET status = 'Complete' WHERE wire_id  = '".$user_id."'";
+            $message = "wire tranfer has been complete successfully";
+        } elseif ($status === 'Complete') {
+            $query = "UPDATE wire_tranfer SET status = 'Processing' WHERE wire_id  = '".$user_id."'";
+            $message = "wire tranfer has been processing successfully";
+        }
     
-    //     $result = $this->runMysqliQuery($query);
-    //     if($result['error_code'] == 1){
-    //         $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
-    //         header("location:../admin/local.php");
-    //         return;
-    //     }
-    //     header("location:../admin/local.php?success=$message");
-    // }
-    // function deletelocal($status){
-    //     $query = "";
-    //     $message = "";
-    //     $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
-    //     if($status === 'delete'){
-    //         $query = "DELETE FROM local_tranfer WHERE local_id  = '".$user_id."'";
-    //         $message = "local tranfer has been Delete successfully";
-    //     }
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/wire.php");
+            return;
+        }
+        header("location:../admin/wire.php?success=$message");
+    }
+    function deletewire($status){
+        $query = "";
+        $message = "";
+        $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        if($status === 'delete'){
+            $query = "DELETE FROM wire_tranfer WHERE wire_id  = '".$user_id."'";
+            $message = "wire tranfer has been Delete successfully";
+        }
     
-    //     $result = $this->runMysqliQuery($query);
-    //     if($result['error_code'] == 1){
-    //         $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
-    //         header("location:../admin/local.php");
-    //         return;
-    //     }
-    //     header("location:../admin/local.php?success=$message");
-    // }
+        $result = $this->runMysqliQuery($query);
+        if($result['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
+            header("location:../admin/wire.php");
+            return;
+        }
+        header("location:../admin/wire.php?success=$message");
+    }
     
 
     

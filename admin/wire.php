@@ -50,7 +50,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>LOcal Transfer</h2>
+                              <h2>Wire Transfer</h2>
                            </div>
                         </div>
                      </div>
@@ -82,7 +82,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
                                                 <tr>
                                                     <td><?php echo $i++; ?></td>
-                                                    <td><?php echo $row->local_id; ?></td>
+                                                    <td><?php echo $row->wire_id; ?></td>
                                                     <?php $user = $for->getsingledetail($row->user_unique_id); ?>
                                                     <td><?php echo $user->name; ?></td>
                                                     <td><?php echo $row->amount; ?></td>
@@ -95,8 +95,8 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                     <td><?php echo $row->status; ?></td>
 
                                                    <td>
-                                                      <form method="post" action="../action/main_work.php?option=deletelocal">
-                                                         <input type="hidden" name="user_id" value="<?php echo $row->local_id; ?>">
+                                                      <form method="post" action="../action/main_work.php?option=deletewire">
+                                                         <input type="hidden" name="user_id" value="<?php echo $row->wire_id; ?>">
                                                          <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Delete">Delete</button>
                                                       </form>
                                                    </td>
@@ -104,9 +104,9 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 
                                                    <td>
                                                    <?php
-                                                   $userId = $row->local_id;
+                                                   $userId = $row->wire_id;
                                                    $status = ($row->status == 'Processing') ? 'Complete' : 'Processing';
-                                                   $statu = ($row->status == 'Processing') ? 'localComplete' : 'localProcessing';
+                                                   $statu = ($row->status == 'Processing') ? 'wireComplete' : 'wireProcessing';
                                                    ?>
                                                       <form action="../action/main_work.php?option=<?php echo $statu; ?>" method="post">
                                                       <input type="hidden" name="user_id" value="<?php echo $userId; ?>">

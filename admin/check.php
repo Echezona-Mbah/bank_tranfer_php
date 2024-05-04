@@ -50,7 +50,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Deposit</h2>
+                              <h2>Check Deposit</h2>
                            </div>
                         </div>
                      </div>
