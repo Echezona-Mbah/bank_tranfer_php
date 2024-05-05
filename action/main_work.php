@@ -254,10 +254,17 @@ class main_work{
         $headers .= "Reply-To: your_email@example.com\r\n";
         $headers .= "Content-type: text/html\r\n";
 
-        mail($to, $subject, $message, $headers);
+
 
     
-        header("location:../pincode.php?success=Register was successful");
+        if (mail($to, $subject, $message, $headers)) {
+            // Email sent successfully
+            header("location:../pincode.php?success=Register was successful");
+        } else {
+            // Email sending failed
+            $_SESSION['formError'] = ['general_error' => ['Failed to send email. Please try again later.']];
+            header('location:../register.php');
+        }
     }  
 
     function pincode(){
