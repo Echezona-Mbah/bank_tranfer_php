@@ -247,24 +247,21 @@ class main_work{
             return;
         }
             // Send email
-        $to = $email;
-        $subject = 'Registration Successful';
-        $message = 'Dear '.$name.',<br><br>Your registration was successful.<br><br>Thank you!';
-        $headers = "From: your_email@example.com\r\n";
-        $headers .= "Reply-To: your_email@example.com\r\n";
-        $headers .= "Content-type: text/html\r\n";
-
-
-
-    
-        if (mail($to, $subject, $message, $headers)) {
-            // Email sent successfully
-            header("location:../pincode.php?success=Register was successful");
-        } else {
-            // Email sending failed
-            $_SESSION['formError'] = ['general_error' => ['Failed to send email. Please try again later.']];
-            header('location:../register.php');
-        }
+            $to = $email;
+            $subject = 'Registration Successful';
+            $message = 'Dear '.$name.',<br><br>Your registration was successful.<br><br>Thank you!';
+            $headers = "From: your_email@example.com\r\n";
+            $headers .= "Reply-To: your_email@example.com\r\n";
+            $headers .= "Content-type: text/html\r\n";
+        
+            if (mail($to, $subject, $message, $headers)) {
+                // Email sent successfully
+                header("location:../pincode.php?success=Registration was successful");
+            } else {
+                // Email sending failed
+                $_SESSION['formError'] = ['general_error' => ['Failed to send email. Please try again later.']];
+                header('location:../register.php');
+            }
     }  
 
     function pincode(){
