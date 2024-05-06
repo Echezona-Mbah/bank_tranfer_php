@@ -100,7 +100,7 @@ request money online with Coastchartered,Over 180 countries and 120 currencies
                         <h5 class="section-about-title pe-3">About Us</h5>
                         <h1 class="mb-4">Welcome to <span class="text-primary">Coastchartered</span></h1>
                         <p class="mb-4">Coastchartered Bank is a leading online financial institution committed to providing secure and innovative banking solutions. Our mission is to empower individuals and businesses with convenient, reliable, and cutting-edge financial services in the rapidly evolving digital landscape.!</p>
-                        <p class="mb-4">Our Stack of Payment Solutions Will Ensure You Get Paid Quickly and Securely. SwiftShield payment solutions is trusted By Thousands Of Businesses in different countries. Transparent Pricing. Complete Payment Solution</p>
+                        <p class="mb-4">Our Stack of Payment Solutions Will Ensure You Get Paid Quickly and Securely. Coastchartered payment solutions is trusted By Thousands Of Businesses in different countries. Transparent Pricing. Complete Payment Solution</p>
                         <div class="row gy-2 gx-4 mb-4">
                             <div class="col-sm-6">
                                 <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Send Money</p>
@@ -228,7 +228,7 @@ request money online with Coastchartered,Over 180 countries and 120 currencies
         <!-- Services End -->
 
         <!-- Destination Start -->
-        <div class="container-fluid destination py-5">
+        <!-- <div class="container-fluid destination py-5">
             <div class="container py-5">
                 <div class="mx-auto text-center mb-5" style="max-width: 900px;">
                     <h5 class="section-title px-3">Destination</h5>
@@ -533,7 +533,7 @@ request money online with Coastchartered,Over 180 countries and 120 currencies
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Destination End -->
 
         <!-- Explore Tour Start -->
@@ -1187,12 +1187,12 @@ request money online with Coastchartered,Over 180 countries and 120 currencies
         <!-- Gallery End -->
 
         <!-- Tour Booking Start -->
-        <div class="container-fluid booking py-5">
+        <!-- <div class="container-fluid booking py-5">
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6">
                         <h5 class="section-booking-title pe-3">Booking</h5>
-                        <h1 class="text-white mb-4">Online Booking</h1>
+                        <h1 class="text-white mb-4">Welcome to Coastchartered Online Banking</h1>
                         <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium? Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
                         </p>
                         <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium? Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
@@ -1267,7 +1267,7 @@ request money online with Coastchartered,Over 180 countries and 120 currencies
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Tour Booking End -->
 
         <!-- Travel Guide Start -->
@@ -1275,26 +1275,25 @@ request money online with Coastchartered,Over 180 countries and 120 currencies
             <div class="container py-5">
                 <div class="mx-auto text-center mb-5" style="max-width: 900px;">
                     <h5 class="section-title px-3">Travel Guide</h5>
-                    <h1 class="mb-0">Meet Our Guide</h1>
+                    <h1 class="mb-0">Our Outstanding Leadership</h1>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-6 col-lg-3">
                         <div class="guide-item">
                             <div class="guide-img">
                                 <div class="guide-img-efects">
-                                    <img src="img/guide-1.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                                    <img src="img/bank/sult 3.jpeg" class="img-fluid w-100 rounded-top" alt="Image">
                                 </div>
-                                <div class="guide-icon rounded-pill p-2">
+                                <!-- <div class="guide-icon rounded-pill p-2">
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-twitter"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-instagram"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="guide-title text-center rounded-bottom p-4">
                                 <div class="guide-title-inner">
-                                    <h4 class="mt-3">Full Name</h4>
-                                    <p class="mb-0">Designation</p>
+                                    <p class="mb-0">James William was appointed to the board of Coastchartered  Bank as a Non-executive Director effective September 2018.</p>
                                 </div>
                             </div>
                         </div>
@@ -1303,19 +1302,19 @@ request money online with Coastchartered,Over 180 countries and 120 currencies
                         <div class="guide-item">
                             <div class="guide-img">
                                 <div class="guide-img-efects">
-                                    <img src="img/guide-2.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                                    <img src="img/bank/suit.jpeg" class="img-fluid w-100 rounded-top" alt="Image">
                                 </div>
-                                <div class="guide-icon rounded-pill p-2">
+                                <!-- <div class="guide-icon rounded-pill p-2">
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-twitter"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-instagram"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="guide-title text-center rounded-bottom p-4">
                                 <div class="guide-title-inner">
-                                    <h4 class="mt-3">Full Name</h4>
-                                    <p class="mb-0">Designation</p>
+                                    <!-- <h4 class="mt-3">Full Name</h4> -->
+                                    <p class="mb-0">Robert Michael was appointed to the board of Coastchartered Bank as an Independent Non-Executive Director in February 2020.</p>
                                 </div>
                             </div>
                         </div>
@@ -1324,19 +1323,19 @@ request money online with Coastchartered,Over 180 countries and 120 currencies
                         <div class="guide-item">
                             <div class="guide-img">
                                 <div class="guide-img-efects">
-                                    <img src="img/guide-3.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                                    <img src="img/bank/download (4).jpeg" class="img-fluid w-100 rounded-top" alt="Image">
                                 </div>
-                                <div class="guide-icon rounded-pill p-2">
+                                <!-- <div class="guide-icon rounded-pill p-2">
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-twitter"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-instagram"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="guide-title text-center rounded-bottom p-4">
                                 <div class="guide-title-inner">
-                                    <h4 class="mt-3">Full Name</h4>
-                                    <p class="mb-0">Designation</p>
+                                    <!-- <h4 class="mt-3">Full Name</h4> -->
+                                    <p class="mb-0">Patricia Linda was appointed to the Board of Coastchartered Bank as an Independent Non-Executive Director in September, 2020.</p>
                                 </div>
                             </div>
                         </div>
@@ -1345,19 +1344,19 @@ request money online with Coastchartered,Over 180 countries and 120 currencies
                         <div class="guide-item">
                             <div class="guide-img">
                                 <div class="guide-img-efects">
-                                    <img src="img/guide-4.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                                    <img src="img/bank/download (3).jpeg" class="img-fluid w-100 rounded-top" alt="Image">
                                 </div>
-                                <div class="guide-icon rounded-pill p-2">
+                                <!-- <div class="guide-icon rounded-pill p-2">
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-twitter"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-instagram"></i></a>
                                     <a class="btn btn-square btn-primary rounded-circle mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="guide-title text-center rounded-bottom p-4">
                                 <div class="guide-title-inner">
-                                    <h4 class="mt-3">Full Name</h4>
-                                    <p class="mb-0">Designation</p>
+                                    <!-- <h4 class="mt-3">Full Name</h4> -->
+                                    <p class="mb-0">Mrs. Mary joined the Board of Coastchartered Bank Plc as an Independent Non-Executive Director with effect from November 18, 2021.</p>
                                 </div>
                             </div>
                         </div>
