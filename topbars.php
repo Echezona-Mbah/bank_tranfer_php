@@ -52,19 +52,20 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.php" class="nav-item nav-link">Home</a>
+                        <a href="index.php" class="nav-item nav-link active">Home</a>
                         <a href="about.php" class="nav-item nav-link">About</a>
                         <a href="services.php" class="nav-item nav-link">Services</a>
                         <a href="packages.php" class="nav-item nav-link">Packages</a>
                         <a href="blog.php" class="nav-item nav-link">Blog</a>
                         <!-- <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0">
                                 <a href="destination.php" class="dropdown-item">Destination</a>
                                 <a href="tour.php" class="dropdown-item">Explore Tour</a>
+                                <a href="booking.php" class="dropdown-item">Travel Booking</a>
                                 <a href="gallery.php" class="dropdown-item">Our Gallery</a>
                                 <a href="guides.php" class="dropdown-item">Travel Guides</a>
-                                <a href="testimonial.php" class="dropdown-item active">Testimonial</a>
+                                <a href="testimonial.php" class="dropdown-item">Testimonial</a>
                             </div>
                         </div> -->
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
@@ -72,5 +73,5 @@
                     <!-- <a href="#" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a> -->
                 </div>
             </nav>
-        </div>
-        <!-- Navbar & Hero End -->
+
+        

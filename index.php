@@ -9,42 +9,8 @@
 
     <body>
 
-    <?php require('topbar.php')?>
+    <?php require('topbars.php')?>
 
-        <!-- Navbar & Hero Start -->
-        <div class="container-fluid position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="#" class="navbar-brand p-0">
-                    <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>Travela</h1>
-                    <!-- <img src="img/logo.png" alt="Logo"> -->
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="services.html" class="nav-item nav-link">Services</a>
-                        <a href="packages.html" class="nav-item nav-link">Packages</a>
-                        <a href="blog.html" class="nav-item nav-link">Blog</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu m-0">
-                                <a href="destination.html" class="dropdown-item">Destination</a>
-                                <a href="tour.html" class="dropdown-item">Explore Tour</a>
-                                <a href="booking.html" class="dropdown-item">Travel Booking</a>
-                                <a href="gallery.html" class="dropdown-item">Our Gallery</a>
-                                <a href="guides.html" class="dropdown-item">Travel Guides</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                <a href="404.html" class="dropdown-item">404 Page</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div>
-                    <a href="#" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a>
-                </div>
-            </nav>
 
             <!-- Carousel Start -->
             <div class="carousel-header">
@@ -56,12 +22,13 @@
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
-                            <img src="img/carousel-2.jpg" class="img-fluid" alt="Image">
+                            <img src="img/bank/bacc.png" class="img-fluid" alt="Image">
                             <div class="carousel-caption">
                                 <div class="p-3" style="max-width: 900px;">
                                     <h4 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Explore The World</h4>
-                                    <h1 class="display-2 text-capitalize text-white mb-4">Let's The World Together!</h1>
-                                    <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                                    <h1 class="display-2 text-capitalize text-white mb-4">Send & Receive Money!</h1>
+                                    <p class="mb-5 fs-5">Quickly and easily send, receive and
+request money online with Coastchartered,Over 180 countries and 120 currencies 
                                     </p>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="#">Discover Now</a>
@@ -70,12 +37,12 @@
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="img/carousel-1.jpg" class="img-fluid" alt="Image">
+                            <img src="img/bank/download (1).jpeg" class="img-fluid" alt="Image">
                             <div class="carousel-caption">
                                 <div class="p-3" style="max-width: 900px;">
                                     <h4 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Explore The World</h4>
-                                    <h1 class="display-2 text-capitalize text-white mb-4">Find Your Perfect Tour At Travel</h1>
-                                    <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                                    <h1 class="display-2 text-capitalize text-white mb-4">Your Perfect Banking</h1>
+                                    <p class="mb-5 fs-5">Trusted by more than 50,000 businesses worldwide., 
                                     </p>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="#">Discover Now</a>
@@ -84,12 +51,12 @@
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="img/carousel-3.jpg" class="img-fluid" alt="Image">
+                            <img src="img/bank/images (8).jpeg" class="img-fluid" alt="Image">
                             <div class="carousel-caption">
                                 <div class="p-3" style="max-width: 900px;">
-                                    <h4 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Explore The World</h4>
-                                    <h1 class="display-2 text-capitalize text-white mb-4">You Like To Go?</h1>
-                                    <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                                    <h4 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">You Like To Go?</h4>
+                                    <h1 class="display-2 text-capitalize text-white mb-4">Payment Solutions for everyone.</h1>
+                                    <p class="mb-5 fs-5">Our Stack of Payment Solutions Will Ensure You Get Paid Quickly and Securely. Coastchartered payment solutions is trusted By Thousands Of Businesses in different countries., 
                                     </p>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="#">Discover Now</a>
@@ -110,14 +77,14 @@
             </div>
             <!-- Carousel End -->
         </div>
-        <div class="container-fluid search-bar position-relative" style="top: -50%; transform: translateY(-50%);">
+        <!-- <div class="container-fluid search-bar position-relative" style="top: -50%; transform: translateY(-50%);">
             <div class="container">
                 <div class="position-relative rounded-pill w-100 mx-auto p-5" style="background: rgba(19, 53, 123, 0.8);">
                     <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Eg: Thailand">
                     <button type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute me-2" style="top: 50%; right: 46px; transform: translateY(-50%);">Search</button>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Navbar & Hero End -->
 
         <!-- About Start -->
@@ -126,29 +93,29 @@
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-5">
                         <div class="h-100" style="border: 50px solid; border-color: transparent #13357B transparent #13357B;">
-                            <img src="img/about-img.jpg" class="img-fluid w-100 h-100" alt="">
+                            <img src="img/bank/download (2).jpeg" class="img-fluid w-100 h-100" alt="">
                         </div>
                     </div>
                     <div class="col-lg-7" style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .8)), url(img/about-img-1.png);">
                         <h5 class="section-about-title pe-3">About Us</h5>
-                        <h1 class="mb-4">Welcome to <span class="text-primary">Travela</span></h1>
-                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, dolorum, doloribus sunt dicta, officia voluptatibus libero necessitatibus natus impedit quam ullam assumenda? Id atque iste consectetur. Commodi odit ab saepe!</p>
-                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quos voluptatem suscipit neque enim, doloribus ipsum rem eos distinctio, dignissimos nisi saepe nulla? Libero numquam perferendis provident placeat molestiae quia?</p>
+                        <h1 class="mb-4">Welcome to <span class="text-primary">Coastchartered</span></h1>
+                        <p class="mb-4">Coastchartered Bank is a leading online financial institution committed to providing secure and innovative banking solutions. Our mission is to empower individuals and businesses with convenient, reliable, and cutting-edge financial services in the rapidly evolving digital landscape.!</p>
+                        <p class="mb-4">Our Stack of Payment Solutions Will Ensure You Get Paid Quickly and Securely. SwiftShield payment solutions is trusted By Thousands Of Businesses in different countries. Transparent Pricing. Complete Payment Solution</p>
                         <div class="row gy-2 gx-4 mb-4">
                             <div class="col-sm-6">
-                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>First Class Flights</p>
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Send Money</p>
                             </div>
                             <div class="col-sm-6">
-                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Handpicked Hotels</p>
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Receive Money</p>
                             </div>
                             <div class="col-sm-6">
-                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>5 Star Accommodations</p>
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Pay a Friend</p>
                             </div>
                             <div class="col-sm-6">
-                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Latest Model Vehicles</p>
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Get Loan</p>
                             </div>
                             <div class="col-sm-6">
-                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>150 Premium City Tours</p>
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Shopping</p>
                             </div>
                             <div class="col-sm-6">
                                 <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>24/7 Service</p>
@@ -174,8 +141,8 @@
                             <div class="col-12">
                                 <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 pe-0">
                                     <div class="service-content text-end">
-                                        <h5 class="mb-4">WorldWide Tours</h5>
-                                        <p class="mb-0">Dolor sit amet consectetur adipisicing elit. Non alias eum, suscipit expedita corrupti officiis debitis possimus nam laudantium beatae quidem dolore consequuntur voluptate rem reiciendis, omnis sequi harum earum.
+                                        <h5 class="mb-4">Savings Account</h5>
+                                        <p class="mb-0">Whether you want instant access to your cash, a fixed rate or an account you can manage easily from the comfort of your living room, we have a saving account suited for you.
                                         </p>
                                     </div>
                                     <div class="service-icon p-4">
@@ -186,9 +153,8 @@
                             <div class="col-12">
                                 <div class="service-content-inner d-flex align-items-center  bg-white border border-primary rounded p-4 pe-0">
                                     <div class="service-content text-end">
-                                        <h5 class="mb-4">Hotel Reservation</h5>
-                                        <p class="mb-0">Dolor sit amet consectetur adipisicing elit. Non alias eum, suscipit expedita corrupti officiis debitis possimus nam laudantium beatae quidem dolore consequuntur voluptate rem reiciendis, omnis sequi harum earum.
-                                        </p>
+                                        <h5 class="mb-4">Current Account</h5>
+                                        <p class="mb-0">Are you looking for something beyond a simple transactional account? We offer a range of current accounts to suit everyone from the young graduate to the upwardly mobile professional.                                        </p>
                                     </div>
                                     <div class="service-icon p-4">
                                         <i class="fa fa-hotel fa-4x text-primary"></i>
@@ -198,8 +164,8 @@
                             <div class="col-12">
                                 <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 pe-0">
                                     <div class="service-content text-end">
-                                        <h5 class="mb-4">Travel Guides</h5>
-                                        <p class="mb-0">Dolor sit amet consectetur adipisicing elit. Non alias eum, suscipit expedita corrupti officiis debitis possimus nam laudantium beatae quidem dolore consequuntur voluptate rem reiciendis, omnis sequi harum earum.
+                                        <h5 class="mb-4">Diaspora Banking</h5>
+                                        <p class="mb-0">Coastchartered in Diaspora no longer have to worry about conducting transactions in their home country. We provide them with a wide range of stress-free, easy-to-use and convenient banking services.y.
                                         </p>
                                     </div>
                                     <div class="service-icon p-4">
@@ -207,18 +173,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 pe-0">
-                                    <div class="service-content text-end">
-                                        <h5 class="mb-4">Event Management</h5>
-                                        <p class="mb-0">Dolor sit amet consectetur adipisicing elit. Non alias eum, suscipit expedita corrupti officiis debitis possimus nam laudantium beatae quidem dolore consequuntur voluptate rem reiciendis, omnis sequi harum earum.
-                                        </p>
-                                    </div>
-                                    <div class="service-icon p-4">
-                                        <i class="fa fa-cog fa-4x text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
+                        
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -229,8 +184,8 @@
                                         <i class="fa fa-globe fa-4x text-primary"></i>
                                     </div>
                                     <div class="service-content">
-                                        <h5 class="mb-4">WorldWide Tours</h5>
-                                        <p class="mb-0">Dolor sit amet consectetur adipisicing elit. Non alias eum, suscipit expedita corrupti officiis debitis possimus nam laudantium beatae quidem dolore consequuntur voluptate rem reiciendis, omnis sequi harum earum.
+                                        <h5 class="mb-4">100% secure</h5>
+                                        <p class="mb-0">Credit Card such as Master Card and Visa payments are performed under an encrypted network and a secure method of transmission provided by our partner CIC bank, via its Monetico Payment solution.
                                         </p>
                                     </div>
                                 </div>
@@ -241,8 +196,8 @@
                                         <i class="fa fa-hotel fa-4x text-primary"></i>
                                     </div>
                                     <div class="service-content">
-                                        <h5 class="mb-4">Hotel Reservation</h5>
-                                        <p class="mb-0">Dolor sit amet consectetur adipisicing elit. Non alias eum, suscipit expedita corrupti officiis debitis possimus nam laudantium beatae quidem dolore consequuntur voluptate rem reiciendis, omnis sequi harum earum.
+                                        <h5 class="mb-4">Personal Loans</h5>
+                                        <p class="mb-0">Customized loans designed to meet your specific personal needs. Get funded for personal loans, lines of credit, payment cards and other types of funding regardless of your credit situation.
                                         </p>
                                     </div>
                                 </div>
@@ -253,24 +208,13 @@
                                         <i class="fa fa-user fa-4x text-primary"></i>
                                     </div>
                                     <div class="service-content">
-                                        <h5 class="mb-4">Travel Guides</h5>
-                                        <p class="mb-0">Dolor sit amet consectetur adipisicing elit. Non alias eum, suscipit expedita corrupti officiis debitis possimus nam laudantium beatae quidem dolore consequuntur voluptate rem reiciendis, omnis sequi harum earum.
+                                        <h5 class="mb-4">Money Transfer</h5>
+                                        <p class="mb-0">Make local and international money transfer easily and safely. Our superior technology platform and robust partnership ecosystem enables us deliver unrivaled service to customers.
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
-                                    <div class="service-icon p-4">
-                                        <i class="fa fa-cog fa-4x text-primary"></i>
-                                    </div>
-                                    <div class="service-content">
-                                        <h5 class="mb-4">Event Management</h5>
-                                        <p class="mb-0">Dolor sit amet consectetur adipisicing elit. Non alias eum, suscipit expedita corrupti officiis debitis possimus nam laudantium beatae quidem dolore consequuntur voluptate rem reiciendis, omnis sequi harum earum.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="col-12">
@@ -593,7 +537,7 @@
         <!-- Destination End -->
 
         <!-- Explore Tour Start -->
-        <div class="container-fluid ExploreTour py-5">
+        <!-- <div class="container-fluid ExploreTour py-5">
             <div class="container py-5">
                 <div class="mx-auto text-center mb-5" style="max-width: 900px;">
                     <h5 class="section-title px-3">Explore Tour</h5>
@@ -780,7 +724,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Explore Tour Start -->
 
         <!-- Packages Start -->
@@ -929,7 +873,7 @@
         <!-- Packages End -->
 
         <!-- Gallery Start -->
-        <div class="container-fluid gallery py-5 my-5">
+        <!-- <div class="container-fluid gallery py-5 my-5">
             <div class="mx-auto text-center mb-5" style="max-width: 900px;">
                 <h5 class="section-title px-3">Our Gallery</h5>
                 <h1 class="mb-4">Tourism & Traveling Gallery.</h1>
@@ -1239,7 +1183,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Gallery End -->
 
         <!-- Tour Booking Start -->
@@ -1428,8 +1372,8 @@
             <div class="container py-5">
                 <div class="mx-auto text-center mb-5" style="max-width: 900px;">
                     <h5 class="section-title px-3">Our Blog</h5>
-                    <h1 class="mb-4">Popular Travel Blogs</h1>
-                    <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti deserunt tenetur sapiente atque. Magni non explicabo beatae sit, vel reiciendis consectetur numquam id similique sunt error obcaecati ducimus officia maiores.
+                    <h1 class="mb-4">Our resolve in offering you premium private banking solutions is further strengthened</h1>
+                    <p class="mb-0">
                     </p>
                 </div>
                 <div class="row g-4 justify-content-center">
@@ -1437,7 +1381,7 @@
                         <div class="blog-item">
                             <div class="blog-img">
                                 <div class="blog-img-inner">
-                                    <img class="img-fluid w-100 rounded-top" src="img/blog-1.jpg" alt="Image">
+                                    <img class="img-fluid w-100 rounded-top" src="img/bank/images (9).jpeg" alt="Image">
                                     <div class="blog-icon">
                                         <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
                                     </div>
@@ -1450,8 +1394,8 @@
                             </div>
                             <div class="blog-content border border-top-0 rounded-bottom p-4">
                                 <p class="mb-3">Posted By: Royal Hamblin </p>
-                                <a href="#" class="h4">Adventures Trip</a>
-                                <p class="my-3">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam eos</p>
+                                <a href="#" class="h4">Coastchartered Family Weekend Thrills Families For Two Days</a>
+                                <p class="my-3">In line with its commitment to provide lifestyle banking solutions and memorable experiences</p>
                                 <a href="#" class="btn btn-primary rounded-pill py-2 px-4">Read More</a>
                             </div>
                         </div>
@@ -1460,7 +1404,7 @@
                         <div class="blog-item">
                             <div class="blog-img">
                                 <div class="blog-img-inner">
-                                    <img class="img-fluid w-100 rounded-top" src="img/blog-2.jpg" alt="Image">
+                                    <img class="img-fluid w-100 rounded-top" src="img/bank/images (1).jpeg" alt="Image">
                                     <div class="blog-icon">
                                         <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
                                     </div>
@@ -1473,8 +1417,8 @@
                             </div>
                             <div class="blog-content border border-top-0 rounded-bottom p-4">
                                 <p class="mb-3">Posted By: Royal Hamblin </p>
-                                <a href="#" class="h4">Adventures Trip</a>
-                                <p class="my-3">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam eos</p>
+                                <a href="#" class="h4">Bank Grows</a>
+                                <p class="my-3">Coastchartered Bank Grows Profit By 131.5% In FY 2023 – Declares A Final Dividend Of 60kobo Per Share</p>
                                 <a href="#" class="btn btn-primary rounded-pill py-2 px-4">Read More</a>
                             </div>
                         </div>
@@ -1483,7 +1427,7 @@
                         <div class="blog-item">
                             <div class="blog-img">
                                 <div class="blog-img-inner">
-                                    <img class="img-fluid w-100 rounded-top" src="img/blog-3.jpg" alt="Image">
+                                    <img class="img-fluid w-100 rounded-top" src="img/bank/images.jpeg" alt="Image">
                                     <div class="blog-icon">
                                         <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
                                     </div>
@@ -1496,8 +1440,8 @@
                             </div>
                             <div class="blog-content border border-top-0 rounded-bottom p-4">
                                 <p class="mb-3">Posted By: Royal Hamblin </p>
-                                <a href="#" class="h4">Adventures Trip</a>
-                                <p class="my-3">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam eos</p>
+                                <a href="#" class="h4">official signatory of the UN</a>
+                                <p class="my-3">Coastchartered Bank Plc Signs The UN Principles For Responsible Banking</p>
                                 <a href="#" class="btn btn-primary rounded-pill py-2 px-4">Read More</a>
                             </div>
                         </div>
@@ -1508,7 +1452,7 @@
         <!-- Blog End -->
 
         <!-- Testimonial Start -->
-        <div class="container-fluid testimonial py-5">
+        <!-- <div class="container-fluid testimonial py-5">
             <div class="container py-5">
                 <div class="mx-auto text-center mb-5" style="max-width: 900px;">
                     <h5 class="section-title px-3">Testimonial</h5>
@@ -1597,7 +1541,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Testimonial End -->
 
         <?php require('footer.php')?>

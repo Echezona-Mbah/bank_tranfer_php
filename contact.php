@@ -18,8 +18,8 @@
             <div class="container text-center py-5" style="max-width: 900px;">
                 <h3 class="text-white display-3 mb-4">Contact Us</h1>
                 <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <!-- <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li> -->
                     <li class="breadcrumb-item active text-white">Contact</li>
                 </ol>    
             </div>
@@ -31,7 +31,7 @@
             <div class="container py-5">
                 <div class="mx-auto text-center mb-5" style="max-width: 900px;">
                     <h5 class="section-title px-3">Contact Us</h5>
-                    <h1 class="mb-0">Contact For Any Query</h1>
+                    <h1 class="mb-0">True Serve</h1>
                 </div>
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-4">
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-lg-8">
                         <h3 class="mb-2">Send us a message</h3>
-                        <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
+                        <p class="mb-4">It does not matter what time it is or where you are, you can call our Interactive Contact Centre and stay close to your bank 24/7.</p>
                         <form>
                             <div class="row g-3">
                                 <div class="col-md-6">
