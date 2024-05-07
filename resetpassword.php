@@ -74,14 +74,14 @@
 
 
 							<div class="input-group custom">
-								<input type="password" class="form-control form-control-lg" placeholder="New Password" name="password" value="">
+								<input type="password" class="form-control form-control-lg" placeholder="New Password" name="newpassword" value="">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
 								</div>
 							</div>
 
                             <div class="input-group custom">
-								<input type="password" class="form-control form-control-lg" placeholder="Confirm New Password" name="password2" value="">
+								<input type="password" class="form-control form-control-lg" placeholder="Confirm New Password" name="confirmpassword" value="">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
 								</div>

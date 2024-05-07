@@ -2776,8 +2776,6 @@ class main_work{
     }
     
 
-
-
     function resetpassword(){
         $email = $_SESSION['email']=mysqli_real_escape_string($this->dbConnection, $_POST['email']);
         $newpassword = $_SESSION['newpassword']=mysqli_real_escape_string($this->dbConnection, $_POST['newpassword']);
@@ -2793,28 +2791,27 @@ class main_work{
         if($validationStatus === false){
             $_SESSION['formError'] = $this->errors;
             // print_r( $_SESSION['formError']); die();
-            header('location:../user/password.php');
+            header('location:../forgetpassword.php');
             return;
         }
 
         if ($newpassword !== $confirmpassword) {
             $_SESSION['formError'] = ['general_error' => ['New Password and Confirm New Password do not match']];
-            header('location:../user/password.php');
+            header('location:../resetpassword.php');
             return;
         }
 
-        $user_unique_id = $_SESSION['user_unique_id'];
         $hashedPasword = $this->hasHer($newpassword);
 
-        $query = "UPDATE user SET password='".$hashedPasword."' WHERE user_unique_id='".$user_unique_id."' ";
+        $query = "UPDATE user SET password='".$hashedPasword."' WHERE email='".$email."' ";
         $back = $this->runMysqliQuery($query);
         if($back['error_code'] == 1){
             $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
-            header("location:../user/password.php");
+            header("location:../resetpassword.php");
             return;
         }
 
-        header ('location:../user/password.php?&success=New_password was updated successfully');
+        header ('location:../login.php?&success=New_password was updated successfully');
 
     }
 
