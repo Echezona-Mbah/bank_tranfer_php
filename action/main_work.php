@@ -261,14 +261,17 @@ class main_work{
                                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                                 </head>
                                 <body>
-                    <h6 align="center"><img src="https://www.everledgerminers.com/images/rr.png" alt="everledgerminers "/></h6>
+                    <h6 align="center"><img src="https://www.coastchartered.com/user/uploads/ffff.jpg" alt="coastchartered "/></h6>
                     <div style="font-size: 14px;">
-					<p>Welcome and congratulations on joining Coastchartered; Your account has been confirmed. You can now <a href="https://www.everledgerminers.com/login.php">Login</a> to your account using your registered password.<br>
-						Get ready to participate in profitable investment!.</p>
-					<p style="">Thanks!</p>
+                    <p>Dear ' . $name . ',</p>
+                    <p>Welcome to Coastchartered Bank! We are thrilled to have you as a customer.</p>
+                    <p>At Our Bank, we are committed to providing you with exceptional service and helping you achieve your financial goals.</p>
+                    <p>If you have any questions or need assistance, please feel free to contact our customer support team at support@coastchartered.com.</p>
+                    <p>Thank you for choosing Our Bank!</p>
+                    <p>Sincerely,<br>Our Bank Team</p>
 					<p style="color:#332E2E">Best Regard<br />
-                    everledgerminers Team<br />
-                    Email: support@everledgerminers1@gmail.com<br /></p>
+                    coastchartered Team<br />
+                    Email: support@coastchartered.com<br /></p>
 				
 			<div style="background-color:rgb(253, 150, 26);
 						float:left;
@@ -289,13 +292,13 @@ class main_work{
 			width:100%;
 			text-align:center;
 			font-family: \'Roboto Condensed\', sans-serif;
-			">&copy;everledgerminers <?php print ' . $d . ';?>. All Rights Reserved.</p>
+			">&copy;coastchartered <?php print ' . $d . ';?>. All Rights Reserved.</p>
 		</div>
 		</body>
 		</html>';
             $header = "MIME-Version: 1.0" . "\r\n";
             $header .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-            $header .= 'From: everledgerminers <support@everledgerminers.com>' . "\r\n";
+            $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
             $retval = @mail($to,$subject, $message, $header);
             if ($retval = true) {
                 header("location:../pincode.php?success=Registration was successful");
