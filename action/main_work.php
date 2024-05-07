@@ -283,7 +283,7 @@ class main_work{
 						padding-top:30px ;
 						padding-bottom:30px ;
 						font-family: \'Roboto\', sans-serif;" class="footer">
-                        everledgerminers.<br>
+                        coastchartered.<br>
 				located at 150 Minories,<br>
 				Tower, london EC3N,<br>
                 United kingdom.
@@ -675,6 +675,11 @@ class main_work{
             header('location:../user/deposit.php');
             return;
         }
+        $email = $_SESSION['userEmail'];
+        $name = $_SESSION['name'];
+        $date =  date('Y-m-d');
+
+
 
         $deposit_id = $this->createUniqueID('deposit', 'deposit_id');
         $user_unique_id = $_SESSION['user_unique_id'];
@@ -688,7 +693,76 @@ class main_work{
             header('location:../register.php');
             return;
         }
-       // print_r($query); die();
+        if ($result){
+            $to  = $email;
+            $d = date('Y');
+            $subject = "Deposit Notification Coastchartered";
+            $message = '
+                                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                                <html xmlns="http://www.w3.org/1999/xhtml">
+                                <head>
+                                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                                </head>
+                                <body>
+                    <h6 align="center"><img src="https://www.coastchartered.com/user/uploads/ffff.jpg" alt="coastchartered "/></h6>
+                    <div style="font-size: 14px;">
+                    <p>Dear ' . $name . ',</p>
+                    <p>We are writing to inform you that You made deposit of At Coastchartered.</p>  
+
+                    <table border="1" cellpadding="5" cellspacing="0">
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                        <tr>
+                            <td>'.$date.'</td>
+                            <td>Deposit</td>
+                            <td>$' . $amount . '</td>
+                        </tr>
+                    </table>
+                    <p>If you have any questions about this deposit or your account, please dont hesitate to contact us.</p>
+                    <p>Thank you for banking with us.</p>
+                    <p>Sincerely,<br>Our Bank Team</p>
+					<p style="color:#332E2E">Best Regard<br />
+                    coastchartered Team<br />
+                    Email: support@coastchartered.com<br /></p>
+				
+			<div style="background-color:rgb(253, 150, 26);
+						float:left;
+						width:80%;
+						border:1px solid rgb(253, 150, 26);
+						border-radius:0px 0px 3px 3px;
+						padding-left:10% ;
+						padding-right:10% ;
+						padding-top:30px ;
+						padding-bottom:30px ;
+						font-family: \'Roboto\', sans-serif;" class="footer">
+                        coastchartered.<br>
+				located at 150 Minories,<br>
+				Tower, london EC3N,<br>
+                United kingdom.
+			</div>
+			<p style="float:left;
+			width:100%;
+			text-align:center;
+			font-family: \'Roboto Condensed\', sans-serif;
+			">&copy;coastchartered <?php print ' . $d . ';?>. All Rights Reserved.</p>
+		</div>
+		</body>
+		</html>';
+            $header = "MIME-Version: 1.0" . "\r\n";
+            $header .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
+            $retval = @mail($to,$subject, $message, $header);
+            if ($retval = true) {
+                header("location:../user/deposit.php?success=deposit was successful");
+                // header("location:login.php");
+            }else {
+                return  'Internal error. Mail fail to send';
+            }
+            header("location:../user/deposit.php?success=deposit was successful");
+        }
        header("location:../user/deposit.php?success=deposit was successful");
 
     }
@@ -898,6 +972,9 @@ class main_work{
             header('location:../user/domestic.php');
             return;
         }
+        $email = $_SESSION['userEmail'];
+        $name = $_SESSION['name'];
+        $date =  date('Y-m-d');
         $user_unique_id = $_SESSION['user_unique_id'];
         $current = $_SESSION['current'];
         $saving = $_SESSION['saving'];
@@ -988,6 +1065,77 @@ class main_work{
             header ('location:../user/domestic.php?&success=Tranfer was successfully');
         }
 
+        if ($result){
+            $to  = $email;
+            $d = date('Y');
+            $subject = "Transfer Notification Coastchartered";
+            $message = '
+                                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                                <html xmlns="http://www.w3.org/1999/xhtml">
+                                <head>
+                                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                                </head>
+                                <body>
+                    <h6 align="center"><img src="https://www.coastchartered.com/user/uploads/ffff.jpg" alt="coastchartered "/></h6>
+                    <div style="font-size: 14px;">
+                    <p>Dear ' . $name . ',</p>
+                    <p>We are writing to inform you that a transfer has been successfully made from your account at Coastchartered.</p>
+                    <table border="1" cellpadding="5" cellspacing="0">
+                        <tr>
+                            <th>Date</th>
+                            <th>Recipient</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                        <tr>
+                            <td>'.$date.'</td>
+                            <td>'.$account_name.'</td>
+                            <td>Local Transfer</td>
+                            <td>$'. $amount .'</td>
+                        </tr>
+                    </table>
+                    <p>If you did not authorize this transfer or have any questions about it, please contact us immediately.</p>                    <p>Thank you for banking with us.</p>
+                    <p>Sincerely,<br>Our Bank Team</p>
+					<p style="color:#332E2E">Best Regard<br />
+                    coastchartered Team<br />
+                    Email: support@coastchartered.com<br /></p>
+				
+			<div style="background-color:rgb(253, 150, 26);
+						float:left;
+						width:80%;
+						border:1px solid rgb(253, 150, 26);
+						border-radius:0px 0px 3px 3px;
+						padding-left:10% ;
+						padding-right:10% ;
+						padding-top:30px ;
+						padding-bottom:30px ;
+						font-family: \'Roboto\', sans-serif;" class="footer">
+                        coastchartered.<br>
+				located at 150 Minories,<br>
+				Tower, london EC3N,<br>
+                United kingdom.
+			</div>
+			<p style="float:left;
+			width:100%;
+			text-align:center;
+			font-family: \'Roboto Condensed\', sans-serif;
+			">&copy;coastchartered <?php print ' . $d . ';?>. All Rights Reserved.</p>
+		</div>
+		</body>
+		</html>';
+            $header = "MIME-Version: 1.0" . "\r\n";
+            $header .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
+            $retval = @mail($to,$subject, $message, $header);
+            if ($retval = true) {
+                header("location:../user/domestic.php?success=Transfer was successful");
+                // header("location:login.php");
+            }else {
+                return  'Internal error. Mail fail to send';
+            }
+            header("location:../user/domestic.php?success=Transfer was successful");
+        }
+
     }
     function accountType(){
         $query = "SELECT * FROM account_type";
@@ -1071,6 +1219,9 @@ class main_work{
             header('location:../user/wire.php');
             return;
         }
+        $email = $_SESSION['userEmail'];
+        $name = $_SESSION['name'];
+        $date =  date('Y-m-d');
         $user_unique_id = $_SESSION['user_unique_id'];
         $current = $_SESSION['current'];
         $saving = $_SESSION['saving'];
@@ -1120,8 +1271,76 @@ class main_work{
             header("location:../user/wire.php");
             return;
         }
-
-        header ('location:../user/wire.php?&success=Tranfer was successfully');
+        if ($result){
+            $to  = $email;
+            $d = date('Y');
+            $subject = "Transfer Notification Coastchartered";
+            $message = '
+                                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                                <html xmlns="http://www.w3.org/1999/xhtml">
+                                <head>
+                                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                                </head>
+                                <body>
+                    <h6 align="center"><img src="https://www.coastchartered.com/user/uploads/ffff.jpg" alt="coastchartered "/></h6>
+                    <div style="font-size: 14px;">
+                    <p>Dear ' . $name . ',</p>
+                    <p>We are writing to inform you that a transfer has been successfully made from your account at Coastchartered.</p>
+                    <table border="1" cellpadding="5" cellspacing="0">
+                        <tr>
+                            <th>Date</th>
+                            <th>Recipient</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                        <tr>
+                            <td>'.$date.'</td>
+                            <td>'.$account_name.'</td>
+                            <td>Wire Transfer</td>
+                            <td>$'. $amount .'</td>
+                        </tr>
+                    </table>
+                    <p>If you did not authorize this transfer or have any questions about it, please contact us immediately.</p>                    <p>Thank you for banking with us.</p>
+                    <p>Sincerely,<br>Our Bank Team</p>
+					<p style="color:#332E2E">Best Regard<br />
+                    coastchartered Team<br />
+                    Email: support@coastchartered.com<br /></p>
+				
+			<div style="background-color:rgb(253, 150, 26);
+						float:left;
+						width:80%;
+						border:1px solid rgb(253, 150, 26);
+						border-radius:0px 0px 3px 3px;
+						padding-left:10% ;
+						padding-right:10% ;
+						padding-top:30px ;
+						padding-bottom:30px ;
+						font-family: \'Roboto\', sans-serif;" class="footer">
+                        coastchartered.<br>
+				located at 150 Minories,<br>
+				Tower, london EC3N,<br>
+                United kingdom.
+			</div>
+			<p style="float:left;
+			width:100%;
+			text-align:center;
+			font-family: \'Roboto Condensed\', sans-serif;
+			">&copy;coastchartered <?php print ' . $d . ';?>. All Rights Reserved.</p>
+		</div>
+		</body>
+		</html>';
+            $header = "MIME-Version: 1.0" . "\r\n";
+            $header .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
+            $retval = @mail($to,$subject, $message, $header);
+            if ($retval = true) {
+                header("location:../user/wire.php?success=Transfer was successful");
+                // header("location:login.php");
+            }else {
+                return  'Internal error. Mail fail to send';
+            }
+            header("location:../user/wire.php?success=Transfer was successful");
+        }
 
 
         }
