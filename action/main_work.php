@@ -243,8 +243,6 @@ class main_work{
         $_SESSION['user_unique_id'] = $user_unique_id;
         $query = "INSERT INTO user (id,name,lastname,email,phone,password,pincode,current,saving,user_unique_id)
          VALUES (null,'".$name."', '".$lastname."','".$email."','".$phone."','".$hashedPasword."','".$pincode."','".$current."','".$saving."','".$user_unique_id."')";
-        // print_r($query); die();
-
 
         $result = $this->runMysqliQuery($query); 
         if ($result['error_code'] == 1){
@@ -252,22 +250,63 @@ class main_work{
             header('location:../register.php');
             return;
         }
-            // Send email
-            $to = $email;
-            $subject = 'Registration Successful';
-            $message = 'Dear '.$name.',<br><br>Your registration was successful.<br><br>Thank you!';
-            $headers = "From: your_email@example.com\r\n";
-            $headers .= "Reply-To: your_email@example.com\r\n";
-            $headers .= "Content-type: text/html\r\n";
-        
-            if (mail($to, $subject, $message, $headers)) {
-                // Email sent successfully
+        if ($result){
+            $to  = $email;
+            $d = date('Y');
+            $subject = "Welcome To Everledgerminers";
+            $message = '
+                                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                                <html xmlns="http://www.w3.org/1999/xhtml">
+                                <head>
+                                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                                </head>
+                                <body>
+                    <h6 align="center"><img src="https://www.everledgerminers.com/images/rr.png" alt="everledgerminers "/></h6>
+                    <div style="font-size: 14px;">
+					<p>Welcome and congratulations on joining everledgerminers; Your account has been confirmed. You can now <a href="https://www.everledgerminers.com/login.php">Login</a> to your account using your registered password.<br>
+						Get ready to participate in profitable investment!.</p>
+					<p style="">Thanks!</p>
+					<p style="color:#332E2E">Best Regard<br />
+                    everledgerminers Team<br />
+                    Email: support@everledgerminers1@gmail.com<br /></p>
+				
+			<div style="background-color:rgb(253, 150, 26);
+						float:left;
+						width:80%;
+						border:1px solid rgb(253, 150, 26);
+						border-radius:0px 0px 3px 3px;
+						padding-left:10% ;
+						padding-right:10% ;
+						padding-top:30px ;
+						padding-bottom:30px ;
+						font-family: \'Roboto\', sans-serif;" class="footer">
+                        everledgerminers.<br>
+				located at 150 Minories,<br>
+				Tower, london EC3N,<br>
+                United kingdom.
+			</div>
+			<p style="float:left;
+			width:100%;
+			text-align:center;
+			font-family: \'Roboto Condensed\', sans-serif;
+			">&copy;everledgerminers <?php print ' . $d . ';?>. All Rights Reserved.</p>
+		</div>
+		</body>
+		</html>';
+            $header = "MIME-Version: 1.0" . "\r\n";
+            $header .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $header .= 'From: everledgerminers <support@everledgerminers.com>' . "\r\n";
+            $retval = @mail($to,$subject, $message, $header);
+            if ($retval = true) {
                 header("location:../pincode.php?success=Registration was successful");
-            } else {
-                // Email sending failed
-                $_SESSION['formError'] = ['general_error' => ['Failed to send email. Please try again later.']];
-                header('location:../register.php');
+                // header("location:login.php");
+            }else {
+                return  'Internal error. Mail fail to send';
             }
+            header("location:../pincode.php?success=Registration was successful");
+        }
+         
+          
     }  
 
     function pincode(){
