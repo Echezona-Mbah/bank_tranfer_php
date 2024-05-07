@@ -9,7 +9,7 @@ $accountTypes = $for->accountType();
 $currencies = $for->courrency();
 $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 $fee = $for->feeuser();
-
+$totalAmount = $user->saving_balance + $user->current_balance;
 ?>
 
 
@@ -64,7 +64,7 @@ $fee = $for->feeuser();
 						</div>
 					</div>
                     <form class="dropzone"action="../action/main_work.php?option=user" method=post enctype="multipart/form-data" id="my-awesome-dropzone">
-                    <span>Amount  (Total Balance: $<?php echo $user->balance ?>)</span>
+                    <span>Amount  (Total Balance: $<?php echo number_format($totalAmount, 2); ?>)</span>
                     <div class="input-group mb-3">
                         <span class="input-group-text"  style="background:#C0C0C0">$</span>
                         <input type="text" class="form-control"  name="amount" id="amountInput" aria-label="Amount (to the nearest dollar)">

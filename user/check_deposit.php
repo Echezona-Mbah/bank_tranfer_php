@@ -5,6 +5,7 @@ if (!isset($_SESSION['user_unique_id'])) {
     exit;
 }
 $user = $for->getsingledetail(($_SESSION['user_unique_id']));
+
 ?>
 
 <?php require('head.php') ?>

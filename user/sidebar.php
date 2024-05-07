@@ -28,7 +28,7 @@
 							<li><a href="domestic.php">Domestic Transfer</a></li>
 							<li><a href="wire.php">Wire Transfer</a></li>
 							<li><a href="self.php">Transfer To Self</a></li>
-							<li><a href="user.php">Transfer To bank Name</a></li>
+							<li><a href="user.php">Transfer To Coastchartered</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
