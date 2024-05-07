@@ -7,7 +7,7 @@
 <head>
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
-	<title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+	<title>Coastchartered</title>
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="user/vendors/images/apple-touch-icon.png">
@@ -46,12 +46,12 @@
 		<div class="container-fluid d-flex justify-content-between align-items-center">
 			<div class="brand-logo">
 				<a href="login.html">
-					<img src="user/vendors/images/deskapp-logo.svg" alt="">
+					<img src="user/uploads/ffff.jpg" alt="">
 				</a>
 			</div>
 			<div class="login-menu">
 				<ul>
-					<li><a href="register.html">Register</a></li>
+					<li><a href="register.php">Register</a></li>
 				</ul>
 			</div>
 		</div>
@@ -65,10 +65,10 @@
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
 						<div class="login-title">
-							<h2 class="text-center text-primary">Login To DeskApp</h2>
+							<h2 class="text-center text-primary">Login To Coastchartered <br> <span style="color: red;">Bank</span></h2>
 						</div>
 						<form  action="action/main_work.php?option=login" method=post>
-							<div class="select-role">
+							<!-- <div class="select-role">
 								<div class="btn-group btn-group-toggle" data-toggle="buttons">
 									<label class="btn active">
 										<input type="radio" name="options" id="admin">
@@ -83,7 +83,7 @@
 										Employee
 									</label>
 								</div>
-							</div>
+							</div> -->
 							<div class="input-group custom">
 								<input type="email" class="form-control form-control-lg" placeholder="Email" name="email" value="<?php if (isset($_SESSION{'email'})) {echo $_SESSION['email'];}?>">
 								<div class="input-group-append custom">
@@ -104,7 +104,7 @@
 									</div>
 								</div>
 								<div class="col-6">
-									<div class="forgot-password"><a href="forgot-password.html">Forgot Password</a></div>
+									<div class="forgot-password"><a href="$">Forgot Password</a></div>
 								</div>
 							</div>
 							<div class="row">
@@ -117,7 +117,7 @@
 									</div>
 									<div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">OR</div>
 									<div class="input-group mb-0">
-										<a class="btn btn-outline-primary btn-lg btn-block" href="register.html">Register To Create Account</a>
+										<a class="btn btn-outline-primary btn-lg btn-block" href="register.php">Register To Create Account</a>
 									</div>
 								</div>
 							</div>

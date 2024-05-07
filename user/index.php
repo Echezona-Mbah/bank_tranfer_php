@@ -5,6 +5,8 @@ if (!isset($_SESSION['user_unique_id'])) {
     exit;
 }
 $user = $for->getsingledetail(($_SESSION['user_unique_id']));
+$lastgoin = $for->getlastlogin(($_SESSION['user_unique_id']));
+$totalAmount = $user->saving_balance + $user->current_balance;
 ?>
 
 <?php require('head.php') ?>
@@ -28,7 +30,7 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 						<h4 class="font-20 weight-500 mb-10 text-capitalize">
 							Welcome back <div class="weight-600 font-30 text-blue"><?php echo $user->name; ?>!</div>
 						</h4>
-						<p class="font-18 max-width-600">"Welcome to [Bank Name]! We're thrilled to have you join our banking family. With us, you're not just a customer – you're a valued member. As you embark on your banking journey with us, we're here to provide you with exceptional service, innovative financial solutions, and peace of mind. Thank you for choosing [Bank Name]. Welcome aboard!"</p>
+						<p class="font-18 max-width-600">"Welcome to Coastchartered! We're thrilled to have you join our banking family. With us, you're not just a customer – you're a valued member. As you embark on your banking journey with us, we're here to provide you with exceptional service, innovative financial solutions, and peace of mind. Thank you for choosing Coastchartered. Welcome aboard!"</p>
 					</div>
 				</div>
 			</div>
@@ -40,8 +42,8 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 								<div id="chart2"></div>
 							</div>
 							<div class="widget-data">
-								<div class="h4 mb-0">400</div>
-								<div class="weight-600 font-14">Deals</div>
+								<div class="h4 mb-0"><?php echo number_format($totalAmount, 2); ?></div>
+								<div class="weight-600 font-14">Balance</div>
 							</div>
 						</div>
 					</div>
@@ -52,11 +54,12 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 				<div class="card-box height-100-p widget-style1">
 					<div class="d-flex flex-wrap align-items-center">
 						<div class="widget-data">
-							<div class="h4 mb-0">2020</div>
-							<div class="weight-600 font-14">Contact</div>
+							<div class="h4 mb-0"></div>
+							<div class="weight-600 font-14">Bank Stament</div>
 							<div class="mt-3">
-								<button class="btn btn-primary">View</button>
-							</div>
+    <a href="history.php" class="btn btn-primary">Bank Statement</a>
+</div>
+
 						</div>
 					</div>
 				</div>
@@ -70,9 +73,10 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 								<div id="chart3"></div>
 							</div>
 							<div class="widget-data">
-								<div class="h4 mb-0">$0.00</div>
-								<div class="weight-600 font-14">Inflow</div>
-							</div>
+								<div class="h4 mb-0"></div>
+								<div class="mt-3">
+    <a href="card.php" class="btn btn-primary">Request Card</a>
+</div>							</div>
 						</div>
 					</div>
 				</div>
@@ -99,17 +103,17 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 								<li class="d-flex flex-wrap align-items-center">
 									<!-- <div class="icon"><img src="vendors/images/chrome.png" alt=""></div> -->
 									<div class="browser-name">Loan Balance:</div>
-									<div class="visit"><span class="badge badge-pill badge-primary">$0.00</span></div>
+									<div class="visit"><span class="badge badge-pill badge-primary">$<?php echo number_format($user->loan_balance, 2); ?></span></div>
 								</li>
 								<li class="d-flex flex-wrap align-items-center">
 									<!-- <div class="icon"><img src="vendors/images/firefox.png" alt=""></div> -->
 									<div class="browser-name">Savings Balance:</div>
-									<div class="visit"><span class="badge badge-pill badge-secondary">$0.00</span></div>
+									<div class="visit"><span class="badge badge-pill badge-secondary">$<?php echo number_format($user->saving_balance, 2); ?></span></div>
 								</li>
 								<li class="d-flex flex-wrap align-items-center">
 									<!-- <div class="icon"><img src="vendors/images/safari.png" alt=""></div> -->
 									<div class="browser-name">Current Balance:</div>
-									<div class="visit"><span class="badge badge-pill badge-success">$0.00</span></div>
+									<div class="visit"><span class="badge badge-pill badge-success">$<?php echo number_format($user->current_balance, 2); ?></span></div>
 								</li>
 								<li class="d-flex flex-wrap align-items-center">
 									<!-- <div class="icon"><img src="vendors/images/edge.png" alt=""></div> -->
@@ -119,7 +123,7 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 								<li class="d-flex flex-wrap align-items-center">
 									<!-- <div class="icon"><img src="vendors/images/opera.png" alt=""></div> -->
 									<div class="browser-name">Last Login Date:</div>
-									<div class="visit"><span class="badge badge-pill badge-info">20%</span></div>
+									<div class="visit"><span class="badge badge-pill badge-info"><?php echo date('Y-m-d H:i:s', strtotime($lastgoin->update_at)); ?></span></div>
 								</li>
 							</ul>
 						</div>

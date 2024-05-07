@@ -2719,6 +2719,25 @@ class main_work{
         }
         header("location:../admin/wire.php?success=$message");
     }
+    function getlastlogin($user_unique_id) {
+        $query = "SELECT * FROM logins WHERE user_unique_id = '$user_unique_id'  ORDER BY update_at DESC LIMIT 1";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row;
+              // print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
+    }
     
 
     
