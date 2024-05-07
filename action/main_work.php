@@ -253,7 +253,7 @@ class main_work{
         if ($result){
             $to  = $email;
             $d = date('Y');
-            $subject = "Welcome To Everledgerminers";
+            $subject = "Welcome To Coastchartered";
             $message = '
                                 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                                 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -263,7 +263,7 @@ class main_work{
                                 <body>
                     <h6 align="center"><img src="https://www.everledgerminers.com/images/rr.png" alt="everledgerminers "/></h6>
                     <div style="font-size: 14px;">
-					<p>Welcome and congratulations on joining everledgerminers; Your account has been confirmed. You can now <a href="https://www.everledgerminers.com/login.php">Login</a> to your account using your registered password.<br>
+					<p>Welcome and congratulations on joining Coastchartered; Your account has been confirmed. You can now <a href="https://www.everledgerminers.com/login.php">Login</a> to your account using your registered password.<br>
 						Get ready to participate in profitable investment!.</p>
 					<p style="">Thanks!</p>
 					<p style="color:#332E2E">Best Regard<br />
