@@ -55,10 +55,10 @@ $totalAmount = $user->saving_balance + $user->current_balance;
 					<div class="d-flex flex-wrap align-items-center">
 						<div class="widget-data">
 							<div class="h4 mb-0"></div>
-							<div class="weight-600 font-14">Bank Stament</div>
+							<!-- <div class="weight-600 font-14">Bank Stament</div> -->
 							<div class="mt-3">
-    <a href="history.php" class="btn btn-primary">Bank Statement</a>
-</div>
+									<a href="history.php" class="btn btn-primary">Bank Statement</a>
+								</div>
 
 						</div>
 					</div>
@@ -69,14 +69,15 @@ $totalAmount = $user->saving_balance + $user->current_balance;
 				<div class="col-xl-3 mb-30">
 					<div class="card-box height-100-p widget-style1">
 						<div class="d-flex flex-wrap align-items-center">
-							<div class="progress-data">
+							<!-- <div class="progress-data">
 								<div id="chart3"></div>
-							</div>
+							</div> -->
 							<div class="widget-data">
 								<div class="h4 mb-0"></div>
 								<div class="mt-3">
-    <a href="card.php" class="btn btn-primary">Request Card</a>
-</div>							</div>
+									<a href="card.php" class="btn btn-primary">Request Card</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

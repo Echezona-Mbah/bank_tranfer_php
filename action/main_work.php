@@ -184,6 +184,12 @@ class main_work{
                 case 'deletewire':
                     $this->deletewire('delete');
                     break;
+                case 'forgetpassword':
+                    $this->forgetpassword();
+                    break;
+                case 'resetpassword':
+                    $this->resetpassword();
+                    break;
                     
 
             }
@@ -2738,7 +2744,80 @@ class main_work{
             return $UserDetails;
         }
     }
+
+    function forgetpassword(){
+
+        $email = $_SESSION['email']=mysqli_real_escape_string($this->dbConnection, $_POST['email']);
+
+        $thingsToValidate = [
+            $email.'|Email|email|empty',
+        ];
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            //print_r( $_SESSION['formError']); die();
+            header('location:../forgetpassword.php');
+            return;
+        }
+
+
+        $query = "SELECT * FROM user WHERE email = '$email'";
+        $details = $this->runMysqliQuery($query);
+            if ($details['error_code'] == 1) {
+            return $details['error'];
+        } $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            $_SESSION['formError'] = ['general_error' => ['Email not Found']];
+            header('location:../forgetpassword.php');
+        }
+
+        header ("location:../resetpassword.php?email=$email");
+
+    }
     
+
+
+
+    function resetpassword(){
+        $email = $_SESSION['email']=mysqli_real_escape_string($this->dbConnection, $_POST['email']);
+        $newpassword = $_SESSION['newpassword']=mysqli_real_escape_string($this->dbConnection, $_POST['newpassword']);
+        $confirmpassword = $_SESSION['confirmpassword']=mysqli_real_escape_string($this->dbConnection, $_POST['confirmpassword']);
+
+
+        $thingsToValidate = [
+            $email.'|Email|email|empty',
+            $newpassword.'|Newpassword|newpassword|empty',
+            $confirmpassword.'|Confirmpassword|confirmpassword|empty'
+        ];
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            // print_r( $_SESSION['formError']); die();
+            header('location:../user/password.php');
+            return;
+        }
+
+        if ($newpassword !== $confirmpassword) {
+            $_SESSION['formError'] = ['general_error' => ['New Password and Confirm New Password do not match']];
+            header('location:../user/password.php');
+            return;
+        }
+
+        $user_unique_id = $_SESSION['user_unique_id'];
+        $hashedPasword = $this->hasHer($newpassword);
+
+        $query = "UPDATE user SET password='".$hashedPasword."' WHERE user_unique_id='".$user_unique_id."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/password.php");
+            return;
+        }
+
+        header ('location:../user/password.php?&success=New_password was updated successfully');
+
+    }
+
 
     
 
