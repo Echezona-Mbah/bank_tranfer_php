@@ -68,6 +68,8 @@
                             </div>
                         </div> -->
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
+                        <a href="login.php" class="nav-item nav-link">Login</a>
+
                     </div>
                     <!-- <a href="#" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a> -->
                 </div>

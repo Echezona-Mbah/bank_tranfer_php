@@ -151,7 +151,7 @@ $totalAmount = $user->saving_balance + $user->current_balance;
 
                         <div class="form-group">
                             <label>Details</label>
-                            <textarea class="form-control" name="details" placeholder="Reason For Tranfer" rows="5"><?php if (isset($_SESSION['details'])) { echo $_SESSION['details']; } ?></textarea>
+                            <textarea class="form-control" name="details" placeholder="Reason For Tranfer" rows="5"></textarea>
                         </div>
 
 
