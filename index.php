@@ -31,7 +31,7 @@
 request money online with Coastchartered,Over 180 countries and 120 currencies 
                                     </p>
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="#">Discover Now</a>
+                                        <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="register.php">Register Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +45,7 @@ request money online with Coastchartered,Over 180 countries and 120 currencies
                                     <p class="mb-5 fs-5">Trusted by more than 50,000 businesses worldwide., 
                                     </p>
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="#">Discover Now</a>
+                                        <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="register.php">Register Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@ request money online with Coastchartered,Over 180 countries and 120 currencies
                                     <p class="mb-5 fs-5">Our Stack of Payment Solutions Will Ensure You Get Paid Quickly and Securely. Coastchartered payment solutions is trusted By Thousands Of Businesses in different countries., 
                                     </p>
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="#">Discover Now</a>
+                                        <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="register.php">Register Now</a>
                                     </div>
                                 </div>
                             </div>

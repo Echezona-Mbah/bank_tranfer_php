@@ -11,6 +11,11 @@
 		<div class="menu-block customscroll">
 			<div class="sidebar-menu">
 				<ul id="accordion-menu">
+				<li>
+						<a href="index.php" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-calendar1"></span><span class="mtext">Dashborad</span>
+						</a>
+					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-house-1"></span><span class="mtext">Deposit Money</span>

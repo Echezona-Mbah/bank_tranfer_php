@@ -10,7 +10,34 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 
 <?php require('head.php') ?>
 
+<style>
 
+    .title {
+      text-align: center;
+    }
+    .title h4 {
+      font-size: 32px; /* Adjust the font size as needed */
+      color: #333; /* Adjust the color as needed */
+    }
+    .file-upload-btn {
+      cursor: pointer;
+      display: inline-block;
+      padding: 20px; /* Increase the padding to make it bigger */
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 10px; /* Adjust the border radius for rounded corners */
+      transition: background-color 0.3s;
+      text-align: center;
+      width: 100%;
+    }
+    .file-upload-btn:hover {
+      background-color: #0056b3;
+    }
+    #fileInput {
+      display: none;
+    }
+  </style>
 <?php require('header.php') ?>
 
 <?php require('sidebar.php') ?>
@@ -50,23 +77,25 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 					</div>
 				</div>
 
-                <div class="pd-40 card-box mb-30">
+                <div class="pd-40 card-box mb-30" >
                     <div class="clearfix mb-30">
                         <div class="pull-left">
                             <h4 class="text-blue h4">Please upload your cheque deposit below</h4>
                         </div>
                     </div>
-                    <form class="dropzone"action="../action/main_work.php?option=check" method=post enctype="multipart/form-data" id="my-awesome-dropzone">
-                        <div class="fallback">
-                            <input type="file" name="image" id="fileInput" accept="image/*" onchange="previewImage(event)" />
-                        </div>
-                        <div id="imagePreview" style="display: none; display: flex; justify-content: center; align-items: center;">
-                            <img id="preview" src="#" alt="" style="max-width: 100%; max-height: 200px;" />
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Deposit Cheque</button>
-                        </div>
-                    </form>
+                    <label for="fileInput" class="file-upload-btn">Click here to upload</label>
+    <form class="dropzone" action="../action/main_work.php?option=check" method="post" enctype="multipart/form-data" id="my-awesome-dropzone">
+      <!-- Hidden file input -->
+      <div class="fallback">
+        <input type="file" name="image" id="fileInput" accept="image/*" onchange="previewImage(event)" />
+      </div>
+      <div id="imagePreview" style="display: none;">
+        <img id="preview" src="#" alt="" style="max-width: 100%; max-height: 200px;" />
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Deposit Cheque</button>
+      </div>
+    </form>
                 </div>
 
 		</div>
@@ -84,7 +113,19 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
         reader.readAsDataURL(event.target.files[0]);
     }
 </script>
+<script>
+    // Function to trigger file input when label is clicked
+    document.querySelector('.file-upload-btn').addEventListener('click', function() {
+      document.getElementById('fileInput').click();
+    });
 
+    function previewImage(event) {
+      const preview = document.getElementById('imagePreview');
+      const img = document.getElementById('preview');
+      img.src = URL.createObjectURL(event.target.files[0]);
+      preview.style.display = 'flex';
+    }
+  </script>
 
 
 <?php require('footer.php') ?>

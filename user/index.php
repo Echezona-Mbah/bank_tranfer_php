@@ -124,7 +124,7 @@ $totalAmount = $user->saving_balance + $user->current_balance;
 								<li class="d-flex flex-wrap align-items-center">
 									<!-- <div class="icon"><img src="vendors/images/opera.png" alt=""></div> -->
 									<div class="browser-name">Last Login Date:</div>
-									<div class="visit"><span class="badge badge-pill badge-info"><?php echo date('Y-m-d H:i:s', strtotime($lastgoin->update_at)); ?></span></div>
+									<div class="visit"><span class="badge badge-pill badge-info"><?php echo date('Y-m-d H:i', strtotime($lastgoin->update_at)); ?></span></div>
 								</li>
 							</ul>
 						</div>
