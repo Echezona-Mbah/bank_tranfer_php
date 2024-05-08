@@ -140,7 +140,7 @@ $UserDetails = $for->alltableID();
                         <h3 class="mb-20 h5">Last History</h3>
                         <?php if (empty($UserDetails)): ?>
 							<div class="alert alert-info" role="alert">
-								No history available.
+								No history availableddd.
 							</div>
                         <?php else: ?>
                             <table class="table table-bordered"  style="overflow-x: auto;">
