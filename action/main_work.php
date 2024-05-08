@@ -2020,6 +2020,60 @@ class main_work{
         header ('location:../user/loan.php?&success=loan was successfully');
 
     }
+    
+
+    function alltableID() {
+        $UserDetails = [];
+        $user_unique_id = $_SESSION['user_unique_id'];
+    
+        $query = "SELECT * FROM deposit WHERE user_unique_id = '$user_unique_id' ORDER BY created_at DESC LIMIT 1";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+    
+        $query = "SELECT * FROM local_tranfer WHERE user_unique_id = '$user_unique_id' ORDER BY created_at DESC LIMIT 1";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+
+        $query = "SELECT * FROM user_transfer WHERE user_unique_id = '$user_unique_id' ORDER BY created_at DESC LIMIT 1";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+
+        $query = "SELECT * FROM wire_tranfer WHERE user_unique_id = '$user_unique_id' ORDER BY created_at DESC LIMIT 1";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+    
+        $query = "SELECT * FROM self_tranfer WHERE user_unique_id = '$user_unique_id' ORDER BY created_at DESC LIMIT 1";
+        $details = $this->runMysqliQuery($query);
+        if($details['error_code'] == 1){
+            return $details['error'];
+        }
+        while($row = mysqli_fetch_object($details['data'])){
+            $UserDetails[] = $row;
+        }
+        //print_r($UserDetails); die();
+        return $UserDetails;
+    }
+
 
     function alltable() {
         $UserDetails = [];

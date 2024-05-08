@@ -7,6 +7,8 @@ if (!isset($_SESSION['user_unique_id'])) {
 $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 $lastgoin = $for->getlastlogin(($_SESSION['user_unique_id']));
 $totalAmount = $user->saving_balance + $user->current_balance;
+$UserDetails = $for->alltableID();
+
 ?>
 
 <?php require('head.php') ?>
@@ -132,28 +134,30 @@ $totalAmount = $user->saving_balance + $user->current_balance;
 				</div>
 				<div class="col-lg-8 col-md-6 col-sm-12 mb-30">
     <div class="card-box pd-30 pt-10 height-100-p">
-        <h2 class="mb-30 h4">World Map</h2>
+	<div class="mt-3">
+									<a href="history.php" class="btn btn-primary">Bank Statement</a>
+								</div>
         <div class="mt-30">
-            <h3 class="mb-20 h5">Sample Table</h3>
+            <h3 class="mb-20 h5">Last History</h3>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Column 1</th>
-                        <th>Column 2</th>
-                        <th>Column 3</th>
+					<th> Type</th>
+                        <th>Reference</th>
+                        <th>Amount</th>
+                        <th>Payment Account</th>
                     </tr>
                 </thead>
                 <tbody>
+				<?php foreach ($UserDetails as $row): ?>
                     <tr>
-                        <td>Data 1</td>
-                        <td>Data 2</td>
-                        <td>Data 3</td>
+					<td><?php echo $row->type; ?></td>
+                        <td><?php echo $row->Refrence_id; ?></td>
+                        <td><?php echo $row->amount; ?></td>
+                        <td><?php echo $row->account; ?></td>
                     </tr>
-                    <tr>
-                        <td>Data 4</td>
-                        <td>Data 5</td>
-                        <td>Data 6</td>
-                    </tr>
+				<?php endforeach; ?>
+            
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
