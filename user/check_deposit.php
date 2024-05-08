@@ -12,27 +12,31 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 
 <style>
 
-    .title {
-      text-align: center;
-    }
-    .title h4 {
-      font-size: 32px; /* Adjust the font size as needed */
-      color: #333; /* Adjust the color as needed */
+.title h4 {
+      font-size: 24px; /* Adjust the font size as needed */
+      color: #007bff; /* Adjust the color as needed */
     }
     .file-upload-btn {
       cursor: pointer;
-      display: inline-block;
-      padding: 20px; /* Increase the padding to make it bigger */
-      background-color: #007bff;
-      color: #fff;
-      border: none;
+      display: block;
+      margin: 0 auto;
+      width: 200px; /* Adjust the width of the box */
+      height: 200px; /* Adjust the height of the box */
+      border: 2px dashed #007bff; /* Add a dashed border */
       border-radius: 10px; /* Adjust the border radius for rounded corners */
-      transition: background-color 0.3s;
+      padding: 20px; /* Add padding inside the box */
       text-align: center;
-      width: 100%;
+      box-sizing: border-box; /* Include padding and border in the box dimensions */
+      position: relative; /* Make position relative for absolute positioning of the image */
     }
-    .file-upload-btn:hover {
-      background-color: #0056b3;
+    .file-upload-btn img {
+      position: absolute; /* Position the image absolutely */
+      top: 0; /* Position at the top */
+      left: 0; /* Position at the left */
+      width: 100%; /* Fill the entire width of the button */
+      height: 100%; /* Fill the entire height of the button */
+      object-fit: cover; /* Maintain aspect ratio and cover the button area */
+      border-radius: 8px; /* Match the button's border radius */
     }
     #fileInput {
       display: none;
@@ -83,19 +87,19 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
                             <h4 class="text-blue h4">Please upload your cheque deposit below</h4>
                         </div>
                     </div>
-                    <label for="fileInput" class="file-upload-btn">Click here to upload</label>
-    <form class="dropzone" action="../action/main_work.php?option=check" method="post" enctype="multipart/form-data" id="my-awesome-dropzone">
-      <!-- Hidden file input -->
-      <div class="fallback">
-        <input type="file" name="image" id="fileInput" accept="image/*" onchange="previewImage(event)" />
-      </div>
-      <div id="imagePreview" style="display: none;">
-        <img id="preview" src="#" alt="" style="max-width: 100%; max-height: 200px;" />
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Deposit Cheque</button>
-      </div>
-    </form>
+
+                <form class="dropzone" action="../action/main_work.php?option=check" method="post" enctype="multipart/form-data" id="my-awesome-dropzone">
+                    <!-- Hidden file input -->
+                    <div class="fallback">
+                        <input type="file" name="image" id="fileInput" accept="image/*" onchange="previewImage(event)" />
+                    </div>
+                    <label for="fileInput" class="file-upload-btn">
+                        <img id="preview" src="#" alt="Upload">
+                    </label>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Deposit Cheque</button>
+                    </div>
+                </form> 
                 </div>
 
 		</div>
@@ -103,27 +107,8 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 
         <script>
     function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var imagePreview = document.getElementById('imagePreview');
-            var preview = document.getElementById('preview');
-            preview.src = reader.result;
-            imagePreview.style.display = 'block';
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    }
-</script>
-<script>
-    // Function to trigger file input when label is clicked
-    document.querySelector('.file-upload-btn').addEventListener('click', function() {
-      document.getElementById('fileInput').click();
-    });
-
-    function previewImage(event) {
-      const preview = document.getElementById('imagePreview');
       const img = document.getElementById('preview');
       img.src = URL.createObjectURL(event.target.files[0]);
-      preview.style.display = 'flex';
     }
   </script>
 
