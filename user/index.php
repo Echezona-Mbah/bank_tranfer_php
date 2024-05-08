@@ -59,7 +59,7 @@ $UserDetails = $for->alltableID();
 							<div class="h4 mb-0"></div>
 							<!-- <div class="weight-600 font-14">Bank Stament</div> -->
 							<div class="mt-3">
-									<a href="history.php" class="btn btn-primary">Bank Statement</a>
+									<a href="loan.php" class="btn btn-warning">Request loan</a>
 								</div>
 
 						</div>
@@ -134,12 +134,11 @@ $UserDetails = $for->alltableID();
 				</div>
 				<div class="col-lg-8 col-md-6 col-sm-12 mb-30">
     <div class="card-box pd-30 pt-10 height-100-p">
-	<div class="mt-3">
-									<a href="history.php" class="btn btn-primary">Bank Statement</a>
-								</div>
-        <div class="mt-30">
+		<div class="mt-3">
+		</div>
+        <div class="mt-30" style="overflow-x: auto;">
             <h3 class="mb-20 h5">Last History</h3>
-            <table class="table table-bordered">
+            <table class="table table-bordered"  style="overflow-x: auto;">
                 <thead>
                     <tr>
 					<th> Type</th>
@@ -160,7 +159,9 @@ $UserDetails = $for->alltableID();
             
                     <!-- Add more rows as needed -->
                 </tbody>
-            </table>
+            </table>		<a href="history.php" class="btn btn-primary">All History</a>
+	
+			<div style="clear: both;"></div>
         </div>
     </div>
 </div>
