@@ -131,11 +131,36 @@ $totalAmount = $user->saving_balance + $user->current_balance;
 					</div>
 				</div>
 				<div class="col-lg-8 col-md-6 col-sm-12 mb-30">
-					<div class="card-box pd-30 pt-10 height-100-p">
-						<h2 class="mb-30 h4">World Map</h2>
-						<div id="browservisit" style="width:100%!important; height:380px"></div>
-					</div>
-				</div>
+    <div class="card-box pd-30 pt-10 height-100-p">
+        <h2 class="mb-30 h4">World Map</h2>
+        <div class="mt-30">
+            <h3 class="mb-20 h5">Sample Table</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                        <th>Column 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                    </tr>
+                    <tr>
+                        <td>Data 4</td>
+                        <td>Data 5</td>
+                        <td>Data 6</td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 			</div>
 			<!-- <div class="card-box mb-30">
 				<h2 class="h4 pd-20">Best Selling Products</h2>

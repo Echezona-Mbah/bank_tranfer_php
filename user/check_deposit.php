@@ -23,14 +23,14 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
       cursor: pointer;
       display: block;
       margin: 0 auto;
-      width: 80%; /* Responsive width */
-      max-width: 2000px; /* Limit maximum width */
+      width: 80%; 
+      max-width: 2000px; 
       height: 0;
-      padding-top: 30%; /* Maintain aspect ratio */
+      padding-top: 30%;
       position: relative;
       overflow: hidden;
-      border: 2px dashed #007bff; /* Add a dashed border */
-      border-radius: 10px; /* Adjust the border radius for rounded corners */
+      border: 2px dashed #007bff; 
+      border-radius: 10px;
     }
     .file-upload-btn img {
       position: absolute;
