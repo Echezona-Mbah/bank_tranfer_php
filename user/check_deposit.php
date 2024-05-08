@@ -12,34 +12,40 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 
 <style>
 
-.title h4 {
-      font-size: 24px; /* Adjust the font size as needed */
-      color: #007bff; /* Adjust the color as needed */
+    .title {
+      text-align: center;
+    }
+    .title h4 {
+      font-size: 24px;
+      color: #007bff;
     }
     .file-upload-btn {
       cursor: pointer;
       display: block;
       margin: 0 auto;
-      width: 200px; /* Adjust the width of the box */
-      height: 200px; /* Adjust the height of the box */
+      width: 80%; /* Responsive width */
+      max-width: 2000px; /* Limit maximum width */
+      height: 0;
+      padding-top: 30%; /* Maintain aspect ratio */
+      position: relative;
+      overflow: hidden;
       border: 2px dashed #007bff; /* Add a dashed border */
       border-radius: 10px; /* Adjust the border radius for rounded corners */
-      padding: 20px; /* Add padding inside the box */
-      text-align: center;
-      box-sizing: border-box; /* Include padding and border in the box dimensions */
-      position: relative; /* Make position relative for absolute positioning of the image */
     }
     .file-upload-btn img {
-      position: absolute; /* Position the image absolutely */
-      top: 0; /* Position at the top */
-      left: 0; /* Position at the left */
-      width: 100%; /* Fill the entire width of the button */
-      height: 100%; /* Fill the entire height of the button */
-      object-fit: cover; /* Maintain aspect ratio and cover the button area */
-      border-radius: 8px; /* Match the button's border radius */
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
     }
     #fileInput {
       display: none;
+    }
+    .form-group {
+      text-align: center;
     }
   </style>
 <?php require('header.php') ?>
