@@ -93,7 +93,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                     <td><?php echo $row->status; ?></td>
                                                     <td><?php echo date('Y-m-d', strtotime($row->created_at)); ?></td>
                                                     <td>
-                                                         <a href="editDatewire.php?id=<?php echo $row->wire_id; ?>" class="btn btn-info">Edit</a>
+                                                         <a href="editDateself.php?id=<?php echo $row->self_id; ?>" class="btn btn-info">Edit</a>
                                                       </td>
 
                                                    <td>

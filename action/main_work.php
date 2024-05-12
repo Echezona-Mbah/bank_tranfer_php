@@ -196,6 +196,9 @@ class main_work{
                 case 'editDatewire':
                     $this->editDatewire();
                     break;
+                case 'editDateself':
+                    $this->editDateself();
+                    break;
                     
 
             }
@@ -3405,7 +3408,32 @@ class main_work{
             return $UserDetails;
         }
     }
+    
+    function editDateself(){
+        $id = $_SESSION['id']=mysqli_real_escape_string($this->dbConnection, $_POST['id']);
+        $date = $_SESSION['date']=mysqli_real_escape_string($this->dbConnection, $_POST['date']);
+        $thingsToValidate = [
+            $date.'|Date|date',
+        ];
 
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header("location:../admin/editDateself.php?user=$id");
+            return;
+        }
+
+        $query = "UPDATE self_tranfer SET created_at ='".$date."' WHERE self_id ='".$id."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../admin/editDateself.php");
+            return;
+        }
+
+        header ("location:../admin/editDateself.php?id=$id&success=User date was successfully Update");
+
+    }
 
     
 

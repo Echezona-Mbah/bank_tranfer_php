@@ -77,7 +77,7 @@ $user = $for->getsingleselftransfer(($id));
 
                         <div class="container">
                             <h2>Edit Date</h2><br>
-                            <form action="../action/main_work.php?option=editDatewire" method="post">
+                            <form action="../action/main_work.php?option=editDateself" method="post">
                             <input type="hidden" name="id" value="<?php echo isset($id) ? $id : ''; ?>">
 
                             <div class="form-group">
