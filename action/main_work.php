@@ -3289,6 +3289,58 @@ class main_work{
 
     }
 
+    function getsinglelocaltransfer($id) {
+        $query = "SELECT * FROM local_tranfer WHERE local_id  = '$id'";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row;
+               //print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
+    }
+
+    function editLocal(){
+        $userid = $_SESSION['userid']=mysqli_real_escape_string($this->dbConnection, $_POST['userid']);
+        $name = $_SESSION['name']=mysqli_real_escape_string($this->dbConnection, $_POST['name']);
+        $lastname = $_SESSION['lastname']=mysqli_real_escape_string($this->dbConnection, $_POST['lastname']);
+        $email = $_SESSION['email']=mysqli_real_escape_string($this->dbConnection, $_POST['email']);
+        $phone = $_SESSION['phone']=mysqli_real_escape_string($this->dbConnection, $_POST['phone']);
+        $thingsToValidate = [
+            $name.'|Name|name',
+            $lastname.'|Lastname|lastname',
+            $email.'|Email|email',
+            $phone.'|Phone|phone',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header("location:../admin/edit.php?user=$userid");
+            return;
+        }
+
+        $query = "UPDATE user SET name ='".$name."',lastname='".$lastname."',email ='".$email."',phone ='".$phone."' WHERE user_unique_id='".$userid."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../user/edit.php");
+            return;
+        }
+
+        header ("location:../admin/edit.php?user=$userid&success=User Edit was successfully");
+
+    }
+
 
     
 
