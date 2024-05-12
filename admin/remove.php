@@ -83,17 +83,17 @@ $currencies = $for->courrency();
 
                             <div class="form-group">
                                 <label for="loan">Loan Balance:$<?php echo $user->loan_balance?></label>
-                                <input type="text" id="loanAmountInput" name="loan" value="">
+                                <input type="text" id="loanAmountInput" name="loan" value="0">
                             </div>
 
                             <div class="form-group">
                                 <label for="saving">Saving Balance:  $<?php echo $user->saving_balance?></label>
-                                <input type="text" id="savingAmountInput" name="saving" value="">
+                                <input type="text" id="savingAmountInput" name="saving" value="0">
                             </div>
 
                             <div class="form-group">
                                 <label for="current">Current Balance: $<?php echo $user->current_balance?></label>
-                                <input type="text" id="currentAmountInput" name="current" value="">
+                                <input type="text" id="currentAmountInput" name="current" value="0">
                             </div>
 
                                 <div class="form-group">

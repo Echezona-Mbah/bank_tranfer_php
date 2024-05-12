@@ -72,6 +72,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                    <th>Account Name</th>
                                                    <th>Details</th>
                                                    <th>Status</th>
+                                                   <th>Date</th>
                                                    <th>Delete</th>
                                                    <th>action</th>
                                                 </tr>
@@ -93,6 +94,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                     <td><?php echo $row->details; ?></td>
 
                                                     <td><?php echo $row->status; ?></td>
+                                                    <td><?php echo $row->created_at; ?></td>
 
                                                    <td>
                                                       <form method="post" action="../action/main_work.php?option=deletelocal">

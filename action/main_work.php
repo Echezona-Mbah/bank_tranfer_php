@@ -2442,12 +2442,9 @@ class main_work{
             return;
         }
         $ass = $this->getsingledetail($userid);
-        $loan_bal = intval($ass->loan_balance) + $loan;
-        print_r($loan_bal);die();
-        $saving_bal = intval($ass->saving_balance) + $saving;
-        $current_bal = intval($ass->current_balance) + $current;
-        
-    print_r($loan_bal);die();
+        $loan_bal = $ass->loan_balance + $loan;
+        $saving_bal = $ass->saving_balance + $saving;
+        $current_bal = $ass->current_balance + $current;
 
         $query = "UPDATE user SET loan_balance='".$loan_bal."',saving_balance='".$saving_bal."',current_balance='".$current_bal."' WHERE user_unique_id='".$userid."' ";
         $back = $this->runMysqliQuery($query);
