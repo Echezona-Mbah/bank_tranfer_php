@@ -93,6 +93,10 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                     <td><?php echo $row->details; ?></td>
 
                                                     <td><?php echo $row->status; ?></td>
+                                                    <td><?php echo date('Y-m-d', strtotime($row->created_at)); ?></td>
+                                                    <td>
+                                                         <a href="editDate.php?id=<?php echo $row->local_id; ?>" class="btn btn-info">Edit</a>
+                                                      </td>
 
                                                    <td>
                                                       <form method="post" action="../action/main_work.php?option=deletewire">

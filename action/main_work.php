@@ -190,6 +190,9 @@ class main_work{
                 case 'resetpassword':
                     $this->resetpassword();
                     break;
+                case 'editLocal':
+                    $this->editLocal();
+                    break;
                     
 
             }
@@ -3310,34 +3313,73 @@ class main_work{
     }
 
     function editLocal(){
-        $userid = $_SESSION['userid']=mysqli_real_escape_string($this->dbConnection, $_POST['userid']);
-        $name = $_SESSION['name']=mysqli_real_escape_string($this->dbConnection, $_POST['name']);
-        $lastname = $_SESSION['lastname']=mysqli_real_escape_string($this->dbConnection, $_POST['lastname']);
-        $email = $_SESSION['email']=mysqli_real_escape_string($this->dbConnection, $_POST['email']);
-        $phone = $_SESSION['phone']=mysqli_real_escape_string($this->dbConnection, $_POST['phone']);
+        $id = $_SESSION['id']=mysqli_real_escape_string($this->dbConnection, $_POST['id']);
+        $date = $_SESSION['date']=mysqli_real_escape_string($this->dbConnection, $_POST['date']);
         $thingsToValidate = [
-            $name.'|Name|name',
-            $lastname.'|Lastname|lastname',
-            $email.'|Email|email',
-            $phone.'|Phone|phone',
+            $date.'|Date|date',
         ];
 
         $validationStatus = $this->callValidation($thingsToValidate);
         if($validationStatus === false){
             $_SESSION['formError'] = $this->errors;
-            header("location:../admin/edit.php?user=$userid");
+            header("location:../admin/editDate.php?user=$id");
             return;
         }
 
-        $query = "UPDATE user SET name ='".$name."',lastname='".$lastname."',email ='".$email."',phone ='".$phone."' WHERE user_unique_id='".$userid."' ";
+        $query = "UPDATE local_tranfer SET created_at ='".$date."' WHERE local_id ='".$id."' ";
         $back = $this->runMysqliQuery($query);
         if($back['error_code'] == 1){
             $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
-            header("location:../user/edit.php");
+            header("location:../admin/editDate.php");
             return;
         }
 
-        header ("location:../admin/edit.php?user=$userid&success=User Edit was successfully");
+        header ("location:../admin/editDate.php?id=$id&success=User date was successfully Update");
+
+    }
+
+    function getsinglewiretransfer($id) {
+        $query = "SELECT * FROM wire_tranfer WHERE wire_id  = '$id'";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row;
+               //print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
+    }
+    function editDatewire(){
+        $id = $_SESSION['id']=mysqli_real_escape_string($this->dbConnection, $_POST['id']);
+        $date = $_SESSION['date']=mysqli_real_escape_string($this->dbConnection, $_POST['date']);
+        $thingsToValidate = [
+            $date.'|Date|date',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header("location:../admin/editDatewire.php?user=$id");
+            return;
+        }
+
+        $query = "UPDATE local_tranfer SET created_at ='".$date."' WHERE local_id ='".$id."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../admin/editDatewire.php");
+            return;
+        }
+
+        header ("location:../admin/editDatewire.php?id=$id&success=User date was successfully Update");
 
     }
 
