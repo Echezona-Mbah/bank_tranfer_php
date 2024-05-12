@@ -125,8 +125,8 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                    <th>Suspended</th>
                                                    <th>Status</th>
                                                    <th>Delete</th>
-                                                   <th>Add Money</th>
-                                                   <th>Remove Money</th>
+                                                   <th>Credit Account</th>
+                                                   <th>Debit Account</th>
                                                    <th>Edit</th>
                                                 </tr>
                                              </thead>
