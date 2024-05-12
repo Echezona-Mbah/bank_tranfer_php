@@ -199,6 +199,9 @@ class main_work{
                 case 'editDateself':
                     $this->editDateself();
                     break;
+                case 'editDatewireuser':
+                    $this->editDatewireuser();
+                    break;
                     
 
             }
@@ -1633,9 +1636,9 @@ class main_work{
                 header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$self_id");
             }
     
+            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$self_id");
 
         }
-
 
     }
 

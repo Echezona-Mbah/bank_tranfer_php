@@ -70,14 +70,14 @@ $user = $for->getsingleusertransfer(($id));
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Edit Date Self Transfer</h2>
+                              <h2>Edit Date User Transfer</h2>
                            </div>
                         </div>
                      </div>
 
                         <div class="container">
                             <h2>Edit Date</h2><br>
-                            <form action="../action/main_work.php?option=editDateself" method="post">
+                            <form action="../action/main_work.php?option=editDatewireuser" method="post">
                             <input type="hidden" name="id" value="<?php echo isset($id) ? $id : ''; ?>">
 
                             <div class="form-group">

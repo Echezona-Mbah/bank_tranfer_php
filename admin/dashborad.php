@@ -9,18 +9,54 @@ $UserDetails = $for->alluser();
 
 
 
-$rowsPerPage = 10;
+$rowsPerPage = 1;
 $totalRows = count($UserDetails);
 $totalPages = ceil($totalRows / $rowsPerPage);
 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; 
 $offset = ($currentPage - 1) * $rowsPerPage;
 $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 // die();
+
+
+
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$filteredRows = [];
+foreach ($currentPageRows as $row) {
+    if (stripos($row->name, $search) !== false ||
+        stripos($row->lastname, $search) !== false ||
+        stripos($row->email, $search) !== false ||
+        stripos($row->phone, $search) !== false) {
+        $filteredRows[] = $row;
+    }
+}
 ?>
 
 
 
+
+
+
 <?php require('head.php')?>
+<style>
+   .search-form {
+    margin-bottom: 20px;
+}
+
+.input-group {
+    width: 100%;
+}
+
+.input-group-append .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group-append .btn-primary {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+</style>
 <?php require('sidebar.php')?>
 <?php require('topbar.php')?>
                <!-- dashboard inner -->
@@ -104,6 +140,15 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                     <h2>Project <small>( Listing Design )</small></h2>
                                  </div>
                               </div>
+                              <form method="get" class="search-form">
+                                 <div class="input-group">
+                                    <input type="text" class="form-control" id="search" name="search" placeholder="Search by name, lastname, email, or phone" value="<?php echo htmlentities($search); ?>">
+                                    <div class="input-group-append">
+                                          <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                 </div>
+                              </form>
+
                               <div class="full price_table padding_infor_info">
                                  <div class="row">
                                     <div class="col-lg-12">
