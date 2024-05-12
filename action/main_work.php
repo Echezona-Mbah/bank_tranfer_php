@@ -1249,7 +1249,7 @@ class main_work{
               return;
           }
 
-    if($saving == $account_number){
+        if($saving == $account_number){
         $ass = $this->getsingledetail($user_unique_id);
         $fee = $this->feewire();
         $balance = $ass->saving_balance;
@@ -1393,7 +1393,7 @@ class main_work{
                 return;
             }
 
-            header ('location:../user/wire.php?&success=Tranfer was successfully');
+            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
 
 
         }
@@ -1505,7 +1505,7 @@ class main_work{
                 return;
             }
     
-            header ('location:../user/self.php?&success=Tranfer was successfully');
+            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$self_id");
 
         }
 
@@ -1616,12 +1616,12 @@ class main_work{
                 $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
                 $retval = @mail($to,$subject, $message, $header);
                 if ($retval = true) {
-                    header("location:../user/self.php?success=Transfer was successful");
+                    header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$self_id");
                     // header("location:login.php");
                 }else {
                     return  'Internal error. Mail fail to send';
                 }
-                header("location:../user/self.php?success=Transfer was successful");
+                header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$self_id");
             }
     
 
@@ -1729,7 +1729,7 @@ class main_work{
                 return;
             }
     
-            header ('location:../user/user.php?&success=Tranfer was successfully');
+            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
 
         }
 
@@ -1832,15 +1832,15 @@ class main_work{
                 $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
                 $retval = @mail($to,$subject, $message, $header);
                 if ($retval = true) {
-                    header("location:../user/user.php?success=Transfer was successful");
+                    header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
                     // header("location:login.php");
                 }else {
                     return  'Internal error. Mail fail to send';
                 }
-                header("location:../user/user.php?success=Transfer was successful");
+                header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
             }
     
-            header ('location:../user/user.php?&success=Tranfer was successfully');
+            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
 
         }
 
