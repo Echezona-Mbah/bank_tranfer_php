@@ -3,7 +3,7 @@ require ('../action/main_work.php');
 if(isset($_GET['id'])) {
     $id = $_GET['id'];
 }
-$user = $for->getsinglewiretransfer(($id));
+$user = $for->getsingleselftransfer(($id));
 //  print_r($user->loan_balance);die();
 
 
@@ -70,7 +70,7 @@ $user = $for->getsinglewiretransfer(($id));
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Edit Date Wire Transfer</h2>
+                              <h2>Edit Date Self Transfer</h2>
                            </div>
                         </div>
                      </div>

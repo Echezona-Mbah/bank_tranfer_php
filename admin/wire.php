@@ -72,6 +72,8 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                    <th>Account Name</th>
                                                    <th>Details</th>
                                                    <th>Status</th>
+                                                   <th>Date</th>
+                                                   <th>Edit Date</th>
                                                    <th>Delete</th>
                                                    <th>action</th>
                                                 </tr>
@@ -95,7 +97,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                     <td><?php echo $row->status; ?></td>
                                                     <td><?php echo date('Y-m-d', strtotime($row->created_at)); ?></td>
                                                     <td>
-                                                         <a href="editDate.php?id=<?php echo $row->local_id; ?>" class="btn btn-info">Edit</a>
+                                                         <a href="editDatewire.php?id=<?php echo $row->wire_id; ?>" class="btn btn-info">Edit</a>
                                                       </td>
 
                                                    <td>

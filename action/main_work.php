@@ -193,6 +193,9 @@ class main_work{
                 case 'editLocal':
                     $this->editLocal();
                     break;
+                case 'editDatewire':
+                    $this->editDatewire();
+                    break;
                     
 
             }
@@ -3371,7 +3374,7 @@ class main_work{
             return;
         }
 
-        $query = "UPDATE local_tranfer SET created_at ='".$date."' WHERE local_id ='".$id."' ";
+        $query = "UPDATE wire_tranfer SET created_at ='".$date."' WHERE wire_id ='".$id."' ";
         $back = $this->runMysqliQuery($query);
         if($back['error_code'] == 1){
             $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
@@ -3381,6 +3384,26 @@ class main_work{
 
         header ("location:../admin/editDatewire.php?id=$id&success=User date was successfully Update");
 
+    }
+
+    function getsingleselftransfer($id) {
+        $query = "SELECT * FROM self_tranfer WHERE self_id = '$id'";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row;
+               //print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
     }
 
 
