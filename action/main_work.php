@@ -3435,6 +3435,52 @@ class main_work{
 
     }
 
+    function getsingleusertransfer($id) {
+        $query = "SELECT * FROM user_transfer WHERE user_id = '$id'";
+        $details = $this->runMysqliQuery($query);
+    
+        // Check for errors or no data found
+        if ($details['error_code'] == 1) {
+            return $details['error'];
+        }
+        $result = $details['data'];
+        if (mysqli_num_rows($result) == 0) {
+            return 'No Data was returned';
+        } else{
+            while($row = mysqli_fetch_object($result)){
+                $UserDetails = $row;
+               //print_r($UserDetails);die();
+            }
+            return $UserDetails;
+        }
+    }
+
+    function editDatewireuser(){
+        $id = $_SESSION['id']=mysqli_real_escape_string($this->dbConnection, $_POST['id']);
+        $date = $_SESSION['date']=mysqli_real_escape_string($this->dbConnection, $_POST['date']);
+        $thingsToValidate = [
+            $date.'|Date|date',
+        ];
+
+        $validationStatus = $this->callValidation($thingsToValidate);
+        if($validationStatus === false){
+            $_SESSION['formError'] = $this->errors;
+            header("location:../admin/editDatewireuser.php?user=$id");
+            return;
+        }
+
+        $query = "UPDATE user_transfer SET created_at ='".$date."' WHERE user_id ='".$id."' ";
+        $back = $this->runMysqliQuery($query);
+        if($back['error_code'] == 1){
+            $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            header("location:../admin/editDatewireuser.php");
+            return;
+        }
+
+        header ("location:../admin/editDatewireuser.php?id=$id&success=User date was successfully Update");
+
+    }
+
     
 
 
