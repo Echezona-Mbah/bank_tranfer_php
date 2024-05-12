@@ -1252,6 +1252,7 @@ class main_work{
         $saving = $_SESSION['saving'];
         preg_match('/\((\d+)\)/', $account, $matches);
         $account_number = isset($matches[1]) ? $matches[1] : null;
+       // print_r($account_number);die();
         $sus = $this->getsingledetail($user_unique_id);
         //  print_r($ass->status);die();
           $active = $sus->suspended;
@@ -1451,7 +1452,6 @@ class main_work{
             header('location:../user/self.php');
             return;
         }
-
         $Userpincode = $_SESSION['Userpincode'];
         if ($pincode !== $Userpincode) {
             $_SESSION['formError'] = ['general_error' => ['Incorrect Pincode']];
@@ -1464,10 +1464,13 @@ class main_work{
         $user_unique_id = $_SESSION['user_unique_id'];
         $current = $_SESSION['current'];
         $saving = $_SESSION['saving'];
-        $account_number = substr($from_account, 1, 11);
-        $to_accou = substr($to_account, 1, 11);
+        preg_match('/\((\d+)\)/', $from_account, $matches);
+        $account_number = isset($matches[1]) ? $matches[1] : null;
+        preg_match('/\((\d+)\)/', $to_account, $matches);
+        $to_accou = isset($matches[1]) ? $matches[1] : null;
         $sus = $this->getsingledetail($user_unique_id);
-        //  print_r($ass->status);die();
+        // print_r($sus);die();
+
           $active = $sus->suspended;
           if($active =='suspended'){
               $_SESSION['formError'] = ['general_error' => ['You Account is suspended']];
@@ -1508,7 +1511,7 @@ class main_work{
             }
            $current_balance = $ass->current_balance;
            $ccurentTotal = $amount + $current_balance;
-            
+
             $query = "UPDATE user SET saving_balance='".$total."',current_balance='".$ccurentTotal."'WHERE user_unique_id='".$user_unique_id."' ";
             $back = $this->runMysqliQuery($query);
             if($back['error_code'] == 1){
@@ -1520,7 +1523,7 @@ class main_work{
             header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$self_id");
 
         }
-
+        
         if($current == $account_number){
             $ass = $this->getsingledetail($user_unique_id);
             $fee = $this->feeself();
@@ -1528,7 +1531,7 @@ class main_work{
             $subTotal = ($fee/100)*$amount;
             $sumTotal = $balance - $subTotal;
             $total = $sumTotal - $amount;
-            //print_r($total);die();
+           // print_r($total);die();
     
             if ($total < 0) {
                 $_SESSION['formError'] = ['general_error' => ['Insufficient balance.']];

@@ -76,12 +76,12 @@ $totalAmount = $user->saving_balance + $user->current_balance;
                         <div class="form-group">
                             <label>From Account</label>
                             <select class="form-control" name="from_account" value="<?php if (isset($_SESSION{'account'})) {echo $_SESSION['account'];}?>">
-                                <?php
+                            <?php
                                 if ($account !== 'No Data was returned') { 
                                     while ($row = mysqli_fetch_assoc($account)) { 
                                         echo "<option value=''>Select Source Account</option>";
-                                        echo "<option value='current'>Current Account ({$row['current']}) Current: $" . $user->current_balance . "</option>";
-                                        echo "<option value='saving'>Savings Account ({$row['saving']}) Savings: $" . $user->saving_balance . "</option>";
+                                        echo "<option value='Current Account ({$row['current']}) '>Current Account ({$row['current']}) Current: $" . $user->current_balance . "</option>";
+                                        echo "<option value=' Savings Account ({$row['saving']})'>Savings Account ({$row['saving']}) Savings: $" . $user->saving_balance . "</option>";
                                     }
                                 } else {
                                     echo "<option>No accounts available</option>";
@@ -93,7 +93,7 @@ $totalAmount = $user->saving_balance + $user->current_balance;
                         <div class="form-group">
                             <label>To Account</label>
                             <select class="form-control" name="to_account" value="<?php if (isset($_SESSION{'account'})) {echo $_SESSION['account'];}?>">
-                                <?php
+                            <?php
                                 if ($accounts !== 'No Data was returned') { 
                                     while ($row = mysqli_fetch_assoc($accounts)) { 
                                         echo "<option value=''>Select Source Account</option>";
