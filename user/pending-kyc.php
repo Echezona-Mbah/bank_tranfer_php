@@ -58,6 +58,30 @@ $user = $for->getsingledetail(($_SESSION['user_unique_id']));
 									<input id="demo1" class="form-control" type="text" name="idnumber">
 								</div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="single-select">Date of Birth</label>
+									<input id="demo1" class="form-control" type="date" name="date_of_birth">
+								</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="single-select">Next of kin Name</label>
+									<input id="demo1" class="form-control" type="text" name="next_of_kin_name">
+								</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="single-select">Phone </label>
+									<input id="demo1" class="form-control" type="text" name="phone_number">
+								</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="single-select">Next of kind Address</label>
+									<input id="demo1" class="form-control" type="text" name="next_of_kind_address">
+								</div>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Upload</button>
                     </form>

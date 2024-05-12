@@ -230,6 +230,7 @@ class main_work{
         }
 
         $emailUniqueness = $this->checkUniqueValueInDatabase('user', 'email', $email);
+       // print_r( $emailUniqueness); die();
         if($emailUniqueness > 0){
             $_SESSION['formError'] = ['general_error'=>['Email Address exists']];
             header('location:../register.php');
@@ -540,8 +541,19 @@ class main_work{
 
     function kyc() {
         $idnumber= $_SESSION['idnumber']=mysqli_real_escape_string($this->dbConnection, $_POST['idnumber']);
+        $date_of_birth= $_SESSION['date_of_birth']=mysqli_real_escape_string($this->dbConnection, $_POST['date_of_birth']);
+        $next_of_kin_name= $_SESSION['next_of_kin_name']=mysqli_real_escape_string($this->dbConnection, $_POST['next_of_kin_name']);
+        $phone_number= $_SESSION['phone_number']=mysqli_real_escape_string($this->dbConnection, $_POST['phone_number']);
+        $next_of_kind_address= $_SESSION['next_of_kind_address']=mysqli_real_escape_string($this->dbConnection, $_POST['next_of_kind_address']);
+
         $thingsToValidate = [
             $idnumber.'|Idnumber|idnumber|empty',
+            $date_of_birth.'|Idnumber|idnumber|empty',
+            $next_of_kin_name.'|date of birth|date_of_birth|empty',
+            $phone_number.'|phone number|idnumber|empty',
+            $next_of_kind_address.'|next of kind address|idnumber|empty',
+
+
         ];
         $validationStatus = $this->callValidation($thingsToValidate);
         if($validationStatus === false){
@@ -569,7 +581,8 @@ class main_work{
 
         $user_unique_id = $_SESSION['user_unique_id'];
 
-        $query = "UPDATE user SET id_front = '".$id_front."',id_back = '".$id_back."',proof_address = '".$proof_address."',id_number = '".$idnumber."' WHERE user_unique_id = '$user_unique_id'";
+        $query = "UPDATE user SET id_front = '".$id_front."',id_back = '".$id_back."',proof_address = '".$proof_address."',id_number = '".$idnumber."',
+        date_of_birth = '".$date_of_birth."',next_of_kin_name = '".$next_of_kin_name."',phone_number = '".$phone_number."',next_of_kind_address = '".$next_of_kind_address."' WHERE user_unique_id = '$user_unique_id'";
         //print_r($query);die();  
         $result = $this->runMysqliQuery($query); 
         if ($result['error_code'] == 1){
@@ -1025,7 +1038,7 @@ class main_work{
                 return;
             }
             
-            header ('location:../user/domestic.php?&success=Tranfer was successfully');
+            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
         }
 
         if($current == $account_number){
@@ -1062,7 +1075,7 @@ class main_work{
                 return;
             }
             
-            header ('location:../user/domestic.php?&success=Tranfer was successfully');
+            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
         }
 
         if ($result){
@@ -1128,12 +1141,12 @@ class main_work{
             $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
             $retval = @mail($to,$subject, $message, $header);
             if ($retval = true) {
-                header("location:../user/domestic.php?success=Transfer was successful");
+                header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
                 // header("location:login.php");
             }else {
                 return  'Internal error. Mail fail to send';
             }
-            header("location:../user/domestic.php?success=Transfer was successful");
+            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
         }
 
     }
@@ -1236,7 +1249,7 @@ class main_work{
               return;
           }
 
-        if($saving == $account_number){
+    if($saving == $account_number){
         $ass = $this->getsingledetail($user_unique_id);
         $fee = $this->feewire();
         $balance = $ass->saving_balance;
@@ -1334,12 +1347,12 @@ class main_work{
             $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
             $retval = @mail($to,$subject, $message, $header);
             if ($retval = true) {
-                header("location:../user/wire.php?success=Transfer was successful");
+                header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
                 // header("location:login.php");
             }else {
                 return  'Internal error. Mail fail to send';
             }
-            header("location:../user/wire.php?success=Transfer was successful");
+            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
         }
 
 

@@ -39,7 +39,7 @@
 	 echo "  title: 'Success',";
 	 echo "  text: '".htmlspecialchars($_GET['success'], ENT_QUOTES)."',";
 	 echo "  showConfirmButton: false,";
-	 echo "  timer: 4000";
+	 echo "  timer: 4500";
 	 echo "});";
 	 echo "</script>";
    }
