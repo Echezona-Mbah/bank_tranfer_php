@@ -6,8 +6,8 @@ if (!isset($_SESSION['user_unique_id'])) {
 }
 $UserDetails = $for->alltable();
 $user = $for->getsingledetail(($_SESSION['user_unique_id']));
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_GET['ref_id'])) {
+    $ref_id = $_GET['ref_id'];
 }
 $row = $for->Invoice($ref_id);
 ?>
@@ -88,7 +88,7 @@ $row = $for->Invoice($ref_id);
                 </div>
                 <div class="invoice-desc-head clearfix">
                     <div class="invoice-sub">Payment Account</div>
-                    <div class="invoice-subtotal"><?php echo substr($row[0]->account, 13); ?></div>
+                    <div class="invoice-subtotal"><?php echo substr($row[0]->account,0); ?></div>
                 </div>
                 <div class="clearfix">
                     <div class="invoice-sub">Transaction Status</div>

@@ -157,7 +157,7 @@ $totalAmount = $user->saving_balance + $user->current_balance;
 
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Meke Tranfer</button>
+                            <button type="submit" class="btn btn-primary">Make Tranfer</button>
                         </div>
 
 					</form>

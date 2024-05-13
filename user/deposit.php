@@ -123,7 +123,7 @@ if ($wallets === 'No Data was returned' || $wallets === 'Error fetching data') {
 
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Meke Deposit</button>
+                            <button type="submit" class="btn btn-primary">Make Deposit</button>
                         </div>
 
 					</form>

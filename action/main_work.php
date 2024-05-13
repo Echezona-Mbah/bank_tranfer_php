@@ -1050,7 +1050,7 @@ class main_work{
                 return;
             }
             
-            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
+            header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$local_id");
         }
 
         if($current == $account_number){
@@ -1087,7 +1087,7 @@ class main_work{
                 return;
             }
             
-            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
+            header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$local_id");
         }
 
         if ($result){
@@ -1153,12 +1153,12 @@ class main_work{
             $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
             $retval = @mail($to,$subject, $message, $header);
             if ($retval = true) {
-                header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
+                header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$local_id");
                 // header("location:login.php");
             }else {
                 return  'Internal error. Mail fail to send';
             }
-            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
+            header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$local_id");
         }
 
     }
@@ -1262,7 +1262,7 @@ class main_work{
               return;
           }
 
-        if($saving == $account_number){
+       if($saving == $account_number){
         $ass = $this->getsingledetail($user_unique_id);
         $fee = $this->feewire();
         $balance = $ass->saving_balance;
@@ -1360,12 +1360,12 @@ class main_work{
             $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
             $retval = @mail($to,$subject, $message, $header);
             if ($retval = true) {
-                header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
+                header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$local_id");
                 // header("location:login.php");
             }else {
                 return  'Internal error. Mail fail to send';
             }
-            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
+            header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$local_id");
         }
 
 
@@ -1406,7 +1406,7 @@ class main_work{
                 return;
             }
 
-            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$local_id");
+            header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$local_id");
 
 
         }
@@ -1493,8 +1493,9 @@ class main_work{
             }
     
             $self_id = $this->createUniqueID('self_tranfer', 'self_id');
-    
-    
+            $encodedMessage = urlencode('Tranfer was successfully');
+            $encodedSelfId = urlencode($self_id);
+
             $query = "INSERT INTO self_tranfer (id,self_id,amount,account,to_account,Refrence_id,user_unique_id)
             VALUES (null,'".$self_id."', '".$amount."','".$from_account."','".$to_account."','".$self_id."','".$user_unique_id."')";
            // print_r($query); die();
@@ -1520,7 +1521,7 @@ class main_work{
                 return;
             }
     
-            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$self_id");
+            header ("location:../user/receipt.php?&success=$encodedMessage&ref_id=$encodedSelfId");
 
         }
         
@@ -1540,7 +1541,8 @@ class main_work{
             }
     
             $self_id = $this->createUniqueID('self_tranfer', 'self_id');
-    
+            $encodedMessage = urlencode('Tranfer was successfully');
+            $encodedSelfId = urlencode($self_id);
     
             $query = "INSERT INTO self_tranfer (id,self_id,amount,account,to_account,Refrence_id,user_unique_id)
             VALUES (null,'".$self_id."', '".$amount."','".$from_account."','".$to_account."','".$self_id."','".$user_unique_id."')";
@@ -1631,15 +1633,15 @@ class main_work{
                 $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
                 $retval = @mail($to,$subject, $message, $header);
                 if ($retval = true) {
-                    header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$self_id");
+                    header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$self_id");
                     // header("location:login.php");
                 }else {
                     return  'Internal error. Mail fail to send';
                 }
-                header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$self_id");
+                header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$self_id");
             }
     
-            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$self_id");
+            header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$self_id");
 
         }
 
@@ -1744,7 +1746,7 @@ class main_work{
                 return;
             }
     
-            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
+            header ("location:../user/invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
 
         }
 
@@ -1847,15 +1849,15 @@ class main_work{
                 $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
                 $retval = @mail($to,$subject, $message, $header);
                 if ($retval = true) {
-                    header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
+                    header ("location:../user/invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
                     // header("location:login.php");
                 }else {
                     return  'Internal error. Mail fail to send';
                 }
-                header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
+                header ("location:../user/invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
             }
     
-            header ("location:../user/Invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
+            header ("location:../user/invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
 
         }
 
