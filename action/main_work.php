@@ -1023,13 +1023,22 @@ class main_work{
           if (!$resultss || mysqli_num_rows($resultss) == 0) {
               return 'No data was returned.';
           } else {
-              $userDetails = [];
               while ($rowss = mysqli_fetch_assoc($resultss)) {
-                  print_r($rowss); die();
-
-                  $userDetails[] = $rowss;
+                $user_unique_idddd = $rowss['user_unique_id'];
+                $saving_balanceddd = $rowss['saving_balance'];
+                $current_balanceddd = $rowss['current_balance'];
+                $ddtotals = $amount + $saving_balanceddd;
+                $ddtotalc = $amount + $current_balanceddd;
               }
-              return $userDetails;
+              $query = "UPDATE user SET saving_balance='$ddtotals' OR current_balance ='$ddtotalc' WHERE user_unique_id='".$userid."' ";
+              $back = $this->runMysqliQuery($query);
+              if($back['error_code'] == 1){
+                  $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+                  header("location:../user/edit.php");
+                  return;
+              }
+      
+              header ("location:../admin/edit.php?user=$userid&success=User Edit was successfully");
           }
         //print_r($account_number);die();
         if($saving == $account_number){
