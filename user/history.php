@@ -85,12 +85,12 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
-								<h4>Loan Request</h4>
+								<h4>History</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Loan Request</li>
+									<li class="breadcrumb-item active" aria-current="page">History</li>
 								</ol>
 							</nav>
 						</div>
@@ -110,7 +110,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
 				</div>
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4">Data Table with Checckbox select</h4>
+						<h4 class="text-blue h4">Data Table with History</h4>
 					</div>
 					<div class="pb-20" style="overflow-x: auto;">
     <table class="checkbox-datatable table nowrap">
@@ -123,7 +123,8 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                 </th>
                 <th>Reference</th>
                 <th>Amount</th>
-                <th>Type</th>
+                <th>Account type</th>
+                <th>Transaction type</th>
                 <th>Payment Account</th>
                 <th>Status</th>
                 <th>Date</th>
@@ -138,6 +139,15 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                     <td><?php echo $row->Refrence_id; ?></td>
                     <td><?php echo $row->amount; ?></td>
                     <td><?php echo $row->type; ?></td>
+                    <td <?php if (isset($row->transaction_type) && $row->transaction_type !== 'debit'): ?> style="color: blue;" <?php endif; ?>>
+                        <?php if (isset($row->transaction_type) && $row->transaction_type !== 'debit'): ?>
+                            <?php echo $row->transaction_type; ?>
+                        <?php else: ?>
+                            <span style="color: green;">Debit</span>
+                        <?php endif; ?>
+                    </td>
+
+
                     <td><?php echo $row->account; ?></td>
                     <td>
                         <?php

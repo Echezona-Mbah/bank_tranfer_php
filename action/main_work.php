@@ -979,7 +979,7 @@ class main_work{
         $amount = $_SESSION['amount']=mysqli_real_escape_string($this->dbConnection, $_POST['amount']);
         $account = $_SESSION['account']=mysqli_real_escape_string($this->dbConnection, $_POST['account']);
         $bank_name = $_SESSION['bank_name']=mysqli_real_escape_string($this->dbConnection, $_POST['bank_name']);
-        $account_number = $_SESSION['account_number']=mysqli_real_escape_string($this->dbConnection, $_POST['account_number']);
+        $account_numbers = $_SESSION['account_number']=mysqli_real_escape_string($this->dbConnection, $_POST['account_number']);
         $account_name = $_SESSION['account_name']=mysqli_real_escape_string($this->dbConnection, $_POST['account_name']);
         $details = $_SESSION['details']=mysqli_real_escape_string($this->dbConnection, $_POST['details']);
 
@@ -987,7 +987,7 @@ class main_work{
             $amount.'|Amount|amount|empty',
             $account.'|Account|account|empty',
             $bank_name.'|Bank name|bank_name|empty',
-            $account_number.'|Account number|account_number|empty',
+            $account_numbers.'|Account number|account_number|empty',
             $account_name.'|Account name|account_name|empty',
             $details.'|Details|details|empty',
         ];
@@ -1014,7 +1014,23 @@ class main_work{
               return;
           }
         
+          $queryss = "SELECT * FROM user WHERE saving = '$account_numbers' OR current = '$account_numbers'";
+          $detailsss = $this->runMysqliQuery($queryss);
+          if ($detailsss['error_code'] == 1) {
+              return $detailsss['error'];
+          }
+          $resultss = $detailsss['data'];
+          if (!$resultss || mysqli_num_rows($resultss) == 0) {
+              return 'No data was returned.';
+          } else {
+              $userDetails = [];
+              while ($rowss = mysqli_fetch_assoc($resultss)) {
+                  print_r($rowss); die();
 
+                  $userDetails[] = $rowss;
+              }
+              return $userDetails;
+          }
         //print_r($account_number);die();
         if($saving == $account_number){
             $ass = $this->getsingledetail($user_unique_id);
@@ -1030,10 +1046,11 @@ class main_work{
             }
     
             $local_id = $this->createUniqueID('local_tranfer', 'local_id');
+            
     
     
             $query = "INSERT INTO local_tranfer (id,local_id,amount,account,bank_name,account_numble,account_name,details,Refrence_id,user_unique_id)
-            VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_number."','".$account_name."','".$details."','".$local_id."','".$user_unique_id."')";
+            VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_numbers."','".$account_name."','".$details."','".$local_id."','".$user_unique_id."')";
            // print_r($query); die();
            $result = $this->runMysqliQuery($query); 
            if ($result['error_code'] == 1){
@@ -1070,7 +1087,7 @@ class main_work{
     
     
             $query = "INSERT INTO local_tranfer (id,local_id,amount,account,bank_name,account_numble,account_name,details,Refrence_id,user_unique_id)
-            VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_number."','".$account_name."','".$details."','".$local_id."','".$user_unique_id."')";
+            VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_numbers."','".$account_name."','".$details."','".$local_id."','".$user_unique_id."')";
            // print_r($query); die();
            $result = $this->runMysqliQuery($query); 
            if ($result['error_code'] == 1){
