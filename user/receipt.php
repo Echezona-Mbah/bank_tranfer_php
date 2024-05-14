@@ -59,15 +59,15 @@ $row = $for->Invoice($ref_id);
 
                 <div class="invoice-wrap">
     <div id="print-content"  class="invoice-box">
-        <div class="invoice-header">
+        <!-- <div class="invoice-header">
             <div class="logo text-center">
                 <img src="vendors/images/banner-img.png" alt="">
             </div>
-        </div>
-        <h4 class="text-center mb-30 weight-600">INVOICE</h4>
+        </div> -->
+        <h4 class="text-center mb-30 weight-600">Receipt</h4>
         <div class="row pb-30">
             <div class="col-md-6">
-                <h5 class="mb-15">Invoice</h5>
+                <h5 class="mb-15">receipt</h5>
                 <p class="font-14 mb-5"> <strong class="weight-600">Transaction</strong></p>
             </div>
             <div class="col-md-6 text-md-right">
@@ -90,6 +90,13 @@ $row = $for->Invoice($ref_id);
                     <div class="invoice-sub">Payment Account</div>
                     <div class="invoice-subtotal"><?php echo substr($row[0]->account,0); ?></div>
                 </div>
+                <div class="invoice-desc-head clearfix">
+                    <div class="invoice-sub">Beneficiary name</div>
+                    <div class="invoice-subtotal">
+                        <?php echo isset($row[0]->account_name) ? substr($row[0]->account_name, 0) : 'User'; ?>
+                    </div>
+                </div>
+
                 <div class="clearfix">
                     <div class="invoice-sub">Transaction Status</div>
                     <div class="invoice-subtotal"><?php  print $row[0]->status;?></div>

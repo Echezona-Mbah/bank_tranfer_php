@@ -1746,7 +1746,7 @@ class main_work{
                 return;
             }
     
-            header ("location:../user/invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
+            header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$user_id");
 
         }
 
@@ -1849,15 +1849,15 @@ class main_work{
                 $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
                 $retval = @mail($to,$subject, $message, $header);
                 if ($retval = true) {
-                    header ("location:../user/invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
+                    header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$user_id");
                     // header("location:login.php");
                 }else {
                     return  'Internal error. Mail fail to send';
                 }
-                header ("location:../user/invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
+                header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$user_id");
             }
     
-            header ("location:../user/invoice.php?&success=Tranfer was successfully&ref_id=$user_id");
+            header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$user_id");
 
         }
 
