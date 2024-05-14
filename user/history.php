@@ -139,13 +139,10 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                     <td><?php echo $row->Refrence_id; ?></td>
                     <td><?php echo $row->amount; ?></td>
                     <td><?php echo $row->type; ?></td>
-                    <td <?php if (isset($row->transaction_type) && $row->transaction_type !== 'debit'): ?> style="color: blue;" <?php endif; ?>>
-                        <?php if (isset($row->transaction_type) && $row->transaction_type !== 'debit'): ?>
-                            <?php echo $row->transaction_type; ?>
-                        <?php else: ?>
-                            <span style="color: green;">Debit</span>
-                        <?php endif; ?>
+                    <td style="color: <?php echo $row->transaction_type === 'Credit' ? 'green' : 'red'; ?>">
+                        <?php echo $row->transaction_type; ?>
                     </td>
+
 
 
                     <td><?php echo $row->account; ?></td>
@@ -154,7 +151,7 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                         $buttonClass = '';
                         if ($row->status == 'Processing') {
                             $buttonClass = 'btn-warning'; 
-                        } elseif ($row->status == 'completed') {
+                        } elseif ($row->status == 'complete') {
                             $buttonClass = 'btn-success'; 
                         }
                         ?>

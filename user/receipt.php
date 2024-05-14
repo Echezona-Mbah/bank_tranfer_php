@@ -67,7 +67,7 @@ $row = $for->Invoice($ref_id);
         <h4 class="text-center mb-30 weight-600">Receipt</h4>
         <div class="row pb-30">
             <div class="col-md-6">
-                <h5 class="mb-15">receipt</h5>
+                <h5 class="mb-15">Receipt</h5>
                 <p class="font-14 mb-5"> <strong class="weight-600">Transaction</strong></p>
             </div>
             <div class="col-md-6 text-md-right">
