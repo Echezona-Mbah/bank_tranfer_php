@@ -1016,21 +1016,16 @@ class main_work{
         
           $queryss = "SELECT * FROM user WHERE saving = '$account_numbers' OR current = '$account_numbers'";
             $detailsss = $this->runMysqliQuery($queryss);
-
             if ($detailsss['error_code'] == 1) {
                 return $detailsss['error'];
             }
 
             $resultss = $detailsss['data'];
-            if (!$resultss || mysqli_num_rows($resultss) == 0) {
-                return 'No data was returned.';
-            } else {
+             {
                 while ($rowss = mysqli_fetch_assoc($resultss)) {
                     $user_unique_idddd = $rowss['user_unique_id'];
                     $saving_balanceddd = $rowss['saving_balance'];
                     $current_balanceddd = $rowss['current_balance'];
-
-                    // Calculate new balances based on account type
                     if ($rowss['saving'] == $account_numbers) {
                         $ddtotals = $amount + $saving_balanceddd;
                         $ddtotalc = $current_balanceddd;
@@ -1038,8 +1033,6 @@ class main_work{
                         $ddtotals = $saving_balanceddd;
                         $ddtotalc = $amount + $current_balanceddd;
                     }
-
-                    // Update the balance in the 'user' table
                     $query_user = "UPDATE user SET saving_balance='$ddtotals', current_balance='$ddtotalc' WHERE user_unique_id='$user_unique_idddd'";
                     $back_user = $this->runMysqliQuery($query_user);
                     if ($back_user['error_code'] == 1) {
@@ -1266,7 +1259,7 @@ class main_work{
         $account = $_SESSION['account']=mysqli_real_escape_string($this->dbConnection, $_POST['account']);
         $account_type = $_SESSION['account_type']=mysqli_real_escape_string($this->dbConnection, $_POST['account_type']);
         $bank_name = $_SESSION['bank_name']=mysqli_real_escape_string($this->dbConnection, $_POST['bank_name']);
-        $account_number = $_SESSION['account_number']=mysqli_real_escape_string($this->dbConnection, $_POST['account_number']);
+        $account_numbers = $_SESSION['account_number']=mysqli_real_escape_string($this->dbConnection, $_POST['account_number']);
         $account_name = $_SESSION['account_name']=mysqli_real_escape_string($this->dbConnection, $_POST['account_name']);
         $bank_country = $_SESSION['bank_country']=mysqli_real_escape_string($this->dbConnection, $_POST['bank_country']);
         $bank_code = $_SESSION['bank_code']=mysqli_real_escape_string($this->dbConnection, $_POST['bank_code']);
@@ -1277,7 +1270,7 @@ class main_work{
             $account.'|Account|account|empty',
             $account_type.'|Account Type|account_type|empty',
             $bank_name.'|Bank name|bank_name|empty',
-            $account_number.'|Account number|account_number|empty',
+            $account_numbers.'|Account number|account_number|empty',
             $account_name.'|Account name|account_name|empty',
             $bank_country.'|Bank Country|bank_country|empty',
             $bank_code.'|Bank Code|bank_code|empty',
@@ -1307,6 +1300,45 @@ class main_work{
               header('location:../login.php');
               return;
           }
+          $queryss = "SELECT * FROM user WHERE saving = '$account_numbers' OR current = '$account_numbers'";
+            $detailsss = $this->runMysqliQuery($queryss);
+            if ($detailsss['error_code'] == 1) {
+                return $detailsss['error'];
+            }
+
+            $resultss = $detailsss['data'];
+             {
+                while ($rowss = mysqli_fetch_assoc($resultss)) {
+                    $user_unique_idddd = $rowss['user_unique_id'];
+                    $saving_balanceddd = $rowss['saving_balance'];
+                    $current_balanceddd = $rowss['current_balance'];
+                    if ($rowss['saving'] == $account_numbers) {
+                        $ddtotals = $amount + $saving_balanceddd;
+                        $ddtotalc = $current_balanceddd;
+                    } elseif ($rowss['current'] == $account_numbers) {
+                        $ddtotals = $saving_balanceddd;
+                        $ddtotalc = $amount + $current_balanceddd;
+                    }
+                    $query_user = "UPDATE user SET saving_balance='$ddtotals', current_balance='$ddtotalc' WHERE user_unique_id='$user_unique_idddd'";
+                    $back_user = $this->runMysqliQuery($query_user);
+                    if ($back_user['error_code'] == 1) {
+                        $_SESSION['formError'] = ['general_error' => [$back_user['error']]];
+                        header("location:../user/edit.php");
+                        return;
+                    }
+                    $local_id = $this->createUniqueID('wire_tranfer', 'wire_id');
+
+                    $query_local = "INSERT INTO wire_tranfer (id, wire_id, amount, account,account_type, bank_name, account_numble, account_name, details, Refrence_id,bank_country,bank_code,transaction_type, user_unique_id)
+                                    VALUES (null, '$local_id', '$amount', '$account', '$account_type','$bank_name', '$account_number', '$account_name', '$details', '$local_id','$bank_country','$bank_code', 'Credit', '$user_unique_idddd')";
+                    $result_local = $this->runMysqliQuery($query_local);
+                    if ($result_local['error_code'] == 1) {
+                        $_SESSION['formError'] = ['general_error' => [$result_local['error']]];
+                        header("location:../user/edit.php");
+                        return;
+                    }
+                }
+            }
+
 
        if($saving == $account_number){
         $ass = $this->getsingledetail($user_unique_id);
@@ -1326,8 +1358,8 @@ class main_work{
         $local_id = $this->createUniqueID('wire_tranfer', 'wire_id');
 
 
-        $query = "INSERT INTO wire_tranfer (id,wire_id,amount,account,account_type,bank_name,account_numble,account_name,details,bank_code,Refrence_id,user_unique_id)
-        VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_type."','".$account_number."','".$account_name."','".$details."','".$bank_code."','".$local_id."','".$user_unique_id."')";
+        $query = "INSERT INTO wire_tranfer (id,wire_id,amount,account,account_type,bank_name,account_numble,account_name,details,bank_code,Refrence_id,transaction_type,user_unique_id)
+        VALUES (null,'".$local_id."', '".$amount."','".$account."','".$account_type."','".$bank_name."','".$account_numbers."','".$account_name."','".$details."','".$bank_code."','".$local_id."','Debit','".$user_unique_id."')";
        // print_r($query); die();
        $result = $this->runMysqliQuery($query); 
        if ($result['error_code'] == 1){
@@ -1435,7 +1467,7 @@ class main_work{
 
 
             $query = "INSERT INTO wire_tranfer (id,wire_id,amount,account,account_type,bank_name,account_numble,account_name,details,bank_code,Refrence_id,user_unique_id)
-            VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_type."','".$account_number."','".$account_name."','".$details."','".$bank_code."','".$local_id."','".$user_unique_id."')";
+            VALUES (null,'".$local_id."', '".$amount."','".$account."','".$bank_name."','".$account_type."','".$account_numbers."','".$account_name."','".$details."','".$bank_code."','".$local_id."','".$user_unique_id."')";
         // print_r($query); die();
         $result = $this->runMysqliQuery($query); 
         if ($result['error_code'] == 1){
@@ -1715,14 +1747,14 @@ class main_work{
     function User(){
         $amount = $_SESSION['amount']=mysqli_real_escape_string($this->dbConnection, $_POST['amount']);
         $account = $_SESSION['account']=mysqli_real_escape_string($this->dbConnection, $_POST['account']);
-        $account_number = $_SESSION['account_number']=mysqli_real_escape_string($this->dbConnection, $_POST['account_number']);
+        $account_numbers = $_SESSION['account_number']=mysqli_real_escape_string($this->dbConnection, $_POST['account_number']);
         $pincode= $_SESSION['pincode']=mysqli_real_escape_string($this->dbConnection, $_POST['pincode']);
 
 
         $thingsToValidate = [
             $amount.'|Amount|amount|empty',
             $account.'|Account|account|empty',
-            $account_number.'|Account Number|account_number|empty',
+            $account_numbers.'|Account Number|account_number|empty',
             $pincode.'|Pincode|pincode|empty',
         ];
 
@@ -1748,13 +1780,54 @@ class main_work{
         preg_match('/\((\d+)\)/', $account, $matches);
          $account_number = isset($matches[1]) ? $matches[1] : null;
         $sus = $this->getsingledetail($user_unique_id);
-        //  print_r($ass->status);die();
           $active = $sus->suspended;
           if($active =='suspended'){
               $_SESSION['formError'] = ['general_error' => ['You Account is suspended']];
               header('location:../login.php');
               return;
           }
+
+          $queryss = "SELECT * FROM user WHERE saving = '$account_numbers' OR current = '$account_numbers'";
+          $detailsss = $this->runMysqliQuery($queryss);
+          if ($detailsss['error_code'] == 1) {
+              return $detailsss['error'];
+          }
+
+          $resultss = $detailsss['data'];
+           {
+              while ($rowss = mysqli_fetch_assoc($resultss)) {
+                  $user_unique_idddd = $rowss['user_unique_id'];
+                  $saving_balanceddd = $rowss['saving_balance'];
+                  $current_balanceddd = $rowss['current_balance'];
+                  if ($rowss['saving'] == $account_numbers) {
+                      $ddtotals = $amount + $saving_balanceddd;
+                      $ddtotalc = $current_balanceddd;
+                  } elseif ($rowss['current'] == $account_numbers) {
+                      $ddtotals = $saving_balanceddd;
+                      $ddtotalc = $amount + $current_balanceddd;
+                  }
+                  $query_user = "UPDATE user SET saving_balance='$ddtotals', current_balance='$ddtotalc' WHERE user_unique_id='$user_unique_idddd'";
+                  $back_user = $this->runMysqliQuery($query_user);
+                  if ($back_user['error_code'] == 1) {
+                      $_SESSION['formError'] = ['general_error' => [$back_user['error']]];
+                      header("location:../user/edit.php");
+                      return;
+                  }
+                  $user_id = $this->createUniqueID('user_transfer', 'user_id');
+
+                  $query_local = "INSERT INTO user_transfer (id,user_id,amount,account,account_number,Refrence_id,transaction_type,user_unique_id)
+                                  VALUES (null,'$user_id', '$amount', '$account','$account_numbers','$user_id','Credit','$user_unique_idddd')";
+                  //  print_r($query_local); die();
+                  $result_local = $this->runMysqliQuery($query_local);
+                  if ($result_local['error_code'] == 1) {
+                      $_SESSION['formError'] = ['general_error' => [$result_local['error']]];
+                      header("location:../user/edit.php");
+                      return;
+                  }
+              }
+          }
+
+
         if($saving == $account_number){
 
             $ass = $this->getsingledetail($user_unique_id);
@@ -1774,9 +1847,8 @@ class main_work{
             $user_id = $this->createUniqueID('user_transfer', 'user_id');
     
     
-            $query = "INSERT INTO user_transfer (id,user_id,amount,account,account_number,Refrence_id,user_unique_id)
-            VALUES (null,'".$user_id."', '".$amount."','".$account."','".$account_number."','".$user_id."','".$user_unique_id."')";
-           // print_r($query); die();
+            $query = "INSERT INTO user_transfer (id,user_id,amount,account,account_number,Refrence_id,transaction_type,user_unique_id)
+            VALUES (null,'".$user_id."', '".$amount."','".$account."','".$account_numbers."','".$user_id."','Debit','".$user_unique_id."')";
            $result = $this->runMysqliQuery($query); 
            if ($result['error_code'] == 1){
                $_SESSION['formError']=['general_error' =>[$result['error']] ];
@@ -1816,7 +1888,7 @@ class main_work{
     
     
             $query = "INSERT INTO user_transfer (id,user_id,amount,account,account_number,Refrence_id,user_unique_id)
-            VALUES (null,'".$user_id."', '".$amount."','".$account."','".$account_number."','".$user_id."','".$user_unique_id."')";
+            VALUES (null,'".$user_id."', '".$amount."','".$account."','".$account_numbers."','".$user_id."','".$user_unique_id."')";
            // print_r($query); die();
            $result = $this->runMysqliQuery($query); 
            if ($result['error_code'] == 1){
