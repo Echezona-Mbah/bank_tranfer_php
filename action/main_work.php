@@ -1574,8 +1574,8 @@ class main_work{
             $encodedMessage = urlencode('Tranfer was successfully');
             $encodedSelfId = urlencode($self_id);
 
-            $query = "INSERT INTO self_tranfer (id,self_id,amount,account,to_account,Refrence_id,user_unique_id)
-            VALUES (null,'".$self_id."', '".$amount."','".$from_account."','".$to_account."','".$self_id."','".$user_unique_id."')";
+            $query = "INSERT INTO self_tranfer (id,self_id,amount,account,to_account,Refrence_id,transaction_type,user_unique_id)
+            VALUES (null,'".$self_id."', '".$amount."','".$from_account."','".$to_account."','".$self_id."','Debit','".$user_unique_id."')";
            // print_r($query); die();
            $result = $this->runMysqliQuery($query); 
            if ($result['error_code'] == 1){
@@ -1622,8 +1622,8 @@ class main_work{
             $encodedMessage = urlencode('Tranfer was successfully');
             $encodedSelfId = urlencode($self_id);
     
-            $query = "INSERT INTO self_tranfer (id,self_id,amount,account,to_account,Refrence_id,user_unique_id)
-            VALUES (null,'".$self_id."', '".$amount."','".$from_account."','".$to_account."','".$self_id."','".$user_unique_id."')";
+            $query = "INSERT INTO self_tranfer (id,self_id,amount,account,to_account,Refrence_id,transaction_type,user_unique_id)
+            VALUES (null,'".$self_id."', '".$amount."','".$from_account."','".$to_account."','".$self_id."','Debit','".$user_unique_id."')";
            // print_r($query); die();
            $result = $this->runMysqliQuery($query); 
            if ($result['error_code'] == 1){
