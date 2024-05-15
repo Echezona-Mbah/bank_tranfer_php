@@ -1033,13 +1033,13 @@ class main_work{
                         $ddtotals = $saving_balanceddd;
                         $ddtotalc = $amount + $current_balanceddd;
                     }
-                    $query_user = "UPDATE user SET saving_balance='$ddtotals', current_balance='$ddtotalc' WHERE user_unique_id='$user_unique_idddd'";
-                    $back_user = $this->runMysqliQuery($query_user);
-                    if ($back_user['error_code'] == 1) {
-                        $_SESSION['formError'] = ['general_error' => [$back_user['error']]];
-                        header("location:../user/edit.php");
-                        return;
-                    }
+                    // $query_user = "UPDATE user SET saving_balance='$ddtotals', current_balance='$ddtotalc' WHERE user_unique_id='$user_unique_idddd'";
+                    // $back_user = $this->runMysqliQuery($query_user);
+                    // if ($back_user['error_code'] == 1) {
+                    //     $_SESSION['formError'] = ['general_error' => [$back_user['error']]];
+                    //     header("location:../user/edit.php");
+                    //     return;
+                    // }
                     $local_id = $this->createUniqueID('local_tranfer', 'local_id');
 
                     $query_local = "INSERT INTO local_tranfer (id, local_id, amount, account, bank_name, account_numble, account_name, details, Refrence_id,transaction_type, user_unique_id)
@@ -1319,13 +1319,13 @@ class main_work{
                         $ddtotals = $saving_balanceddd;
                         $ddtotalc = $amount + $current_balanceddd;
                     }
-                    $query_user = "UPDATE user SET saving_balance='$ddtotals', current_balance='$ddtotalc' WHERE user_unique_id='$user_unique_idddd'";
-                    $back_user = $this->runMysqliQuery($query_user);
-                    if ($back_user['error_code'] == 1) {
-                        $_SESSION['formError'] = ['general_error' => [$back_user['error']]];
-                        header("location:../user/edit.php");
-                        return;
-                    }
+                    // $query_user = "UPDATE user SET saving_balance='$ddtotals', current_balance='$ddtotalc' WHERE user_unique_id='$user_unique_idddd'";
+                    // $back_user = $this->runMysqliQuery($query_user);
+                    // if ($back_user['error_code'] == 1) {
+                    //     $_SESSION['formError'] = ['general_error' => [$back_user['error']]];
+                    //     header("location:../user/edit.php");
+                    //     return;
+                    // }
                     $local_id = $this->createUniqueID('wire_tranfer', 'wire_id');
 
                     $query_local = "INSERT INTO wire_tranfer (id, wire_id, amount, account,account_type, bank_name, account_numble, account_name, details, Refrence_id,bank_country,bank_code,transaction_type, user_unique_id)
@@ -3047,11 +3047,10 @@ class main_work{
             return 'No Data was returned';
         } else {
             $rowss = mysqli_fetch_assoc($resultsss);
-            $user_unique_id = $rowss['user_unique_id'];
             $account = $rowss['account'];
-
         }
-    
+        preg_match('/\((\d+)\)/', $account, $matches);
+        $account_number = isset($matches[1]) ? $matches[1] : null;
         if($status === 'Processing'){
             $query = "UPDATE local_tranfer SET status = 'Complete' WHERE local_id = '".$user_id."'";
             $message = "Local transfer has been completed successfully";
@@ -3060,20 +3059,27 @@ class main_work{
             $message = "Local transfer has been processing successfully";
         }
     
-        // Run the query to update the local transfer status
         $result = $this->runMysqliQuery($query);
         if($result['error_code'] == 1){
             $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
             header("location:../admin/local.php");
             return;
         }
+    
         if ($status === 'Processing') {
-            $amount = $rowss['amount'];
-           // print_r($amount);die;
-            $accountType = $rowss['account_type'];
-            $balanceColumn = ($accountType === 'saving') ? 'saving_balance' : 'current_balance';
+            $userQuery = "SELECT * FROM user WHERE saving = '$account_number' OR current = '$account_number'";
+            //print_r($userQuery);die();
+            $userDetails = $this->runMysqliQuery($userQuery);
+            if ($userDetails['error_code'] == 1) {
+                $_SESSION['formError'] = ['general_error'=>[ $userDetails['error'] ] ];
+                header("location:../admin/local.php");
+                return;
+            }
+            $userData = mysqli_fetch_assoc($userDetails['data']);
             
-            $updateQuery = "UPDATE user SET $balanceColumn = $balanceColumn + $amount WHERE user_unique_id = '".$user_unique_id."'";
+            $accountType = ($userData['saving'] == $account_number) ? 'saving_balance' : 'current_balance';
+            $amount = $rowss['amount'];
+            $updateQuery = "UPDATE user SET $accountType = $accountType + $amount WHERE user_unique_id = '".$userData['user_unique_id']."'";
             $updateResult = $this->runMysqliQuery($updateQuery);
             if($updateResult['error_code'] == 1){
                 $_SESSION['formError'] = ['general_error'=>[ $updateResult['error'] ] ];
@@ -3081,8 +3087,10 @@ class main_work{
                 return;
             }
         }
-            header("location:../admin/local.php?success=$message");
+    
+        header("location:../admin/local.php?success=$message");
     }
+    
     
     function deletelocal($status){
         $query = "";
@@ -3133,8 +3141,12 @@ class main_work{
             return 'No Data was returned';
         } else {
             $rowss = mysqli_fetch_assoc($resultsss);
-            $user_unique_id = $rowss['user_unique_id'];
+           // print_r($rowss);die();
+
+            $account = $rowss['to_account'];
         }
+        preg_match('/\((\d+)\)/', $account, $matches);
+        $account_number = isset($matches[1]) ? $matches[1] : null;
         if($status === 'Processing'){
             $query = "UPDATE self_tranfer SET status = 'Complete' WHERE self_id = '".$user_id."'";
             $message = "self tranfer has been complete successfully";
@@ -3151,12 +3163,21 @@ class main_work{
         }
 
         if ($status === 'Processing') {
-            $amount = $rowss['amount'];
-           // print_r($amount);die;
-            $accountType = $rowss['account_type'];
-            $balanceColumn = ($accountType === 'saving') ? 'saving_balance' : 'current_balance';
+            $userQuery = "SELECT * FROM user WHERE saving = '$account_number' OR current = '$account_number'";
+           // print_r($userQuery);die();
+            $userDetails = $this->runMysqliQuery($userQuery);
+            if ($userDetails['error_code'] == 1) {
+                $_SESSION['formError'] = ['general_error'=>[ $userDetails['error'] ] ];
+                header("location:../admin/local.php");
+                return;
+            }
+            $userData = mysqli_fetch_assoc($userDetails['data']);
             
-            $updateQuery = "UPDATE user SET $balanceColumn = $balanceColumn + $amount WHERE user_unique_id = '".$user_unique_id."'";
+            $accountType = ($userData['saving'] == $account_number) ? 'saving_balance' : 'current_balance';
+    
+            // Update the balance of the user's account
+            $amount = $rowss['amount'];
+            $updateQuery = "UPDATE user SET $accountType = $accountType + $amount WHERE user_unique_id = '".$userData['user_unique_id']."'";
             $updateResult = $this->runMysqliQuery($updateQuery);
             if($updateResult['error_code'] == 1){
                 $_SESSION['formError'] = ['general_error'=>[ $updateResult['error'] ] ];
@@ -3240,6 +3261,21 @@ class main_work{
         $query = "";
         $message = "";
         $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        $queryss = "SELECT * FROM user_transfer WHERE user_id = '$user_id'";
+        $detailsss = $this->runMysqliQuery($queryss);
+        if ($detailsss['error_code'] == 1) {
+            return $detailsss['error'];
+        }
+        $resultsss = $detailsss['data'];
+        if(mysqli_num_rows($resultsss) == 0){
+            return 'No Data was returned';
+        } else {
+            $rowss = mysqli_fetch_assoc($resultsss);
+          // print_r($rowss);die();
+            $account_number = $rowss['account_number'];
+        }
+        // preg_match('/\((\d+)\)/', $account, $matches);
+        // $account_number = isset($matches[1]) ? $matches[1] : null;
         if($status === 'Processing'){
             $query = "UPDATE user_transfer SET status = 'Complete' WHERE user_id = '".$user_id."'";
             $message = "user tranfer has been complete successfully";
@@ -3253,6 +3289,30 @@ class main_work{
             $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
             header("location:../admin/user.php");
             return;
+        }
+        
+        if ($status === 'Processing') {
+            $userQuery = "SELECT * FROM user WHERE saving = '$account_number' OR current = '$account_number'";
+            //print_r($userQuery);die();
+            $userDetails = $this->runMysqliQuery($userQuery);
+            if ($userDetails['error_code'] == 1) {
+                $_SESSION['formError'] = ['general_error'=>[ $userDetails['error'] ] ];
+                header("location:../admin/local.php");
+                return;
+            }
+            $userData = mysqli_fetch_assoc($userDetails['data']);
+            
+            $accountType = ($userData['saving'] == $account_number) ? 'saving_balance' : 'current_balance';
+    
+            // Update the balance of the user's account
+            $amount = $rowss['amount'];
+            $updateQuery = "UPDATE user SET $accountType = $accountType + $amount WHERE user_unique_id = '".$userData['user_unique_id']."'";
+            $updateResult = $this->runMysqliQuery($updateQuery);
+            if($updateResult['error_code'] == 1){
+                $_SESSION['formError'] = ['general_error'=>[ $updateResult['error'] ] ];
+                header("location:../admin/user.php");
+                return;
+            }
         }
         header("location:../admin/user.php?success=$message");
     }
@@ -3370,7 +3430,8 @@ class main_work{
             return 'No Data was returned';
         } else {
             $rowss = mysqli_fetch_assoc($resultsss);
-            $user_unique_id = $rowss['user_unique_id'];
+           // print_r($rowss);die();
+            $account_number = $rowss['account_numble'];
         }
         if($status === 'Processing'){
             $query = "UPDATE wire_tranfer SET status = 'Complete' WHERE wire_id  = '".$user_id."'";
@@ -3388,16 +3449,25 @@ class main_work{
         }
         
         if ($status === 'Processing') {
-            $amount = $rowss['amount'];
-           // print_r($amount);die;
-            $accountType = $rowss['account_type'];
-            $balanceColumn = ($accountType === 'saving') ? 'saving_balance' : 'current_balance';
+            $userQuery = "SELECT * FROM user WHERE saving = '$account_number' OR current = '$account_number'";
+            //print_r($userQuery);die();
+            $userDetails = $this->runMysqliQuery($userQuery);
+            if ($userDetails['error_code'] == 1) {
+                $_SESSION['formError'] = ['general_error'=>[ $userDetails['error'] ] ];
+                header("location:../admin/wire.php");
+                return;
+            }
+            $userData = mysqli_fetch_assoc($userDetails['data']);
             
-            $updateQuery = "UPDATE user SET $balanceColumn = $balanceColumn + $amount WHERE user_unique_id = '".$user_unique_id."'";
+            $accountType = ($userData['saving'] == $account_number) ? 'saving_balance' : 'current_balance';
+    
+            // Update the balance of the user's account
+            $amount = $rowss['amount'];
+            $updateQuery = "UPDATE user SET $accountType = $accountType + $amount WHERE user_unique_id = '".$userData['user_unique_id']."'";
             $updateResult = $this->runMysqliQuery($updateQuery);
             if($updateResult['error_code'] == 1){
                 $_SESSION['formError'] = ['general_error'=>[ $updateResult['error'] ] ];
-                header("location:../admin/self.php");
+                header("location:../admin/wire.php");
                 return;
             }
         }
