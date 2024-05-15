@@ -3048,6 +3048,8 @@ class main_work{
         } else {
             $rowss = mysqli_fetch_assoc($resultsss);
             $user_unique_id = $rowss['user_unique_id'];
+            $account = $rowss['account'];
+
         }
     
         if($status === 'Processing'){
@@ -3121,6 +3123,18 @@ class main_work{
         $query = "";
         $message = "";
         $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        $queryss = "SELECT * FROM self_tranfer WHERE self_id = '$user_id'";
+        $detailsss = $this->runMysqliQuery($queryss);
+        if ($detailsss['error_code'] == 1) {
+            return $detailsss['error'];
+        }
+        $resultsss = $detailsss['data'];
+        if(mysqli_num_rows($resultsss) == 0){
+            return 'No Data was returned';
+        } else {
+            $rowss = mysqli_fetch_assoc($resultsss);
+            $user_unique_id = $rowss['user_unique_id'];
+        }
         if($status === 'Processing'){
             $query = "UPDATE self_tranfer SET status = 'Complete' WHERE self_id = '".$user_id."'";
             $message = "self tranfer has been complete successfully";
@@ -3134,6 +3148,21 @@ class main_work{
             $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
             header("location:../admin/self.php");
             return;
+        }
+
+        if ($status === 'Processing') {
+            $amount = $rowss['amount'];
+           // print_r($amount);die;
+            $accountType = $rowss['account_type'];
+            $balanceColumn = ($accountType === 'saving') ? 'saving_balance' : 'current_balance';
+            
+            $updateQuery = "UPDATE user SET $balanceColumn = $balanceColumn + $amount WHERE user_unique_id = '".$user_unique_id."'";
+            $updateResult = $this->runMysqliQuery($updateQuery);
+            if($updateResult['error_code'] == 1){
+                $_SESSION['formError'] = ['general_error'=>[ $updateResult['error'] ] ];
+                header("location:../admin/self.php");
+                return;
+            }
         }
         header("location:../admin/self.php?success=$message");
     }
@@ -3331,6 +3360,18 @@ class main_work{
         $query = "";
         $message = "";
         $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
+        $queryss = "SELECT * FROM wire_tranfer WHERE wire_id = '$user_id'";
+        $detailsss = $this->runMysqliQuery($queryss);
+        if ($detailsss['error_code'] == 1) {
+            return $detailsss['error'];
+        }
+        $resultsss = $detailsss['data'];
+        if(mysqli_num_rows($resultsss) == 0){
+            return 'No Data was returned';
+        } else {
+            $rowss = mysqli_fetch_assoc($resultsss);
+            $user_unique_id = $rowss['user_unique_id'];
+        }
         if($status === 'Processing'){
             $query = "UPDATE wire_tranfer SET status = 'Complete' WHERE wire_id  = '".$user_id."'";
             $message = "wire tranfer has been complete successfully";
@@ -3344,6 +3385,21 @@ class main_work{
             $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
             header("location:../admin/wire.php");
             return;
+        }
+        
+        if ($status === 'Processing') {
+            $amount = $rowss['amount'];
+           // print_r($amount);die;
+            $accountType = $rowss['account_type'];
+            $balanceColumn = ($accountType === 'saving') ? 'saving_balance' : 'current_balance';
+            
+            $updateQuery = "UPDATE user SET $balanceColumn = $balanceColumn + $amount WHERE user_unique_id = '".$user_unique_id."'";
+            $updateResult = $this->runMysqliQuery($updateQuery);
+            if($updateResult['error_code'] == 1){
+                $_SESSION['formError'] = ['general_error'=>[ $updateResult['error'] ] ];
+                header("location:../admin/self.php");
+                return;
+            }
         }
         header("location:../admin/wire.php?success=$message");
     }
