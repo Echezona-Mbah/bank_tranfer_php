@@ -3087,6 +3087,78 @@ class main_work{
                 return;
             }
         }
+
+        if ($result){
+            $to  = $email;
+            $d = date('Y');
+            $subject = "Transfer Notification Coastchartered";
+            $message = '
+                                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                                <html xmlns="http://www.w3.org/1999/xhtml">
+                                <head>
+                                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                                </head>
+                                <body>
+                    <h6 align="center"><img src="https://www.coastchartered.com/user/uploads/ffff.jpg" alt="coastchartered "/></h6>
+                    <div style="font-size: 14px;">
+                    <p>Dear ' . $name . ',</p>
+                    <p>We are writing to inform you that a transfer has been successfully made from your account at Coastchartered.</p>
+                    <table border="1" cellpadding="5" cellspacing="0">
+                        <tr>
+                            <th>Date</th>
+                            <th>Recipient</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                        <tr>
+                            <td>'.$date.'</td>
+                            <td>Coastchartered</td>
+                            <td>Self Transfer</td>
+                            <td>$'. $amount .'</td>
+                        </tr>
+                    </table>
+                    <p>If you did not authorize this transfer or have any questions about it, please contact us immediately.</p>                    <p>Thank you for banking with us.</p>
+                    <p>Sincerely,<br>Our Bank Team</p>
+                    <p style="color:#332E2E">Best Regard<br />
+                    coastchartered Team<br />
+                    Email: support@coastchartered.com<br /></p>
+                
+            <div style="background-color:rgb(253, 150, 26);
+                        float:left;
+                        width:80%;
+                        border:1px solid rgb(253, 150, 26);
+                        border-radius:0px 0px 3px 3px;
+                        padding-left:10% ;
+                        padding-right:10% ;
+                        padding-top:30px ;
+                        padding-bottom:30px ;
+                        font-family: \'Roboto\', sans-serif;" class="footer">
+                        coastchartered.<br>
+                located at 150 Minories,<br>
+                Tower, london EC3N,<br>
+                United kingdom.
+            </div>
+            <p style="float:left;
+            width:100%;
+            text-align:center;
+            font-family: \'Roboto Condensed\', sans-serif;
+            ">&copy;coastchartered <?php print ' . $d . ';?>. All Rights Reserved.</p>
+        </div>
+        </body>
+        </html>';
+            $header = "MIME-Version: 1.0" . "\r\n";
+            $header .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $header .= 'From: coastchartered <support@coastchartered.com' . "\r\n";
+            $retval = @mail($to,$subject, $message, $header);
+            if ($retval = true) {
+                header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$user_id");
+                // header("location:login.php");
+            }else {
+                return  'Internal error. Mail fail to send';
+            }
+            header ("location:../user/receipt.php?&success=Tranfer was successfully&ref_id=$user_id");
+        }
+
     
         header("location:../admin/local.php?success=$message");
     }
