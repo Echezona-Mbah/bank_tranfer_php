@@ -15,7 +15,42 @@ $row = $for->Invoice($ref_id);
 
 <?php require('head.php')?>
 
-
+<style>
+      .invoice-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .invoice-box {
+      padding: 20px;
+    }
+    .invoice-box h4 {
+      margin-top: 0;
+    }
+    .invoice-box .invoice-details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .invoice-box .invoice-details .col {
+      flex: 1;
+    }
+    .invoice-box .invoice-desc-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .invoice-box .invoice-desc-head .invoice-sub {
+      flex: 1;
+    }
+    .invoice-box .invoice-desc-body ul {
+      padding-left: 0;
+      list-style-type: none;
+    }
+</style>
 <?php require('header.php') ?>
 
 <?php require('sidebar.php') ?>
