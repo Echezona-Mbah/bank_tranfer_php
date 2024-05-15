@@ -65,12 +65,14 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                    <th style="width: 2%">No</th>
                                                    <th >Refrence_id</th>
                                                    <th>Name</th>
+                                                   <th>Transaction type</th>
                                                    <th>Amount</th>
                                                    <th>account</th>
                                                    <th>Bank Name</th>
                                                    <th>Account Number</th>
                                                    <th>Account Name</th>
                                                    <th>Details</th>
+                                                   <th>Transaction Type</th>
                                                    <th>Status</th>
                                                    <th>Date</th>
                                                    <th>Edit Date</th>
@@ -87,12 +89,14 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                                     <td><?php echo $row->local_id; ?></td>
                                                     <?php $user = $for->getsingledetail($row->user_unique_id); ?>
                                                     <td><?php echo $user->name; ?></td>
+                                                    <td><?php echo $row->type; ?></td>
                                                     <td><?php echo $row->amount; ?></td>
                                                     <td><?php echo $row->account; ?></td>
                                                     <td><?php echo $row->bank_name; ?></td>
                                                     <td><?php echo $row->account_numble; ?></td>
                                                     <td><?php echo $row->account_name; ?></td>
                                                     <td><?php echo $row->details; ?></td>
+                                                    <td><?php echo $row->transaction_type; ?></td>
 
                                                     <td><?php echo $row->status; ?></td>
                                                     <td><?php echo date('Y-m-d', strtotime($row->created_at)); ?></td>

@@ -3036,22 +3036,52 @@ class main_work{
         $query = "";
         $message = "";
         $user_id = mysqli_real_escape_string($this->dbConnection, $_POST['user_id']);
-        if($status === 'Processing'){
-            $query = "UPDATE local_tranfer SET status = 'Complete' WHERE local_id = '".$user_id."'";
-            $message = "local tranfer has been complete successfully";
-        } elseif ($status === 'Complete') {
-            $query = "UPDATE local_tranfer SET status = 'Processing' WHERE local_id = '".$user_id."'";
-            $message = "local tranfer has been processing successfully";
+    
+        $queryss = "SELECT * FROM local_tranfer WHERE local_id = '$user_id'";
+        $detailsss = $this->runMysqliQuery($queryss);
+        if ($detailsss['error_code'] == 1) {
+            return $detailsss['error'];
+        }
+        $resultsss = $detailsss['data'];
+        if(mysqli_num_rows($resultsss) == 0){
+            return 'No Data was returned';
+        } else {
+            $rowss = mysqli_fetch_assoc($resultsss);
+            $user_unique_id = $rowss['user_unique_id'];
         }
     
+        if($status === 'Processing'){
+            $query = "UPDATE local_tranfer SET status = 'Complete' WHERE local_id = '".$user_id."'";
+            $message = "Local transfer has been completed successfully";
+        } elseif ($status === 'Complete') {
+            $query = "UPDATE local_tranfer SET status = 'Processing' WHERE local_id = '".$user_id."'";
+            $message = "Local transfer has been processing successfully";
+        }
+    
+        // Run the query to update the local transfer status
         $result = $this->runMysqliQuery($query);
         if($result['error_code'] == 1){
             $_SESSION['formError'] = ['general_error'=>[ $result['error'] ] ];
             header("location:../admin/local.php");
             return;
         }
-        header("location:../admin/local.php?success=$message");
+        if ($status === 'Processing') {
+            $amount = $rowss['amount'];
+           // print_r($amount);die;
+            $accountType = $rowss['account_type'];
+            $balanceColumn = ($accountType === 'saving') ? 'saving_balance' : 'current_balance';
+            
+            $updateQuery = "UPDATE user SET $balanceColumn = $balanceColumn + $amount WHERE user_unique_id = '".$user_unique_id."'";
+            $updateResult = $this->runMysqliQuery($updateQuery);
+            if($updateResult['error_code'] == 1){
+                $_SESSION['formError'] = ['general_error'=>[ $updateResult['error'] ] ];
+                header("location:../admin/local.php");
+                return;
+            }
+        }
+            header("location:../admin/local.php?success=$message");
     }
+    
     function deletelocal($status){
         $query = "";
         $message = "";

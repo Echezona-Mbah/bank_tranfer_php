@@ -73,7 +73,7 @@ $row = $for->Invoice($ref_id);
             <div class="col-md-6 text-md-right">
                 <p class="font-14 mb-5"><?php echo $ref_id; ?> </strong></p>
                 <p class="font-14 mb-5"><?php  print $row[0]->status;?></p>
-
+                <p class="font-14 mb-5"><?php  print $row[0]->transaction_type;?></p>
             </div>
         </div>
         <div class="invoice-desc pb-30">
