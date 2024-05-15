@@ -1591,13 +1591,13 @@ class main_work{
            $current_balance = $ass->current_balance;
            $ccurentTotal = $amount + $current_balance;
 
-            $query = "UPDATE user SET saving_balance='".$total."',current_balance='".$ccurentTotal."'WHERE user_unique_id='".$user_unique_id."' ";
-            $back = $this->runMysqliQuery($query);
-            if($back['error_code'] == 1){
-                $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
-                header("location:../user/self.php");
-                return;
-            }
+            // $query = "UPDATE user SET saving_balance='".$total."',current_balance='".$ccurentTotal."'WHERE user_unique_id='".$user_unique_id."' ";
+            // $back = $this->runMysqliQuery($query);
+            // if($back['error_code'] == 1){
+            //     $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            //     header("location:../user/self.php");
+            //     return;
+            // }
     
             header ("location:../user/receipt.php?&success=$encodedMessage&ref_id=$encodedSelfId");
 
@@ -1640,13 +1640,13 @@ class main_work{
            $saving_balance = $ass->saving_balance;
            $savingTotal = $amount + $saving_balance;
             
-            $query = "UPDATE user SET current_balance='".$total."',saving_balance='".$savingTotal."'WHERE user_unique_id='".$user_unique_id."' ";
-            $back = $this->runMysqliQuery($query);
-            if($back['error_code'] == 1){
-                $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
-                header("location:../user/self.php");
-                return;
-            }
+            // $query = "UPDATE user SET current_balance='".$total."',saving_balance='".$savingTotal."'WHERE user_unique_id='".$user_unique_id."' ";
+            // $back = $this->runMysqliQuery($query);
+            // if($back['error_code'] == 1){
+            //     $_SESSION['formError'] = ['general_error'=>[ $back['error'] ]];
+            //     header("location:../user/self.php");
+            //     return;
+            // }
 
             if ($result){
                 $to  = $email;
@@ -1806,13 +1806,13 @@ class main_work{
                       $ddtotals = $saving_balanceddd;
                       $ddtotalc = $amount + $current_balanceddd;
                   }
-                  $query_user = "UPDATE user SET saving_balance='$ddtotals', current_balance='$ddtotalc' WHERE user_unique_id='$user_unique_idddd'";
-                  $back_user = $this->runMysqliQuery($query_user);
-                  if ($back_user['error_code'] == 1) {
-                      $_SESSION['formError'] = ['general_error' => [$back_user['error']]];
-                      header("location:../user/edit.php");
-                      return;
-                  }
+                //   $query_user = "UPDATE user SET saving_balance='$ddtotals', current_balance='$ddtotalc' WHERE user_unique_id='$user_unique_idddd'";
+                //   $back_user = $this->runMysqliQuery($query_user);
+                //   if ($back_user['error_code'] == 1) {
+                //       $_SESSION['formError'] = ['general_error' => [$back_user['error']]];
+                //       header("location:../user/edit.php");
+                //       return;
+                //   }
                   $user_id = $this->createUniqueID('user_transfer', 'user_id');
 
                   $query_local = "INSERT INTO user_transfer (id,user_id,amount,account,account_number,Refrence_id,transaction_type,user_unique_id)
