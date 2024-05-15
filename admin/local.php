@@ -135,7 +135,21 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
                                        </div>
                                     </div>
                                  </div>
+                                 <div class="pagination">
+                                 <?php for ($page = 1; $page <= $totalPages; $page++): ?>
+                                    <a href="?page=<?php echo $page; ?>"<?php if ($page == $currentPage) echo ' class="active"'; ?>><?php echo $page; ?></a>
+                                 <?php endfor; ?>
                               </div>
+                              </div>
+                              
+
+
+                           
+
+                              
+
+
+
  
                               <?php $i = 1; ?>
     <?php foreach ($currentPageRows as $row): ?>
@@ -150,13 +164,14 @@ $currentPageRows = array_slice($UserDetails, $offset, $rowsPerPage);
             </div>
         </div>
         <?php $i++; ?>
+
     <?php endforeach; ?>
 
-                              <div class="pagination">
+                              <!-- <div class="pagination">
                                  <?php for ($page = 1; $page <= $totalPages; $page++): ?>
                                     <a href="?page=<?php echo $page; ?>"<?php if ($page == $currentPage) echo ' class="active"'; ?>><?php echo $page; ?></a>
                                  <?php endfor; ?>
-                              </div>
+                              </div> -->
 
                             </div>
 

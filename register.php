@@ -34,13 +34,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     body {
-      background-color: #f8f9fa;
       font-family: Arial, sans-serif;
+      background-image: url('user/vendors/images/login-page-img.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
+
     .form-container {
       max-width: 400px;
       margin: 50px auto;
-      background-color: #fff;
+      background-color: rgba(255, 255, 255, 0.8); /* Adding opacity to the form container */
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -50,7 +55,7 @@
 <body>
     
   
-  <div class="container">
+<div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="form-container">

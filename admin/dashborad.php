@@ -9,7 +9,7 @@ $UserDetails = $for->alluser();
 
 
 
-$rowsPerPage = 1;
+$rowsPerPage = 12;
 $totalRows = count($UserDetails);
 $totalPages = ceil($totalRows / $rowsPerPage);
 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; 
