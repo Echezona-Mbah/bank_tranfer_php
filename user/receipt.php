@@ -10,47 +10,50 @@ if (isset($_GET['ref_id'])) {
     $ref_id = $_GET['ref_id'];
 }
 $row = $for->Invoice($ref_id);
+
+
+
+
+
+$textColor = '';
+if ($row[0]->transaction_type == 'Credit') {
+    $textColor = 'green';
+} elseif ($row[0]->transaction_type == 'Debit') {
+    $textColor = 'red';
+}
 ?>
 
 
 <?php require('head.php')?>
 
 <style>
-      .invoice-wrap {
-      max-width: 800px;
-      margin: 0 auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .invoice-box {
-      padding: 20px;
-    }
-    .invoice-box h4 {
-      margin-top: 0;
-    }
-    .invoice-box .invoice-details {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .invoice-box .invoice-details .col {
-      flex: 1;
-    }
-    .invoice-box .invoice-desc-head {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-    .invoice-box .invoice-desc-head .invoice-sub {
-      flex: 1;
-    }
-    .invoice-box .invoice-desc-body ul {
-      padding-left: 0;
-      list-style-type: none;
-    }
-</style>
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .receipt {
+            margin-top: 30px;
+        }
+        .receipt p {
+            margin: 10px 0;
+        }
+        .receipt .details {
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
 <?php require('header.php') ?>
 
 <?php require('sidebar.php') ?>
@@ -58,111 +61,45 @@ $row = $for->Invoice($ref_id);
 
 <div class="mobile-menu-overlay"></div>
 
-<div class="main-container">
+ <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
-
-    <div class="min-height-200px">
-				<div class="page-header">
-					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<div class="title">
-								<h4>Receipt</h4>
-							</div>
-							<nav aria-label="breadcrumb" role="navigation">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Receipt</li>
-								</ol>
-							</nav>
-						</div>
-						<!-- <div class="col-md-6 col-sm-12 text-right">
-							<div class="dropdown">
-								<a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-									January 2018
-								</a>
-								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="#">Export List</a>
-									<a class="dropdown-item" href="#">Policies</a>
-									<a class="dropdown-item" href="#">View Assets</a>
-								</div>
-							</div>
-						</div> -->
-					</div>
-				</div>
+ 
 
 
 
-                <div class="invoice-wrap">
-    <div id="print-content"  class="invoice-box">
-        <!-- <div class="invoice-header">
-            <div class="logo text-center">
-                <img src="vendors/images/banner-img.png" alt="">
-            </div>
-        </div> -->
+    <div id="print-content"  >
         <h4 class="text-center mb-30 weight-600">Receipt</h4>
-        <div class="row pb-30">
-            <div class="col-md-6">
-                <h5 class="mb-15">Receipt</h5>
-                <p class="font-14 mb-5"> <strong class="weight-600">Transaction</strong></p>
-            </div>
-            <div class="col-md-6 text-md-right">
-                <p class="font-14 mb-5"><?php echo $ref_id; ?> </strong></p>
-                <p class="font-14 mb-5"><?php  print $row[0]->status;?></p>
-                <p class="font-14 mb-5"><?php  print $row[0]->transaction_type;?></p>
-            </div>
-        </div>
-        <div class="invoice-desc pb-30">
-            <div class="invoice-desc-footer">
-                <div class="invoice-desc-head clearfix">
-                    <div class="invoice-sub">Transaction Amount</div>
-                    <div class="invoice-subtotal">$<?php  print $row[0]->amount;?></div>
-                </div>
-                <div class="clearfix">
-                    <div class="invoice-sub">Transaction Type</div>
-                    <div class="invoice-subtotal"><?php  print $row[0]->type;?></div>
-                </div>
-                <div class="invoice-desc-head clearfix">
-                    <div class="invoice-sub">Payment Account</div>
-                    <div class="invoice-subtotal"><?php echo substr($row[0]->account,0); ?></div>
-                </div>
-                <div class="invoice-desc-head clearfix">
-                    <div class="invoice-sub">Beneficiary name</div>
-                    <div class="invoice-subtotal">
-                        <?php echo isset($row[0]->account_name) ? substr($row[0]->account_name, 0) : 'User'; ?>
-                    </div>
-                </div>
 
-                <div class="clearfix">
-                    <div class="invoice-sub">Transaction Status</div>
-                    <div class="invoice-subtotal"><?php  print $row[0]->status;?></div>
-                </div>
-                <div class="invoice-desc-head clearfix">
-                    <div class="invoice-sub">Transaction Date</div>
-                    <div class="invoice-subtotal"><?php echo date("Y-m-d H:i:s", strtotime($row[0]->created_at)); ?></div>
-
-                </div>
-                <div class="invoice-desc-body">
-                    <ul>
-                        <li class="clearfix">
-                            <!-- <div class="invoice-sub">
-                                <p class="font-14 mb-5">Account No: <strong class="weight-600">123 456 789</strong></p>
-                                <p class="font-14 mb-5">Code: <strong class="weight-600">4556</strong></p>
-                            </div> -->
-                            <div class="invoice-rate font-20 weight-600">Grand Total</div>
-                            <div class="invoice-subtotal"><span class="weight-600 font-24 text-danger">$<?php  print $row[0]->amount;?></span></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <div class="container">
+        <h1><?php  print $row[0]->type;?></h1><br>
+        <h5 style="text-align: center; color: <?php echo $textColor; ?>"><?php echo $row[0]->transaction_type; ?></h5>        <div class="receipt">
+            <p><strong>Transaction ID:</strong><?php echo $ref_id; ?></p>
+            <p><strong>Date:</strong><?php echo date("Y-m-d", strtotime($row[0]->created_at)); ?></p>
+            <p><strong>Amount:</strong> $<?php  print $row[0]->amount;?></p>
+            <p><strong>Status:</strong> <?php  print $row[0]->status;?></p>
+            <p><strong>From Account:</strong> <?php echo substr($row[0]->account,0); ?></p>
+            <?php if (!empty($row[0]->account_numble)) : ?>
+                <p><strong>To Account:</strong> <?php echo $row[0]->account_numble; ?></p>
+            <?php endif; ?>
+            <?php if (!empty($row[0]->details)) : ?>
+                <p><strong>Description:</strong> <?php echo $row[0]->details; ?></p>
+            <?php endif; ?>
         </div>
-        <h4 class="text-center pb-20">Thank You!!</h4>
-        
+        <div class="details">
+            <p><strong>Sender Name:</strong> <?php  print $user->name;?></p>
+            <?php if (!empty($row[0]->bank_name)) : ?>
+                <p><strong>Description:</strong> <?php echo $row[0]->bank_name; ?></p>
+            <?php endif; ?>
+            <!-- <p><strong>Sender Address:</strong> 123 Main St, City, Country</p>
+            <p><strong>Receiver Address:</strong> 456 Park Ave, City, Country</p> -->
+        </div>
+        <div class="footer">
+            <p><strong>Thank you for choosing our bank!</strong></p>
+        </div>
         <button onclick="printContent()" class="btn btn-primary">Print</button>
+    </div>        
 
     </div>
-
-</div>
-
 
 
 
@@ -193,3 +130,4 @@ $row = $for->Invoice($ref_id);
 </script>
 
 <?php require('footer.php') ?>
+
