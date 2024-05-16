@@ -150,6 +150,7 @@ $UserDetails = $for->alltableID();
                                     <th>Reference</th>
                                     <th>Amount</th>
                                     <th>Payment Account</th>
+                                    <th>Transaction Type</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -160,6 +161,7 @@ $UserDetails = $for->alltableID();
                                 <td><?php echo $row->Refrence_id; ?></td>
                                 <td><?php echo $row->amount; ?></td>
                                 <td><?php echo $row->account; ?></td>
+                                <td><?php echo $row->transaction_type; ?></td>
                             </tr>
                         <?php endforeach; ?>
     
