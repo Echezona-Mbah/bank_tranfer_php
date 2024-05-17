@@ -356,7 +356,7 @@ class main_work{
                 return;
                 }
             }
-            header("location:../user/index.php?success=Register was successful");
+            header("location:../user/index.php?success=login was successful");
         }
     }
 
